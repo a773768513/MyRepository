@@ -16,11 +16,11 @@ int main ()
 {
 	FILE *fpReadFile;
 	FILE *fpWriteFile;  
-	char  Line[100];                                   
-	char  ReadFile[100];
-    char  Match[50];
-    char  WriteFile[100];
-	
+	char  Line[100];                  ///<read a line in the readfile
+	char  ReadFile[100];              ///<save the readfile path
+    char  Match[50];                  ///<save the match character
+    char  WriteFile[100];             ///<save the output path
+	int   iClearBuf=0;                ///<clear the buffer if an error occurs
 	///enter data from console
 	printf("请输入原文件：\n");
 	scanf("%s",&ReadFile);
@@ -31,7 +31,6 @@ int main ()
 	scanf("%s",&WriteFile);
 	fpWriteFile=fopen(WriteFile,"a");   
 	int count=strlen(Match);            ///<record the length of the input character 
-	
 	///file open failure message
 	if((NULL == fpReadFile)||(NULL==fpWriteFile))
 		{
@@ -39,36 +38,53 @@ int main ()
 			/// clear the console
         	char clear;
 
-        	while((clear=getchar())!='\n'&&clear!=EOF);
+        	while((iClearBuf=getchar())!='\n')
+			{
+				if(iClearBuf==EOF)
+				{
+					break;
+				}
+			}
 			getchar();
 			exit(EXIT_FAILURE);
-	    }
+	     }
 	///match characters to each line and output
+
 	while (fgets(Line,sizeof(Line),fpReadFile))          
 	{
-		int cycle;                      ///<record the location of line break (if any)
+		///
 		if(0 == strncmp(Line,Match,count))
 		{
 			 fprintf(fpWriteFile,"%s",Line);
-			 for(cycle=0;(Line[cycle]!='\n')&&(cycle!=99);++cycle);
-			 ///determine whether the function is complete read a line
-			 ///find line break and terminators
-			 while((cycle==99)&&(feof(fpReadFile)==0))
+             ///judge whether the function is complete read a line
+			 ///judge whether the 99th character of the array is overwritten
+			 while(Line[98]!='\0')
 			 {
-				 fgets(Line,sizeof(Line),fpReadFile);
-				 for(cycle=0;(Line[cycle]!='\n')&&(cycle!=99);++cycle);
-				 fprintf(fpWriteFile,"%s",Line);
+				 if(Line[98]!='\n')
+				 {
+					 fgets(Line,sizeof(Line),fpReadFile);
+					 fprintf(fpWriteFile,"%s",Line);
+					 Line[98]='\0';
+				 }
+				 else 
+					 Line[98]='\0';
+					 break;
 			 }
 		}
 		else
 		{
-			for(cycle=0;(Line[cycle]!='\n')&&(cycle!=99);++cycle);
-			///determine whether the function is complete read a line
-			///find line break and terminators
-			 while((cycle==99)&&(feof(fpReadFile)==0))
+			///judge whether the function is complete read aline 
+			///judge whether the 99th chartacter of the array is overwritten
+			 while(Line[98]!='\0')
 			 {
-				 fgets(Line,sizeof(Line),fpReadFile);
-				 for(cycle=0;(Line[cycle]!='\n')&&(cycle!=99);++cycle);
+				 if(Line[98]!='\n')
+				 {
+					 fgets(Line,sizeof(Line),fpReadFile);
+					 Line[98]='\0';
+				 }
+				 else 
+					 Line[98]='\0';
+					 break;
 			 }
 		}
 	}
