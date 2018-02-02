@@ -1,21 +1,43 @@
-#include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+///
 
-int main()
+void  JudgeMemory(char* pJudgeMemory)
 {
-	char buf[10];
-	char *pMatch = new char[10];
-	int iCharLength = 0;
-	while(printf("%s",&pMatch))
+   if (pJudgeMemory ==NULL)
+	   {
+		   printf("No enough stroage,Memory allocate failed,press any key to exit");
+	       getchar();
+		   getchar();
+	   	   exit(EXIT_FAILURE);
+	   }
+}
+
+int main ()
+{
+	int size = 10;                  ///the length of the array to first read the character each time
+	int iActiveLength,iTotalLength;  ///
+	char *pReadBuf = (char*)malloc(sizeof(char)*size);
+	void (*pReadBuf);
+	///read fixed length character form input stream
+	pReadBuf = fgets(pReadBuf,size,stdin);
+	iActiveLength = strlen(pReadBuf);     
+	char *pAllChar = (char*)malloc(sizeof(char)*(iActiveLength+1));
+	void (*pAllChar);
+	strcpy(pAllChar,pReadBuf);
+	///judge whether newline in the last one
+	///allocate new length to pAllChar rach time
+	while(pAllChar[iActiveLength-1] != '\n')
 	{
-		{
-		  iCharLength = strlen(pMatch) + strlen (buf) + 1;
-		  char *pStiting = new char[iCharLength];
-		  pStiting = strcat(pMatch,buf);
-		  delete[] pMatch;
-		  pMatch = new char[iCharLength];
-		  pMatch = pStiting;
-		}
+		fgets(pReadBuf,size,stdin);
+		iActiveLength = strlen (pReadBuf);
+		iTotalLength += iActiveLength;
+		pAllChar = (char*)realloc(pAllChar,sizeof(char)*iTotalLength);
+	    void (*pAllLength);
+		strcpy(pAllChar+iTotalLength-iActiveLength,pReadBuf);
 	}
+	free(pReadBuf);
+	pReadBuf = NULL;
+	return 0;
 }
