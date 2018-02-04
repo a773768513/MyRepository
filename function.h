@@ -66,7 +66,6 @@ int ReadBuf (char** pAllChar,int &iTotalLength)
 		strcpy((*pAllChar)+iTotalLength-iActualLength-1,pReadBuf);   ///<write data to the end (cover '\0')
 	}
 	free(pReadBuf);
-	pReadBuf = NULL;
 	return 0;
 }
 
@@ -124,8 +123,7 @@ int OutputFile(char *pMatch,int &iTotalLength)
 		{
 			fprintf(fpWriteFile,"%s",pGetLine);
 		}
-		delete[] pGetLine;
-	    pGetLine = NULL;
+		free(pGetLine);
 	}
 	
 	fclose(fpReadFile);
