@@ -7,10 +7,12 @@
 @package try to package
 
 **********************************************/
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#ifndef __FUNCTION_H_
+#define __FUNCTION_H_
 ///function declaration
-void  JudgeMemory(char* pJudgeMemory)
-int ReadBuf (char** pAllChar,int &iTotalLength)
-int OutputFile(char *pMatch,int &iTotalLength)
+
+void JudgeMemory(char* pJudgeMemory);
+int ReadBuf(char**pAllChar,int &TotalLength);
+int OutputFile(char *pMatch,const int &InputLength);
+#endif
+
