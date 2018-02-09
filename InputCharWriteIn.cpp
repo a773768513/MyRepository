@@ -23,12 +23,12 @@ history:
 void  JudgeMemory(char* pJudgeMemory)
 {
    if (pJudgeMemory ==NULL)
-	   {
-		   printf("No enough stroage,Memory allocate failed;\npress any key to exit");
-	       getchar();
-		   getchar();
-	   	   exit(EXIT_FAILURE);
-	   }
+   {
+	   printf("No enough stroage,Memory allocate failed;\npress any key to exit");
+	   getchar();
+	   getchar();
+	   exit(EXIT_FAILURE);
+   }
 }
 
 /************************************************************//**
@@ -65,7 +65,7 @@ int ReadBuf (char** pAllChar,int &TotalLength)
 		ActualLength = strlen (pEachRead);
 		TotalLength += ActualLength;
 		*pAllChar = (char*)realloc(*pAllChar,sizeof(char)*TotalLength);   ///<realloc space in the tail
-	    JudgeMemory (*pAllChar);
+		JudgeMemory (*pAllChar);
 		strcpy((*pAllChar)+TotalLength-ActualLength-1,pEachRead);   ///<write data to the end (cover '\0')
 	}
 	free(pEachRead);
