@@ -97,17 +97,17 @@ int OutputFile(char *pMatch,const int &InputTotalLength)
 	fpWriteFile=fopen(WriteFile,"a"); 
 	if((NULL == fpReadFile)||(NULL==fpWriteFile))
 	{
-			printf("Can not open file data!\nPress any key to exit");
-			/// clear the console
-        	while((ClearBuf=getchar())!='\n')
+		printf("Can not open file data!\nPress any key to exit");
+		/// clear the console
+		while((ClearBuf=getchar())!='\n')
+		{
+			if(ClearBuf==EOF)
 			{
-				if(ClearBuf==EOF)
-				{
-					break;
-				}
+				break;
 			}
-			getchar();
-			exit(EXIT_FAILURE);
+		}
+		getchar();
+		exit(EXIT_FAILURE);
 	}
 	///match characters to each line and output
 	///design idea consistent with reading character
