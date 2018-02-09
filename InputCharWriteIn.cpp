@@ -86,7 +86,7 @@ int OutputFile(char *pMatch,const int &InputTotalLength)
 	int   ActualLength = 0;          ///<the length of line each read
 	int   LineTotalLength = 0;            ///<the total of line length
 	char  ReadFile[100];              ///<save the readfile path
-    char  WriteFile[100];             ///<save the output path
+	char  WriteFile[100];             ///<save the output path
 	int   ClearBuf=0;                ///<clear the buffer stuck due to error
 
 	printf("请输入原文件：\n");
@@ -96,7 +96,7 @@ int OutputFile(char *pMatch,const int &InputTotalLength)
 	scanf("%s",&WriteFile);
 	fpWriteFile=fopen(WriteFile,"a"); 
 	if((NULL == fpReadFile)||(NULL==fpWriteFile))
-		{
+	{
 			printf("Can not open file data!\nPress any key to exit");
 			/// clear the console
         	while((ClearBuf=getchar())!='\n')
@@ -108,7 +108,7 @@ int OutputFile(char *pMatch,const int &InputTotalLength)
 			}
 			getchar();
 			exit(EXIT_FAILURE);
-	     }
+	}
 	///match characters to each line and output
 	///design idea consistent with reading character
 	while (fgets(SectLine,sizeof(SectLine),fpReadFile))          
