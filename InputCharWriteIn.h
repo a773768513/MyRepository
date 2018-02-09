@@ -7,8 +7,8 @@
 @package try to package
 
 **********************************************/
-#ifndef __FUNCTION_H_
-#define __FUNCTION_H_
+#ifndef __INPUTCHARWRITEIN_H_
+#define __INPUTCHARWRITEIN_H_
 ///function declaration
 
 void JudgeMemory(char* pJudgeMemory);
