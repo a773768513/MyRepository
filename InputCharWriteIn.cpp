@@ -1,7 +1,7 @@
 /**************************************************//**
 			Training  Module
 *-
-@file function.h
+@file InputCharWriteIn.cpp
 @author YHF
 @data 2018/1/31
 @package try to package
@@ -14,6 +14,8 @@
 
 /************************************************************//**
 @brief    judge memory allocate is successful
+@param    pJudgeMemory  pointer to dynamic memory
+@retval   directly exit if the memory allocation fails
 @author   YHF
 @date     2018/2/3
 @note     
@@ -33,67 +35,88 @@ void  JudgeMemory(char* pJudgeMemory)
 
 /************************************************************//**
 @brief     read a complete input character
+@param     **pAllLength        store input character
+           ActualTotalLength   record the actual length of input character
+@retval    0  success
 @author YHF
 @data    2018/2/4 
 @design:
-judge whether the last character read is new line 
+judge whether the last character read whether cover
 *****************************************************************/
 
-int ReadBuf (char** pAllChar,int &TotalLength)
+int RecordInputCharBuf (char** pAllChar,int &ActualTotalLength)
 {
-	int ReadSize = 100;                  ///<the length of the array to first read the character each time
+	const int ReadSize = 101;                 ///<the length of the array to first read the character each time
 	char *pEachRead;
-	TotalLength = 0;               ///<the total length of the input character
-	int ActualLength = 0;          ///<the length of each actual read
+	int TotalLength = 0;                ///<the total length of the allocate dynamic memory
+	ActualTotalLength = 0;              ///<the length of each actual read(does not contain unfill character)
+	int NumLoopRead = 0 ;               ///record the numble of cycyle
 	pEachRead = (char*)malloc(sizeof(char)*ReadSize);
 	JudgeMemory(pEachRead);
-
 	printf("请输入需要匹配的字符：\n");
 	///read fixed length character form input stream
-	pEachRead = fgets(pEachRead,ReadSize,stdin);
-	TotalLength = strlen(pEachRead);  
-	TotalLength++;       ///<one more for storage '\0'
-
+	
+	TotalLength = ReadSize;
 	*pAllChar = (char*)malloc(sizeof(char)*(TotalLength));
 	JudgeMemory(*pAllChar);
-	strcpy(*pAllChar,pEachRead);
-	///judge whether newline in the last one
+	(*pAllChar)[TotalLength-2] = '\0';
+	*pAllChar = fgets(*pAllChar,ReadSize,stdin);
+	
+	///judge the last one character whether be cover
 	///allocate new length to pAllChar rach time
-	while((*pAllChar)[TotalLength-2] != '\n')
+	while((*pAllChar)[TotalLength-2] != '\0')
 	{
-		fgets(pEachRead,ReadSize,stdin);                    ///<read data  from the input stream
-		ActualLength = strlen (pEachRead);
-		TotalLength += ActualLength;
+		if((*pAllChar)[TotalLength-2] == '\n')
+		{
+			break;
+		}
+		fgets(pEachRead,ReadSize,stdin);                                  ///<read data  from the input stream 
+		TotalLength += 100;                                               ///<read up to 100 character at a time 
+
 		*pAllChar = (char*)realloc(*pAllChar,sizeof(char)*TotalLength);   ///<realloc space in the tail
 		JudgeMemory (*pAllChar);
-		strcpy((*pAllChar)+TotalLength-ActualLength-1,pEachRead);   ///<write data to the end (cover '\0')
+		(*pAllChar)[TotalLength-2] = '\0';
+		strcpy((*pAllChar)+TotalLength-101,pEachRead);                    ///<write data to the new allocate memory (cover '\0')
+		NumLoopRead++;
+	}
+	if(NumLoopRead == 0)
+	{
+		ActualTotalLength = strlen(*pAllChar)-1;
+	}
+	else
+	{
+		ActualTotalLength = 100*NumLoopRead  + strlen(pEachRead)-1;
 	}
 	free(pEachRead);
 	return 0;
 }
 /*************************************************************//**
 @brief    open file and write the Matching line in file
+@param    *pMatch   enter matching character into function
+          InputTotalLength  enter input character length into function
+@retval   0  success
 @author  YHF
 @data     2018/2/8
 @
 *****************************************************************/
-int OutputFile(char *pMatch,const int &InputTotalLength)
+int OutputSpecialLineToFile(char *pMatch,const int &InputTotalLength)
 {
 	FILE *fpReadFile;  
-	FILE *fpWriteFile;      
-	char  SectLine[100];                  ///<read a section line in the readfile
-	char  *pGetLine;                ///<save a complete line
-	int   ActualLength = 0;          ///<the length of line each read
-	int   LineTotalLength = 0;            ///<the total of line length
-	char  ReadFile[100];              ///<save the readfile path
-	char  WriteFile[100];             ///<save the output path
-	int   ClearBuf=0;                ///<clear the buffer stuck due to error
+	FILE *fpWriteFile; 
+	const int   ReadSize = 101;
+	char  SectLine[101];                   ///<read a section line in the readfile
+	char  *pGetLine;                       ///<save a complete line
+	int   LineTotalLength;             ///<the total of the allocate memory line length
+	int   LineActualTotalLength = 0;       ///record the actual length of each line
+	char  ReadFile[100];                   ///<save the readfile path
+	char  WriteFile[100];                  ///<save the outputfile  path
+	int   ClearBuf=0;                      ///<clear the buffer stuck due to error
 
 	printf("请输入原文件：\n");
-	scanf("%s",&ReadFile);
+	scanf_s("%s",ReadFile,100);
 	fpReadFile = fopen(ReadFile,"r");
 	printf("筛选出数据存放至：\n");
-	scanf("%s",&WriteFile);
+	scanf_s("%s",WriteFile,100);
 	fpWriteFile=fopen(WriteFile,"a"); 
 	if((NULL == fpReadFile)||(NULL==fpWriteFile))
 	{
@@ -107,31 +130,39 @@ int OutputFile(char *pMatch,const int &InputTotalLength)
 			}
 		}
 		getchar();
-		exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE); 
 	}
 	///match characters to each line and output
 	///design idea consistent with reading character
-	while (fgets(SectLine,sizeof(SectLine),fpReadFile))          
+	while (fgets(SectLine,ReadSize,fpReadFile))          
 	{
-		LineTotalLength = strlen(SectLine)+1;
-		pGetLine = (char*)malloc(sizeof(char)*(LineTotalLength));
+		pGetLine = (char*)malloc(sizeof(char)*(ReadSize));
+		JudgeMemory(pGetLine);
+		LineTotalLength = ReadSize;
+		pGetLine[LineTotalLength-2] = '\0';
 		strcpy(pGetLine,SectLine);
-		while(pGetLine[LineTotalLength-2] != '\n')
+		while(pGetLine[LineTotalLength-2] != '\0')
 		{
-			if(NULL == fgets(SectLine,sizeof(SectLine),fpReadFile))
+			if(pGetLine[LineTotalLength-2] =='\n')
 			{
 				break;
 			}
-			ActualLength = strlen(SectLine);
-			LineTotalLength += ActualLength;
+			if(NULL == fgets(SectLine,101,fpReadFile))
+			{
+				break;
+			}
+			LineTotalLength += 100;
 			pGetLine = (char*)realloc(pGetLine,sizeof(char)*LineTotalLength);
-
 			JudgeMemory(pGetLine);
-			strcpy(pGetLine+LineTotalLength-ActualLength-1,SectLine);
+			pGetLine[LineTotalLength-2] = '\0';
+			strcpy(pGetLine+LineTotalLength-101,SectLine);
 		}
-		if(!strncmp(pGetLine,pMatch,(InputTotalLength-2)))
+		if(LineTotalLength > InputTotalLength)
 		{
-			fprintf(fpWriteFile,"%s",pGetLine);
+			if(!strncmp(pGetLine,pMatch,InputTotalLength))
+			{
+				fprintf(fpWriteFile,"%s",pGetLine);
+			}
 		}
 		free(pGetLine);
 	}

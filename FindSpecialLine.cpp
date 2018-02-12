@@ -15,8 +15,8 @@ int main()
 {
 	char *pMatch;                                 ///<pass a pointer to input character
 	int InputCharLength;                         ///<pass the length of input character
-	ReadBuf(&pMatch,InputCharLength);                            
-	OutputFile(pMatch,InputCharLength);          
+	RecordInputCharBuf(&pMatch,InputCharLength);                            
+	OutputSpecialLineToFile(pMatch,InputCharLength);          
 	delete[] pMatch;                              ///<free memory allocated in the function
 	return 0;
 }

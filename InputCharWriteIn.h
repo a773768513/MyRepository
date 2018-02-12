@@ -1,7 +1,7 @@
 /**************************************************//**
 			Training  Module
 *-
-@file function.h
+@file InputCharWriteIn.h
 @author YHF
 @data 2018/1/31
 @package try to package
@@ -12,7 +12,7 @@
 ///function declaration
 
 void JudgeMemory(char* pJudgeMemory);
-int ReadBuf(char**pAllChar,int &TotalLength);
-int OutputFile(char *pMatch,const int &InputLength);
+int RecordInputCharBuf(char**pAllChar,int &TotalLength);
+int OutputSpecialLineToFile(char *pMatch,const int &InputLength);
 #endif
 
