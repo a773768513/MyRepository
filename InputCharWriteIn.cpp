@@ -59,23 +59,19 @@ int RecordInputCharBuf (char** pAllChar,int &ActualTotalLength)
 	TotalLength = ReadSize;
 	*pAllChar = (char*)malloc(sizeof(char)*(TotalLength));
 	JudgeMemory(*pAllChar);
-	(*pAllChar)[TotalLength-2] = '\0';
+	(*pAllChar)[TotalLength-2] = '\n';
 	*pAllChar = fgets(*pAllChar,ReadSize,stdin);
 	
 	///judge the last one character whether be cover
 	///allocate new length to pAllChar rach time
-	while((*pAllChar)[TotalLength-2] != '\0')
+	while((*pAllChar)[TotalLength-2] != '\n')
 	{
-		if((*pAllChar)[TotalLength-2] == '\n')
-		{
-			break;
-		}
 		fgets(pEachRead,ReadSize,stdin);                                  ///<read data  from the input stream 
 		TotalLength += 100;                                               ///<read up to 100 character at a time 
 
 		*pAllChar = (char*)realloc(*pAllChar,sizeof(char)*TotalLength);   ///<realloc space in the tail
 		JudgeMemory (*pAllChar);
-		(*pAllChar)[TotalLength-2] = '\0';
+		(*pAllChar)[TotalLength-2] = '\n';
 		strcpy((*pAllChar)+TotalLength-101,pEachRead);                    ///<write data to the new allocate memory (cover '\0')
 		NumLoopRead++;
 	}
@@ -139,14 +135,10 @@ int OutputSpecialLineToFile(char *pMatch,const int &InputTotalLength)
 		pGetLine = (char*)malloc(sizeof(char)*(ReadSize));
 		JudgeMemory(pGetLine);
 		LineTotalLength = ReadSize;
-		pGetLine[LineTotalLength-2] = '\0';
+		pGetLine[LineTotalLength-2] = '\n';
 		strcpy(pGetLine,SectLine);
-		while(pGetLine[LineTotalLength-2] != '\0')
+		while(pGetLine[LineTotalLength-2] != '\n')
 		{
-			if(pGetLine[LineTotalLength-2] =='\n')
-			{
-				break;
-			}
 			if(NULL == fgets(SectLine,101,fpReadFile))
 			{
 				break;
@@ -154,7 +146,7 @@ int OutputSpecialLineToFile(char *pMatch,const int &InputTotalLength)
 			LineTotalLength += 100;
 			pGetLine = (char*)realloc(pGetLine,sizeof(char)*LineTotalLength);
 			JudgeMemory(pGetLine);
-			pGetLine[LineTotalLength-2] = '\0';
+			pGetLine[LineTotalLength-2] = '\n';
 			strcpy(pGetLine+LineTotalLength-101,SectLine);
 		}
 		if(LineTotalLength > InputTotalLength)
