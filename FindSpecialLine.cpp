@@ -13,10 +13,13 @@
 
 int main()
 {
-	char *pMatch;                                 ///<pass a pointer to input character
-	int InputCharLength;                         ///<pass the length of input character
-	RecordInputCharBuf(&pMatch,InputCharLength);                            
-	OutputSpecialLineToFile(pMatch,InputCharLength);          
-	delete[] pMatch;                              ///<free memory allocated in the function
+	char **pMatch;                                 ///<pass a pointer to input character
+	unsigned int *InputCharLength;                         ///<pass the length of input character
+	int NumberMarks;                              ///total of N logo head
+	RecordInputCharBuf(&pMatch,&InputCharLength,NumberMarks);                            
+	OutputSpecialLineToFile(pMatch,InputCharLength,NumberMarks);          
+	free(pMatch[NumberMarks-1]);                              ///<free memory allocated in the function
+	free(pMatch);
+	free(InputCharLength);
 	return 0;
 }

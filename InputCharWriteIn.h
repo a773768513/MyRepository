@@ -12,7 +12,7 @@
 ///function declaration
 
 void JudgeMemory(char* pJudgeMemory);
-int RecordInputCharBuf(char**pAllChar,int &TotalLength);
-int OutputSpecialLineToFile(char *pMatch,const int &InputLength);
+int RecordInputCharBuf(char*** pAllChar,unsigned int** TotalLength,int &NumberMarks);
+int OutputSpecialLineToFile(char **pMatch,const unsigned int*const InputCharLength,const int &NumberMarks);
 #endif
 
