@@ -49,15 +49,15 @@ judge whether the last character read whether cover
 int RecordInputCharBuf (char** pAllChar,unsigned int &ActualTotalLength,const int NumberNHead,const int NumberMarks)
 {
 	char *pEachRead;
-	int TotalLength = 0;                ///<the total length of the allocate dynamic memory
+	int TotalLength  = READ_SIZE ;                ///<the total length of the allocate dynamic memory
 	ActualTotalLength = 0;              ///<the length of each actual read(does not contain unfill character)
 	int NumLoopRead = 0 ;               ///record the numble of cycyle
 	pEachRead = (char*)malloc(sizeof(char)*(READ_SIZE));
 	JudgeMemory(pEachRead);
 	printf("Please enter the characters you want to match(the current input %d/%d）：\n",(NumberNHead+1),NumberMarks);
 	///read fixed length character form input stream
-	
-	TotalLength = READ_SIZE;
+	///
+
 	*pAllChar = (char*)malloc(sizeof(char)*(TotalLength));
 	JudgeMemory(*pAllChar);
 	(*pAllChar)[TotalLength-2] = '\n';
@@ -76,6 +76,8 @@ int RecordInputCharBuf (char** pAllChar,unsigned int &ActualTotalLength,const in
 		strncpy((*pAllChar)+TotalLength-READ_SIZE,pEachRead,READ_SIZE);                    ///<write data to the new allocate memory (cover '\0')
 		NumLoopRead++;
 	}
+	/// 
+	///
 	if(NumLoopRead == 0)
 	{
 		ActualTotalLength = strlen(*pAllChar)-1;
@@ -88,23 +90,20 @@ int RecordInputCharBuf (char** pAllChar,unsigned int &ActualTotalLength,const in
 	return 0;
 }
 /************************************************************//**
-@brief     Read first line of A into  B completely
+@brief     Read first line of fpReadFile into  pGetLine completely
 @param     **pAllLength        store input character
-           ActualTotalLength   record the actual length of input character
-		   NumberNHead         record  there are Nth logo head
-		   NumberMarks         
+           pGetLine         record a Line comletely
+		   LineTotalLength    allocate memory 
 @retval    0  success
 @author YHF
 @data    2018/2/19
 @design:
 judge whether the last character read whether cover
 *****************************************************************/
-int ReadFileFristLine(FILE* &fpReadFile,char* &pGetLine)
+int ReadFileFirstLine(FILE* &fpReadFile,char* &pGetLine,int &LineTotalLength)
 {
-	int LineTotalLength = 128;                                  ///<the total of the allocate memory line length
+	LineTotalLength = 128;                                       ///<the total of the allocate memory line length
 	char* pSectLine = (char*)(sizeof(char)*READ_SIZE);           ///<read a section line in the readfile
-	pGetLine = (char*)malloc(sizeof(char)*READ_SIZE);
-	JudgeMemory(pGetLine);
 	JudgeMemory(pSectLine);
 	pGetLine[LineTotalLength-2] = '\n';
 	fgets(pGetLine,READ_SIZE,fpReadFile);  
@@ -114,19 +113,21 @@ int ReadFileFristLine(FILE* &fpReadFile,char* &pGetLine)
 		{
 			break;
 		}
-		LineTotalLength += READ_SIZE;
+		LineTotalLength += (READ_SIZE-1);
 		pGetLine = (char*)realloc(pGetLine,sizeof(char)*LineTotalLength);
 		JudgeMemory(pGetLine);
 		pGetLine[LineTotalLength-2] = '\n';
-		strncpy(pGetLine+LineTotalLength-READ_SIZE,pSectLine,ReadSize);
+		strncpy(pGetLine+LineTotalLength-READ_SIZE,pSectLine,READ_SIZE);
 	}
+	free(pSectLine);
+	return 0;
 }
 
 /************************************************************//**
 @brief     record multiple match character
 @param     ***pAllLength        store input character
            *pInputCharLength   record the actual length of input character
-		   &NumberNhead         record confirm there are Nth several logo head
+		   &NumberMarks         record confirm there are several logo head
 @retval    0  success
 @author YHF
 @data    2018/2/4 
@@ -141,45 +142,56 @@ int MultipleIdentiHead(char*** pAllChar,unsigned int** pInputCharLength,int &Num
 	int NumberNHead = 0;                                         ///number Nidentification header
 	printf("please confirm that you need to enter the number of matching character：\n");
 	scanf_s("%d",&NumberMarks,1);
-	fflush(stdin);
+	getchar();
+	///record both character and order
 	///pointer to the pointer to record different header
 	*pAllChar = (char**)malloc(sizeof(char)*NumberMarks);
 	*pInputCharLength = (unsigned int*)malloc(sizeof(int)*NumberMarks);
-	while(1)
+	while(NumberNHead != NumberMarks)
 	{
-		if(NumberNHead == NumberMarks)
-		{
-			break;
-		}
 		RecordInputCharBuf(&(*pAllChar)[NumberNHead],(*pInputCharLength)[NumberNHead],NumberNHead,NumberMarks);
 		NumberNHead++;
 	}
 	return 0;
 }
-/**
-@brif     sanve the the multiple file to  open
-@param
-	**/
+/************************************************************//**
+@brief     read a complete input character
+@param     **pAllLength        store input character
+           ActualTotalLength   record the actual length of input character
+	  	   NumberMarks         record  there are  logo head
+@retval    0  success
+@author YHF
+@data    2018/2/20
+@design:
+
+*****************************************************************/
 int FileNormallyMode(char* &pReadFile,int &FileNum)
 {
-	printf("请输入要打开的文件：\n");
+	printf("please enter the file to open ：\n");
 	FileNum = 1;
 	fgets(pReadFile,READ_SIZE,stdin);
 	return 0;
 }
-/**
-@brif     sanve the the multiple file to  open
-@param
-	**/
+/************************************************************//**
+@brief     File List input mode
+@param     *&pReadFile   storage the readfile of the file list
+           &RecordFileLine  record the Number of rows
+@retval    0  success
+@author YHF
+@data    2018/2/19
+@design:
+manually change the one dimensional pointers to two-dimensional pointers
+*****************************************************************/
 int FileListMode(char* &pReadFile,int &RecordFileLine)
 {
 	char pFileListMode[READ_SIZE];
 	FILE *fpFileListMode;
-	RecordFileLine = 1;                                        ///<记录多少行
-	printf("进入文件列表打开模式，请输入包含文件列表文件：\n");
+	RecordFileLine = 1;                                        ///<record the number of rows
+	printf("enter file list open mode ,enter the file containing the file list：\n");
 	scanf_s("%s",pFileListMode,READ_SIZE);
 	fpFileListMode = fopen(pFileListMode,"r");
 	fgets(pReadFile,READ_SIZE,fpFileListMode);
+
 	while(!feof(fpFileListMode))
 	{
 		RecordFileLine++;
@@ -188,19 +200,26 @@ int FileListMode(char* &pReadFile,int &RecordFileLine)
 	}
 	return 0;
 }
-/**
-@brif     sanve the the multiple file to  open
-@param
-	**/
+/************************************************************//**
+@brief     record the manual input  mode 
+@param     *&pReadFile   storage the readfile of the manual input 
+           &FileNth      record the numberof the rows
+@retval    0  success
+@author YHF
+@data    2018/2/20
+@design:
+manually change the one dimensional pointers to two-dimensional pointers
+*****************************************************************/
 int FileManualMode(char* &pReadFile,int &FileNth)
 {
-	FileNth = 1;
-	printf("进入手动输入模式，请输入第%d个文件，直接回车结束手动输入模式",FileNth);
+	FileNth = 1;              ///<record the number of the rows
+	printf("Enter the manual input mode ,please enter the %d dfile ,press enter to end the manual input mode ",FileNth);
 	fgets(pReadFile,READ_SIZE,stdin);
+
 	while(*(pReadFile+(FileNth-1)*READ_SIZE) != '\n')
 	{
 		FileNth++;
-		printf("进入手动输入模式，请输入第%d个文件，直接回车结束手动输入模式",FileNth);
+		printf("Enter the manual input mode ,please enter the %d dfile ,press enter to end the manual input mode",FileNth);
 		pReadFile = (char*)realloc(pReadFile,sizeof(char)*(FileNth*READ_SIZE));
 		JudgeMemory(pReadFile);
 		pReadFile = fgets(pReadFile+(FileNth-1)*READ_SIZE,READ_SIZE,stdin);
@@ -209,14 +228,20 @@ int FileManualMode(char* &pReadFile,int &FileNth)
 	pReadFile = (char*)realloc(pReadFile,sizeof(char)*(FileNth*READ_SIZE));
 	return 0;
 }
-/**
-@brif     sanve the the multiple file to  open
-@param
-	**/
+/************************************************************//**
+@brief     Judge whether to enter the manual input mode or file list mode according the user'selection 
+@param     *& pFileStorage    pass the file storage pointers
+           FileNum            record the number of  rows 
+@retval    0  success
+@author YHF
+@data    2018/2/19
+@design:
+judge whether the last character read whether cover
+*****************************************************************/
 int FileModeStorage(char* &pFileStorage,int FileNum)
 {
 	char PressKey;                   ///<用户案件决定模式
-	printf("手动输入模式请按H/h，文件列表输入请按F/f\n");
+	printf("Press F/f for the file list mode,press H/h for the manual mode \n");
 	while((PressKey = getchar()) != 'h')
 	{
 		if(PressKey =='H')
@@ -231,33 +256,40 @@ int FileModeStorage(char* &pFileStorage,int FileNum)
 		{
 			break;
 		}
-		printf("输入错误，请从新输入");
 		getchar();
+		printf("Input errors,please re-enter\n");
+		
 	}
+	getchar();
 	if(PressKey != 'h')
 	{
 		if(PressKey != 'H')
 		{
 			FileListMode(pFileStorage,FileNum);
-			return 1;
+			return 0;
 		}
 	}
 	FileManualMode(pFileStorage,FileNum);
-	return 2;
+	return 0;
 }
 
-/**
-@brif     sanve the the multiple file to  open
-@param
-	**/
+/************************************************************//**
+@brief     Save the file input,
+@param     *&pReadFile   pass the file  storage pointers
+           NumberMarks   pass the pointers of the number of match character
+		   FileNumInput  
+@retval    0  success
+@author YHF
+@data    2018/2/19
+@design:
+judge whether the last character read whether cover
+*****************************************************************/
 int SaveMultipleFileInput(char* &pReadFile,const int NumberMarks,int &FileNumInput)
 {
-	int FileMode;
 	char PressKey;
-	printf("是否需要打开多个文件读取？（仅当多个标识头有此提示）按Y/y确认，任意键取消\n");
-    ///确认用户是否需要查找多个文件
 	while (NumberMarks == 1)
 	{
+		printf("Need to open multiple file to read?(only when a single logo head has this prompt)\n pressY/y to confirm,any key to cancel\n");
 		if((PressKey = getchar()) != 'y')
 		{
 			if (PressKey != 'Y')
@@ -267,20 +299,37 @@ int SaveMultipleFileInput(char* &pReadFile,const int NumberMarks,int &FileNumInp
 			}
 		}
 		getchar();
-		FileMode = FileModeStorage(pReadFile,FileNumInput);
-		return FileMode;
+		FileModeStorage(pReadFile,FileNumInput);
+		return 0;
 	}
 	FileNormallyMode(pReadFile,FileNumInput);
-	return 3;
+	return 0;
 }
-/**
-@brif     sanve the the multiple file to  open
-@param
-	**/
-int SaveMuptipleFileOutput(char* &pWriteFile,int FileNumOutput,const int NumberMarks,const int NumberFileInput,const int FileInputMode)
+/************************************************************//**
+@brief     read a complete output character
+@param     *&pWriteFile  save the write in character file 
+           FileNumOutput  
+@retval    1   only a output file 
+           2   multiple match character and write in different output files separately(only one input file)
+		   3   multiple input file and write in different output file (only one match character)
+@author YHF
+@data    2018/2/19
+@design:
+
+*****************************************************************/
+int SaveMultipleFileOutput(char* &pWriteFile,int FileNumOutput,const int NumberMarks,const int FileNumInput)
 {
+	if (NumberMarks ==1)
+	{
+		if(FileNumInput == 1)
+		{
+			FileNormallyMode(pWriteFile,FileNumOutput);
+			return 0;
+		}
+	}
 	char  PressKey;
-	printf("当前输入%d个表示头，在%d个文件忠匹配，是否将匹配结果分开输出？（Y/y确认，任意键取消",NumberMarks,NumberFileInput);
+	
+	printf("当前输入%d个表示头，在%d个文件中匹配，是否将匹配结果分开输出？（Y/y确认，任意键取消)\n",NumberMarks,FileNumInput);
 	if((PressKey = getchar()) != 'Y')
 	{
 		if(PressKey != 'y')
@@ -289,10 +338,29 @@ int SaveMuptipleFileOutput(char* &pWriteFile,int FileNumOutput,const int NumberM
 			return 1;
 		}
 	}
+	getchar();
 	if (NumberMarks != 1)
 	{
-		printf("
+		FileModeStorage(pWriteFile,FileNumOutput);
+		if(NumberMarks != FileNumOutput)
+		{
+			printf("错误，标识头数目和输出文件数目不等，无法正常运行程序");
+			getchar();
+			exit(EXIT_FAILURE);
+		}
+		return 2;
+	}
 
+	printf("当前查找多个文件，请按照文件输入顺序依次输入需要写入的文件，");
+		FileModeStorage(pWriteFile,FileNumOutput);
+		if(NumberMarks != FileNumOutput)
+		{
+			printf("错误，标识头数目和输出文件数目不等，无法正常运行程序");
+			getchar();
+			exit(EXIT_FAILURE);
+		}
+		return 3;
+}
 /*************************************************************//**
 @brief    open file and write the Matching line in file
 @param    *pMatch           enter matching character into function
@@ -307,56 +375,100 @@ int OutputSpecialLineToFile(char **pMatch,const unsigned int*const InputCharLeng
 {
 	FILE *fpReadFile;  
 	FILE *fpWriteFile; 
-	int   FileInputMode;
-	int   NumberOfCycle = 0;               ///<The number of specialized to cycles
 	char  *pGetLine;                       ///<save a complete line
-	int   LineTotalLength;                 ///<the total of the allocate memory line length
 	char  *pReadFile;                     ///<save the readfile path
-	char  *WriteFile;                    ///<save the outputfile  path
-	int   ClearBuf=0;                      ///<clear the buffer stuck due to error
+	char  *pWriteFile;                    ///<save the outputfile  path
+	
 	int   NumberNHead = 0;                 ///<number N logo head
-	int  FileNumInput;
+	int   FileNumInput = 0;
+	int   FileNumOutput = 0;
+	int   LineTotalLength;                 ///<the total of the allocate memory line length
+
+	int   FileOutputMode;
+
 	pReadFile = (char*)malloc(sizeof(char)*READ_SIZE);
 	JudgeMemory(pReadFile);
-	FileInputMode = SaveMultipleFileInput(pReadFile,NumberMarks,FileNumInput);
-	
-	
-		
-		
-
-			
-		
-	}
-	printf("请输入原文件：\n");
-	scanf_s("%s",READ_SIZE,100);
-	fpReadFile = fopen(ReadFile,"r");
-	printf("筛选出数据存放至：\n");
-	scanf_s("%s",WriteFile,100);
-	fpWriteFile=fopen(WriteFile,"a"); 
-	if((NULL == fpReadFile)||(NULL==fpWriteFile))
+	SaveMultipleFileInput(pReadFile,NumberMarks,FileNumInput);
+	pWriteFile = (char*)malloc(sizeof(char)*READ_SIZE);
+	FileOutputMode = SaveMultipleFileOutput(pWriteFile,FileNumOutput,NumberMarks,FileNumInput);
+	for(int FileInputCycle = 0;FileInputCycle != FileNumInput;FileInputCycle++)
 	{
-		printf("Can not open file data!\nPress any key to exit");
-		
-		getchar();
-		exit(EXIT_FAILURE); 
-	}
-	///match characters to each line and output
-	///design idea consistent with reading character
-	
-		while(NumberNHead != NumberMarks)
+		fpReadFile = fopen(pReadFile + ( FileInputCycle * READ_SIZE),"r");
+		if(NULL == fpReadFile)
 		{
-			if(LineTotalLength > InputCharLength[NumberNHead])
-			{
-				if(!strncmp(pGetLine,pMatch[NumberNHead],InputCharLength[NumberNHead]))
-				{
-					fprintf(fpWriteFile,"%s",pGetLine);
-				}
-			}
-			NumberNHead++;
+			printf("无法打开文件%READ_SIZEs!\n",(pReadFile + (FileInputCycle*READ_SIZE)));
+			getchar();
+			exit(EXIT_FAILURE);
 		}
-		free(pGetLine);
+		///
+		///所有东西写入一个文件里面
+		if(1 == FileOutputMode)
+		{
+			fpWriteFile = fopen (pWriteFile,"a");
+			if(NULL == fpReadFile)
+			{
+				printf("无法打开文件%READ_SIZEs!\n",pWriteFile);
+				getchar();
+				exit(EXIT_FAILURE);
+			}
+			while(!feof(fpReadFile))
+			{
+
+				pGetLine = (char*)malloc(sizeof(char)*READ_SIZE);
+				JudgeMemory(pGetLine);
+				ReadFileFirstLine(fpReadFile,pGetLine,LineTotalLength);
+				while(NumberNHead != NumberMarks)
+				{
+					if(LineTotalLength > InputCharLength[NumberNHead])
+					{
+						if(!strncmp(pGetLine,pMatch[NumberNHead],InputCharLength[NumberNHead]))
+						{
+							fprintf(fpWriteFile,"%s",pGetLine);
+						}
+					}
+					NumberNHead++;
+				}
+				free(pGetLine);
+			}
+		}
+		///此时FileNumInput必然为1;
+		///using NumberMarks == FileNumOutput
+		if(2 == FileOutputMode)
+		{
+			
+		}
+		///此时输入文件数等于输出文件数
+		if(FileOutputMode == 3)
+		{
+			fpWriteFile = fopen(pWriteFile + ( FileInputCycle * READ_SIZE),"a");
+			if(NULL == fpReadFile)
+			{
+				printf("无法打开文件%READ_SIZEs!\n",(pWriteFile + (FileInputCycle*READ_SIZE)));
+				getchar();
+				exit(EXIT_FAILURE);
+			}
+			while(!feof(fpReadFile))
+			{
+				pGetLine = (char*)malloc(sizeof(char)*READ_SIZE);
+				JudgeMemory(pGetLine);
+
+				ReadFileFirstLine(fpReadFile,pGetLine,LineTotalLength);
+				if(LineTotalLength > InputCharLength[NumberNHead])
+
+				{
+					if(!strncmp(pGetLine,pMatch[NumberNHead],InputCharLength[NumberNHead]))
+					{
+						fprintf(fpWriteFile,"%s",pGetLine);
+					}
+				}
+				free(pGetLine);
+			}
+			fclose(fpReadFile);
+			fclose(fpWriteFile);
+		}
 	}
-		fclose(fpReadFile);
-		fclose(fpWriteFile);
-		return 0;
+	free(pReadFile);
+	free(pWriteFile);
+	return 0;
 }
+	
