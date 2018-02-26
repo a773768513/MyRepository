@@ -17,12 +17,22 @@
 /****************************************************//**
 @brief  processing Mode 
 @param  pInputComleteLine     [out] relloc memory until end the line 
+<<<<<<< HEAD
 @param  pFunctionReadlength   [out] record the length of thid function read
 @param	pMemoryTotalLength    [out] record the total length of memory
 @retval UNIFIED_OUTPUT_MODE       [1] all  result output to one file
 @retval SEPARATE_INPUT_FILE_OUTPUT[3] corresponding input file and output file separate 
 @retval SEPARATE_CHAR_OUTPUT      [2] corresponding char and output file separate
 @retval exit(EXIT_FAILURE);        error	
+=======
+        pFunctionReadlength   [out] record the length of thid function read
+		pMemoryTotalLength    [out] record the total length of memory
+@retval UNIFIED_OUTPUT_MODE       [1] all  result output to one file
+        SEPARATE_INPUT_FILE_OUTPUT[3] corresponding input file and output file separate 
+		SEPARATE_CHAR_OUTPUT      [2] corresponding char and output file separate
+		exit(EXIT_FAILURE);        error
+		
+>>>>>>> 1beafd57d64c2b16fba953f285cd7fbdd25fcdcf
 @author  YHF
 @data   2018/2/25
 @
@@ -33,7 +43,11 @@ int ProcessMode(const int InputCharNum,const int ReadFileNum,const int WriteFile
 	{
 		if(ReadFileNum != 1 )
 		{
+<<<<<<< HEAD
 			printf("error,the number of inputs  is incorrect(input Character number and read file number)");
+=======
+			printf("error1");
+>>>>>>> 1beafd57d64c2b16fba953f285cd7fbdd25fcdcf
 			getchar();
 			exit(EXIT_FAILURE);
 		}
@@ -48,7 +62,11 @@ int ProcessMode(const int InputCharNum,const int ReadFileNum,const int WriteFile
 		{
 			return SEPARATE_INPUT_FILE_OUTPUT;
 		}
+<<<<<<< HEAD
 		printf("error2,ReadFileNum != WriteFileNum");
+=======
+		printf("error1");
+>>>>>>> 1beafd57d64c2b16fba953f285cd7fbdd25fcdcf
 		getchar();
 		exit(EXIT_FAILURE);
 	}
@@ -58,7 +76,11 @@ int ProcessMode(const int InputCharNum,const int ReadFileNum,const int WriteFile
 		{
 			return SEPARATE_CHAR_OUTPUT;
 		}
+<<<<<<< HEAD
 		printf("error1,InputCharNum != WriteFileNum");
+=======
+		printf("error1");
+>>>>>>> 1beafd57d64c2b16fba953f285cd7fbdd25fcdcf
 		getchar();
 		exit(EXIT_FAILURE);
 	}
@@ -67,8 +89,13 @@ int ProcessMode(const int InputCharNum,const int ReadFileNum,const int WriteFile
 /************************************************************//**
 @brief     Read first line of fpReadFile into  pGetLine completely
 @param     **pAllLength        store input character
+<<<<<<< HEAD
 @param     **pGetLine         record a Line comletely
 @param     LineTotalLength    allocate memory 
+=======
+           **pGetLine         record a Line comletely
+		   LineTotalLength    allocate memory 
+>>>>>>> 1beafd57d64c2b16fba953f285cd7fbdd25fcdcf
 @retval    0  success
 @author YHF
 @data    2018/2/19
@@ -78,6 +105,7 @@ judge whether the last character read whether cover
 int ReadFileFirstLine(FILE* fpReadFile,char** pGetLine,int* LineTotalLength)
 {
 	*LineTotalLength = READ_SIZE;                                       ///<the total of the allocate memory line length
+<<<<<<< HEAD
 	char* pSectLine = (char*)malloc(sizeof(char)*READ_SIZE);           ///<read a section line in the readfile
 	JudgeMemory(pSectLine);
 	(*pGetLine)[(*LineTotalLength)-2] = '\n';
@@ -91,6 +119,20 @@ int ReadFileFirstLine(FILE* fpReadFile,char** pGetLine,int* LineTotalLength)
 		fgets(pSectLine,READ_SIZE,fpReadFile);
 		*LineTotalLength += (READ_SIZE-1);
 		*pGetLine = (char*)realloc((*pGetLine),sizeof(char)*(*LineTotalLength));
+=======
+	char* pSectLine = (char*)(sizeof(char)*READ_SIZE);           ///<read a section line in the readfile
+	JudgeMemory(pSectLine);
+	(*pGetLine)[(*LineTotalLength)-2] = '\n';
+	fgets(*pGetLine,READ_SIZE,fpReadFile);  
+	while((*pGetLine)[*LineTotalLength-2] != '\n')
+	{
+		if(NULL == fgets(pSectLine,READ_SIZE,fpReadFile))
+		{
+			break;
+		}
+		LineTotalLength += (READ_SIZE-1);
+		*pGetLine = (char*)realloc(pGetLine,sizeof(char)*(*LineTotalLength));
+>>>>>>> 1beafd57d64c2b16fba953f285cd7fbdd25fcdcf
 		JudgeMemory(*pGetLine);
 		(*pGetLine)[(*LineTotalLength)-2] = '\n';
 		strncpy((*pGetLine)+(*LineTotalLength)-READ_SIZE,pSectLine,READ_SIZE);
@@ -131,7 +173,11 @@ int ExecuteFindSpecial(int MatchMode,char* pInputChar,int* pInputCharLength,cons
 /************************************************************//**
 @brief     Judge file whther success open;
 @param     * fpFile[IN]  pointer file
+<<<<<<< HEAD
 @param     *pFile  [IN]  file name
+=======
+           *pFile  [IN]  file name
+>>>>>>> 1beafd57d64c2b16fba953f285cd7fbdd25fcdcf
 @retval    0  success
 @author YHF
 @data    2018/2/25
@@ -193,7 +239,11 @@ int UnifiedOutputMode(char* pInputChar,int* pInputCharLength,const int InputChar
 	int NumNChar = 0;
 	int NumNInputFile =0;
 	int LineTotalLength = 0;
+<<<<<<< HEAD
 	fpWriteFile = fopen("D:\111.txt","a");
+=======
+	fpWriteFile = fopen (pWriteFile,"a");
+>>>>>>> 1beafd57d64c2b16fba953f285cd7fbdd25fcdcf
 	JudgeOpenFile(fpWriteFile,pWriteFile);
 	while( ReadFileNum != NumNInputFile)
 	{
@@ -273,6 +323,7 @@ int SeparateCharOutput(char* pInputChar,int* pInputCharLength,const int InputCha
 }
 /************************************************************//**
 @brief     SEPARATE_INPUT_FILE_OUTPUT[3] corresponding input file and output file separate 
+<<<<<<< HEAD
 @param      char* pInputChar,         [IN] storage input char
 @param      int* pInputCharLength,    [IN] storage input char length 
 @param      const int InputCharNum,   [IN] storage input char number
@@ -280,6 +331,15 @@ int SeparateCharOutput(char* pInputChar,int* pInputCharLength,const int InputCha
 @param      const int ReadFileNum,    [IN] storage read file number
 @param      char* pWriteFile,         [IN] storage write in file 
 @param      const int WriteFileNum    [IN] storage write in file number
+=======
+@param     char* pInputChar,         [IN] storage input char
+           int* pInputCharLength,    [IN] storage input char length 
+		   const int InputCharNum,   [IN] storage input char number
+		   char* pReadFile,          [IN] storage Readfile
+		   const int ReadFileNum,    [IN] storage read file number
+		   char* pWriteFile,         [IN] storage write in file 
+		   const int WriteFileNum    [IN] storage write in file number
+>>>>>>> 1beafd57d64c2b16fba953f285cd7fbdd25fcdcf
 @retval    0             success
 @author YHF
 @data    2018/2/25

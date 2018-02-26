@@ -27,6 +27,10 @@
 int FileManualMode(char* pReadFile,int ReadFileNum)
 {
 	pReadFile = (char*)realloc(pReadFile,sizeof(char)*(ReadFileNum*READ_SIZE));
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 1beafd57d64c2b16fba953f285cd7fbdd25fcdcf
 	JudgeMemory(pReadFile);
 	pReadFile = fgets(pReadFile+(ReadFileNum-1)*READ_SIZE,READ_SIZE,stdin);
 	

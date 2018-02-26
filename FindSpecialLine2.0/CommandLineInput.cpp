@@ -119,41 +119,65 @@ int CommandLineInputAndOutput()
 			if(0 == ReadFileNum)
 			{
 				ReadFileNum++;
+<<<<<<< HEAD
 				scanf_s("%s",pReadFileOnce,READ_SIZE);
 				getchar();
+=======
+				fgets(pReadFileOnce,READ_SIZE,stdin);
+>>>>>>> 1beafd57d64c2b16fba953f285cd7fbdd25fcdcf
 				pReadFile = pReadFileOnce;
 			}
 			else
 			{
 				ReadFileNum++;
 				pReadFile = ArrayLengthToDynamicMemory(pReadFileOnce,READ_SIZE);
+<<<<<<< HEAD
 				FileManualMode(pReadFile,ReadFileNum);
 				scanf_s("%s",pReadFile+(READ_SIZE-1)*ReadFileNum,READ_SIZE);
 				getchar();
 			}
+=======
+				fgets(pReadFile+(ReadFileNum-1)*READ_SIZE,READ_SIZE,stdin);
+				FileManualMode(pReadFile,ReadFileNum);
+			}
+
+>>>>>>> 1beafd57d64c2b16fba953f285cd7fbdd25fcdcf
 		}
 		else if(!strncmp(pCommandRecognition,pOutputFileCommand,3))
 		{
 			if(0 == WriteFileNum)
 			{
 				WriteFileNum++;
+<<<<<<< HEAD
 				scanf_s("%s",pWriteFileOnce,READ_SIZE);
 				getchar();
+=======
+				fgets(pWriteFileOnce,READ_SIZE,stdin);
+>>>>>>> 1beafd57d64c2b16fba953f285cd7fbdd25fcdcf
 				pWriteFile = pWriteFileOnce;
 				
 			}
 			else
 			{
 				ReadFileNum++;
+<<<<<<< HEAD
 				pWriteFile = ArrayLengthToDynamicMemory(pWriteFileOnce,READ_SIZE);
 				FileManualMode(pWriteFile,WriteFileNum);
 				scanf_s("%s",pWriteFile+(READ_SIZE-1)*WriteFileNum,READ_SIZE);
 				getchar();
+=======
+				pWriteFile = ArrayLengthToDynamicMemory(pReadFileOnce,READ_SIZE);
+				fgets(pReadFile+(ReadFileNum-1)*READ_SIZE,READ_SIZE,stdin);
+				FileManualMode(pWriteFile,WriteFileNum);
+>>>>>>> 1beafd57d64c2b16fba953f285cd7fbdd25fcdcf
 			}
 		}
 		else if(!strncmp(pCommandRecognition,pEndOrderCommand,3))
 		{
+<<<<<<< HEAD
 			fflush(stdin);
+=======
+>>>>>>> 1beafd57d64c2b16fba953f285cd7fbdd25fcdcf
 			break;
 		}
 		else
