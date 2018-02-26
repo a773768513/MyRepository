@@ -19,7 +19,30 @@
 #define  READ_SIZE 128
 #endif
 
-
+/****************************************************//**
+@brief  Judge the allocate memory sucess
+@param  char* pJudgeMemory [IN] Judge this pointer
+@author  YHF
+@data   2018/2/25
+@
+********************************************************/
+void  JudgeMemory(int* pJudgeMemory)
+{
+   if (pJudgeMemory ==NULL)
+   {
+	   printf("No enough stroage,Memory allocate failed;\npress any key to exit");
+	   getchar();
+	   getchar();
+	   exit(EXIT_FAILURE);
+   }
+}
+/****************************************************//**
+@brief  Judge the allocate memory sucess(overload)
+@param  char* pJudgeMemory [IN] Judge this pointer
+@author  YHF
+@data   2018/2/25
+@
+********************************************************/
 void  JudgeMemory(char* pJudgeMemory)
 {
    if (pJudgeMemory ==NULL)
@@ -39,13 +62,12 @@ void  JudgeMemory(char* pJudgeMemory)
 @data   2018/2/25
 @
 ********************************************************/
-char* ArrayLengthToDynamicMenmory(char* pOriginArray,int Length)
+char *ArrayLengthToDynamicMemory(char* pOriginArray,int Length)
 {
 	char* pArrayBuf = (char*)malloc(sizeof(char)*Length);
 	JudgeMemory(pArrayBuf);
 	strncpy(pArrayBuf,pOriginArray,Length);
-	pOriginArray = pArrayBuf;
-	return pOriginArray;
+	return pArrayBuf;
 }
 
 
@@ -58,11 +80,11 @@ char* ArrayLengthToDynamicMenmory(char* pOriginArray,int Length)
 @data   2018/2/25
 @
 ********************************************************/
-int RecordInputCharBuf (char* pInputCompleteLine,int* pFunctionReadLength,int* pMemoryTotalLength)
+int RecordInputCharBuf (char* pInputCompleteLine,int* pFunctionInReadLength,int* pMemoryTotalLength)
 {
-	char pEachRead[READ_SIZE];
+	
 	(*pMemoryTotalLength) += (READ_SIZE-1);                ///<the total length of the allocate dynamic memory
-	*pFunctionReadLength = 0;              ///<the length of each actual read(does not contain unfill character)
+	*pFunctionInReadLength = 0;              ///<the length of each actual read(does not contain unfill character)
 	int NumLoopRead = 1;               ///record the numble of cycyle
 	///read fixed length character form input strea
 	pInputCompleteLine = (char*)realloc(pInputCompleteLine,sizeof(char)*(*pMemoryTotalLength));
@@ -83,6 +105,6 @@ int RecordInputCharBuf (char* pInputCompleteLine,int* pFunctionReadLength,int* p
 	/// 
 	///
 	
-	*pFunctionReadLength = strlen(pInputCompleteLine+(*pMemoryTotalLength)-NumLoopRead*(READ_SIZE-1))-1;
+	*pFunctionInReadLength = strlen(pInputCompleteLine+(*pMemoryTotalLength)-NumLoopRead*(READ_SIZE-1))-1;
 	return 0;
 }

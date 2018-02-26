@@ -23,59 +23,73 @@
 
 int CommandLineInputAndOutput()
 {
+	///record variables used to	corresponding command
+	///
 	char pCommandRecognition[COMMAND_LENGTH];
 	char* pHelpCommand ={"-hp"};
-	char* pInputChar = {"-ic"};
-	char* pInputFile = {"-if"};
-	char* pOutputFile = {"-of"};
-	char* pEndOrder = {"-ed"};
-	int   MatchMode;
+	char* pInputCharCommand = {"-ic"};
+	char* pInputFileCommand = {"-if"};
+	char* pOutputFileCommand = {"-of"};
+	char* pEndOrderCommand = {"-ed"};
+	int   MatchMode;                              ///<record the Match character mode
 
-	char pInputChar[READ_SIZE];
-	int  InputCharTotalLength = 0;
-	int* pInputCharLength;
-	int  InputCharNum=0;
-	bool bChangeCharMemory = 0;     ///Judge whther use dynamic memory
 
-	char pReadFile[READ_SIZE];
-	int  ReadFileNum=0;                 ///record the input num of file
-	bool bChangeReadMemory = 0;          ///judge the whther use the dynamic memory
+	///Processing character related variables
+	///
+	char* pInputChar;                    ///<poniter the memory storage Char
+	char pInputCharOnce[READ_SIZE];     ///<storage the smaller character
+	int* pInputCharLength;              ///<record the length of each Char
+	int  InputCharNum=0;                ///<record the num of input char
+	bool bChangeCharMemory = 0;         ///<Judge whther use dynamic memory
+	int  InputCharTotalLength ;          ///<record the total length of char,used to income function param and change
 
-	char pWriteFile[READ_SIZE];
-	int WriteFileNum=0;
-	bool bChangeWriteMemory = 0;        ///judge the whther use the dynamic memory
+	char* pReadFile;
+	char pReadFileOnce[READ_SIZE];          ///<pointer the memory storage read file 
+	int  ReadFileNum=0;                 ///<record the input num of file
+	bool bChangeReadMemory = 0;          ///<judge the whther use the dynamic memory
+
+	char* pWriteFile;
+	char pWriteFileOnce[READ_SIZE];         ///<pointer the memory storage write file
+	int WriteFileNum=0;                 ///<record the need to output file 
+	bool bChangeWriteMemory = 0;        ///<judge the whther use the dynamic memory
 	
-	pInputChar[READ_SIZE-2] = '\n';
-	pReadFile[READ_SIZE-2] = '\n';
-	pWriteFile[READ_SIZE-2] = '\n';
+	///
+	///refresh the last character used to judge whether finish
+	pInputCharOnce[READ_SIZE-2] = '\n';
+	pReadFileOnce[READ_SIZE-2] = '\n';
+	pWriteFileOnce[READ_SIZE-2] = '\n';
 	while(1)
 	{
-		printf("enter command to excution program(input”-hp“for  help");
+		printf("enter command to excution program(input”-hp“for  help)\n");
 		fgets(pCommandRecognition,COMMAND_LENGTH,stdin);
 		getchar();
-		if(!strncmp(pCommandRecognition,pHelpCommand,3))
+		///
+		///
+		if(!strncmp(pCommandRecognition,pHelpCommand,(COMMAND_LENGTH-1)))
 		{
 			HpleCommandPrintf();
 		}
-		else if(strncmp(pCommandRecognition,pInputChar,3))
+		else if(!strncmp(pCommandRecognition,pInputCharCommand,(COMMAND_LENGTH-1)))
 		{
 			if(0 == InputCharNum)
 			{
-				fgets(pInputChar,READ_SIZE,stdin);
-				if('\n' == pInputChar[READ_SIZE-2])
+				fgets(pInputCharOnce,READ_SIZE,stdin);
+				if('\n' == pInputCharOnce[READ_SIZE-2])
 				{
 					InputCharNum++;
+					pInputChar = pInputCharOnce;
 					pInputCharLength = (int*)malloc(sizeof(int)*1);
+					JudgeMemory(pInputCharLength);
 					*pInputCharLength = strlen(pInputChar)-1;
 					
 				}
-				///第一次读取未读完，则改为动态内存
+				///if not finished in first time read,change to dynamic memory
 				///
 				else
 				{
 					InputCharNum++;
-					pInputChar = ArrayLengthToDynamicMemory(pInputChar,READ_SIZE);
 					bChangeCharMemory = 1;
+					pInputChar = ArrayLengthToDynamicMemory(pInputCharOnce,READ_SIZE);
 					pInputCharLength = (int*)malloc(sizeof(int)*1);
 					RecordInputCharBuf (pInputChar,&(pInputCharLength[InputCharNum-1]),&InputCharTotalLength);
 					pInputCharLength[InputCharNum] += (READ_SIZE-1);
@@ -84,57 +98,63 @@ int CommandLineInputAndOutput()
 				///目的：读完未结束的一行，方式
 			}
 			///第二次读取  改为动态内存
-			if(!bChangeCharMemory)
+			else
 			{
-				pInputChar = ArrayLengthToDynamicMemory(pInputChar,READ_SIZE);
-				bChangeCharMemory = 1;
-				pInputCharLength = (int*)malloc(sizeof(int)*1);
-				RecordInputCharBuf (pInputChar,&(pInputCharLength[InputCharNum]),&InputCharTotalLength);
+				if(!bChangeCharMemory)
+				{
+					pInputChar = ArrayLengthToDynamicMemory(pInputCharOnce,READ_SIZE);
+					bChangeCharMemory = 1;
+					pInputCharLength = (int*)malloc(sizeof(int)*1);
+					RecordInputCharBuf (pInputChar,&(pInputCharLength[InputCharNum]),&InputCharTotalLength);
+				}
+				InputCharNum++;
+				pInputCharLength = (int*)realloc(pInputCharLength,sizeof(int)*InputCharNum);
+				RecordInputCharBuf (pInputChar,&(pInputCharLength[InputCharNum-1]),&InputCharTotalLength);
+
 			}
-			InputCharNum++;
-			pInputCharLength = (int*)realloc(pInputCharLength,sizeof(int)*InputCharNum);
-			RecordInputCharBuf (pInputChar,&(pInputCharLength[InputCharNum-1]),&InputCharTotalLength);
 		}
-		else if(!strncmp(pCommandRecognition,pInputFile,3))
+		
+		else if(!strncmp(pCommandRecognition,pInputFileCommand,COMMAND_LENGTH))
 		{
 			if(0 == ReadFileNum)
 			{
 				ReadFileNum++;
-				fgets(pReadFile,READ_SIZE,stdin);
-				
+				fgets(pReadFileOnce,READ_SIZE,stdin);
+				pReadFile = pReadFileOnce;
 			}
 			else
 			{
 				ReadFileNum++;
-				pReadFile = ArrayLengthToDynamicMemory(pReadFile,READ_SIZE);
+				pReadFile = ArrayLengthToDynamicMemory(pReadFileOnce,READ_SIZE);
 				fgets(pReadFile+(ReadFileNum-1)*READ_SIZE,READ_SIZE,stdin);
 				FileManualMode(pReadFile,ReadFileNum);
 			}
 
 		}
-		else if(!strncmp(pCommandRecognition,pOutputFile,3))
+		else if(!strncmp(pCommandRecognition,pOutputFileCommand,3))
 		{
 			if(0 == WriteFileNum)
 			{
 				WriteFileNum++;
-				fgets(pWriteFile,READ_SIZE,stdin);
+				fgets(pWriteFileOnce,READ_SIZE,stdin);
+				pWriteFile = pWriteFileOnce;
 				
 			}
 			else
 			{
 				ReadFileNum++;
-				pWriteFile = ArrayLengthToDynamicMemory(pReadFile,READ_SIZE);
+				pWriteFile = ArrayLengthToDynamicMemory(pReadFileOnce,READ_SIZE);
 				fgets(pReadFile+(ReadFileNum-1)*READ_SIZE,READ_SIZE,stdin);
 				FileManualMode(pWriteFile,WriteFileNum);
 			}
 		}
-		else if(!strncmp(pCommandRecognition,pEndOrder,3))
+		else if(!strncmp(pCommandRecognition,pEndOrderCommand,3))
 		{
 			break;
 		}
 		else
 		{
-			printf("input error,please re-input");
+			printf("input error,please re-input\n");
 			fflush(stdin);
 		}
 	}
@@ -171,6 +191,6 @@ void HpleCommandPrintf()
 	printf("using the following command to input matching character,find spcial line file and write in file(can be entered multiple times\n");
 	printf("-ic_Character          to input the character character and InputFileName must have one can only enter once\n");
 	printf("-if_InputFileName      to input the file you wang to find special line (character and InputFileName must have one can only enter once\n");
-	printf("-of_OutputFileName     to input the outputFile you wang to write in the match result");
-	printf("-ed_EndCommand         to end input and execute program");
+	printf("-of_OutputFileName     to input the outputFile you wang to write in the match result\n");
+	printf("-ed_EndCommand         to end input and execute program\n");
 }

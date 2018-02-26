@@ -63,6 +63,7 @@ int ProcessMode(const int InputCharNum,const int ReadFileNum,const int WriteFile
 		getchar();
 		exit(EXIT_FAILURE);
 	}
+	return 0;
 }
 /************************************************************//**
 @brief     Read first line of fpReadFile into  pGetLine completely
@@ -125,6 +126,7 @@ int ExecuteFindSpecial(int MatchMode,char* pInputChar,int* pInputCharLength,cons
 	{
 		SeparateInputFileOutput(pInputChar,pInputCharLength,InputCharNum,pReadFile,ReadFileNum,pWriteFile,WriteFileNum);
 	}
+	return 0;
 }
 /************************************************************//**
 @brief     Judge file whther success open;
@@ -267,7 +269,7 @@ int SeparateCharOutput(char* pInputChar,int* pInputCharLength,const int InputCha
 		fclose(fpWriteFile);
 		NumNChar++;
 	}
-
+	return 0;
 }
 /************************************************************//**
 @brief     SEPARATE_INPUT_FILE_OUTPUT[3] corresponding input file and output file separate 
@@ -316,4 +318,5 @@ int SeparateInputFileOutput(char* pInputChar,int* pInputCharLength,const int Inp
 		fclose(fpWriteFile);
 		NumNChar++;
 	}
+	return 0;
 }

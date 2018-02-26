@@ -8,5 +8,5 @@
 ***********************************************************/
 #ifndef __STORAGE_FILE_MODE__
 #define __STORAGE_FILE_MODE__
-int FileManualMode(char* pReadFile,int ReadFileNum)
+int FileManualMode(char* pReadFile,int ReadFileNum);
 #endif
