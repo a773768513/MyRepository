@@ -13,9 +13,9 @@
 
 int main()
 {
-	char **pMatch;                                 ///<pass a pointer to input character
+	char **pMatch;                                         ///<pass a pointer to input character
 	unsigned int *InputCharLength;                         ///<pass the length of input character
-	int NumberMarks;                              ///total of N logo head
+	int NumberMarks;                                       ///total of N logo head
 	MultipleIdentiHead(&pMatch,&InputCharLength,NumberMarks);                        
 	OutputSpecialLineToFile(pMatch,InputCharLength,NumberMarks);  
 	NumberMarks--;
