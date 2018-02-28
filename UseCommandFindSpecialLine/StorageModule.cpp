@@ -12,6 +12,7 @@
 #include "MatchStrlenFile.h"
 #include "StorageModule.h"
 #include "CommandLineInputMain.h"
+
 /****************************************************//**
 @brief  Judge the allocate memory sucess
 @param  char* pJudgeMemory [IN] Judge this pointer
@@ -19,7 +20,7 @@
 @data   2018/2/25
 @
 ********************************************************/
-void  JudgeMemory(char* pJudgeMemory)
+int  JudgeMemory(char* pJudgeMemory)
 {
    if (pJudgeMemory ==NULL)
    {
@@ -28,8 +29,8 @@ void  JudgeMemory(char* pJudgeMemory)
 	   getchar();
 	   exit(EXIT_FAILURE);
    }
+   return 0;
 }
-
 /****************************************************//**
 @brief  allocate memory for pMallocMemory and copy data from pOriginData
 @param  pMallocMemory       [out] dynamic allocate memory for this pointer
@@ -69,7 +70,6 @@ FILE* ReadCompleteLine(char *pGetLine,int* pMemoryLength,FILE* fpReadFile)
 		JudgeMemory(pGetLine);
 		pGetLine[(*pMemoryLength)-2] = '\0';
 		fgets(pGetLine+*pMemoryLength-READ_SIZE,READ_SIZE,fpReadFile);
-	}
-	while(pGetLine[(*pMemoryLength)-2] != '\0');
+	}while(pGetLine[(*pMemoryLength)-2] != '\0');
 	return fpReadFile;
 }

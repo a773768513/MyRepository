@@ -29,8 +29,9 @@ int  JudgeOpenFile(FILE* fpFile,char* pFile)
 		getchar();
 		exit(EXIT_FAILURE);
 	}
-	return 0 ;
+	return 0;
 }
+
 /****************************************************//**
 @brief  Judge the allocate memory sucess
 @param  pInputStr        [IN] storage the input string
@@ -61,7 +62,16 @@ int MatchStrInFile(char* pInputStr,const int InputStrLength,char* pInputFile,cha
 		///reset the last position to judge whether cover
 		///
 		pGetLine[READ_SIZE-2] = '\0';
-		fgets(pGetLine,READ_SIZE,fpReadFile);
+		if(NULL == fgets(pGetLine,READ_SIZE,fpReadFile))
+		{
+			if(feof(fpReadFile))
+			{
+				break;
+			}
+			printf("读取行数据失败");
+			getchar();
+			exit(EXIT_FAILURE);
+		}
 		if(pGetLine[READ_SIZE-2] != '\0')
 		{
 			if(pGetLine[READ_SIZE-2] != '\n')

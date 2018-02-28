@@ -63,6 +63,7 @@
     <ClCompile Include="CommandLineInputMain.cpp" />
     <ClCompile Include="MatchStrIenFile.cpp" />
     <ClCompile Include="StorageModule.cpp" />
+    <ClCompile Include="TestModule.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommandLineInputMain.h" />

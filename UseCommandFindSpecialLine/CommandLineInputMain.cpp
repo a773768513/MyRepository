@@ -32,17 +32,17 @@ int main(int argc,char* argv[])
 		if (!strcmp(argv[1],"-help"))
 		{
 			HelpCommandPrintf();
-			return 2;
+			return HELP;
 		}
 		printf("input error,you must input data inthe format:\nprogram str OriginFilePath  OutputFileDataPath");
-		return 1;
+		return ARGUMENT_COUNT_ERROR;
 	}
 	pInputStr = argv[1];
 	InputStrLength = strlen(pInputStr);
 	pInputFile = argv[2];
 	pOutputFile = argv[3];
 	MatchStrInFile(pInputStr,InputStrLength,pInputFile,pOutputFile);
-	return 0;
+	return SUCCESS;
 
 }
 /*****************************************************//*

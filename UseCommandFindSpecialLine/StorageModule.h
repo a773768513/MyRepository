@@ -15,7 +15,7 @@
 #define READ_SIZE 128
 #endif
 
-void  JudgeMemory(char* pJudgeMemory);
+int JudgeMemory(char* pJudgeMemory);
 char MallocAndCopy(char** pMallocMemory,char *pOriginData,int CopyLength);
 FILE* ReadCompleteLine(char *pGetLine,int* pMemoryLength,FILE* fpReadFile);
 
