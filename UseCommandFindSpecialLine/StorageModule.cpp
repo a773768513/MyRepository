@@ -11,6 +11,7 @@
 #include <string.h>
 #include "MatchStrlenFile.h"
 #include "StorageModule.h"
+#include "CommandLineInputMain.h"
 /****************************************************//**
 @brief  Judge the allocate memory sucess
 @param  char* pJudgeMemory [IN] Judge this pointer

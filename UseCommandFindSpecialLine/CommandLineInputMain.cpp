@@ -10,10 +10,12 @@
 #include <stdlib.h>
 #include "MatchStrlenFile.h"
 #include "StorageModule.h"
+#include "CommandLineInputMain.h"
 /****************************************************//**
 @brief  main
 @param  argc    the param number of  command line
 @param  argv[]   
+@retval 1  error input param
 @author  YHF
 @data   2018/2/25
 @
@@ -25,11 +27,12 @@ int main(int argc,char* argv[])
 	char* pInputFile;
 	char* pOutputFile;
 
-	while(argc !=4)
+	if(argc !=4)
 	{
 		if (!strcmp(argv[1],"-help"))
 		{
-			HpleCommandPrintf();
+			HelpCommandPrintf();
+			return 2;
 		}
 		printf("input error,you must input data inthe format:\nprogram str OriginFilePath  OutputFileDataPath");
 		return 1;
@@ -39,7 +42,7 @@ int main(int argc,char* argv[])
 	pInputFile = argv[2];
 	pOutputFile = argv[3];
 	MatchStrInFile(pInputStr,InputStrLength,pInputFile,pOutputFile);
-
+	return 0;
 
 }
 /*****************************************************//*
@@ -50,7 +53,7 @@ int main(int argc,char* argv[])
 @brief
 
 *******************************************************/
-void HpleCommandPrintf()
+void HelpCommandPrintf()
 {
 	printf("use the follow format to input the data\n program  str  OriginFilePath  OutputFileDataPath \n");
 	printf("prompt:the Path must be less than 260 character, \n");

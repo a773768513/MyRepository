@@ -14,5 +14,5 @@
 #endif
 
 int MatchStrInFile(char* pInputStr,const int InputStrLength,char* pInputFile,char* pWriteFile);
-
+int  JudgeOpenFile(FILE* fpFile,char* pFile);
 #endif

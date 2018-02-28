@@ -10,7 +10,27 @@
 #include <stdlib.h>
 #include "MatchStrlenFile.h"
 #include "StorageModule.h"
-
+#include "CommandLineInputMain.h"
+/************************************************************//**
+@brief     Judge file whther success open;
+@param     * fpFile[IN]  pointer file
+@param     *pFile  [IN]  file name
+@retval    0  success
+@author YHF
+@data    2018/2/25
+@design:
+judge whether the fpFile id NULL
+*****************************************************************/
+int  JudgeOpenFile(FILE* fpFile,char* pFile)
+{
+	if(NULL == fpFile)
+	{
+		printf("无法打开文件%128s!\n",pFile);
+		getchar();
+		exit(EXIT_FAILURE);
+	}
+	return 0 ;
+}
 /****************************************************//**
 @brief  Judge the allocate memory sucess
 @param  pInputStr        [IN] storage the input string
@@ -30,8 +50,10 @@ int MatchStrInFile(char* pInputStr,const int InputStrLength,char* pInputFile,cha
 	char* pGetLineConvers;                    ///<untie the pointer name if user heap memory
 	int LineMemoryLength = READ_SIZE;         ///<pGetLineConvers occupied memory
 
-	fpReadFile = fopen(pInputFile,"r");
+	fpReadFile = fopen(pInputFile,"rb");
+	JudgeOpenFile(fpReadFile,pInputFile);
 	fpWriteFile = fopen(pWriteFile,"a");
+	JudgeOpenFile(fpWriteFile,pWriteFile);
 	while(!feof(fpReadFile))
 	{
 		LineMemoryLength = READ_SIZE;
