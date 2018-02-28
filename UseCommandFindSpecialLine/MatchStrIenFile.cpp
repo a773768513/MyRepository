@@ -96,5 +96,7 @@ int MatchStrInFile(char* pInputStr,const int InputStrLength,char* pInputFile,cha
 			free(pGetLineConvers);
 		}
 	}
+	fclose(fpReadFile);
+	fclose(fpWriteFile);
 	return 0;
 }
