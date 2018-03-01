@@ -113,10 +113,6 @@ int MatchStrInFile(char* pInputStr,const int InputStrLength,char* pInputFile,cha
 				MallocAndCopy(&pGetLineConvers,pGetLine,READ_SIZE);
 				fpReadFile = ReadCompleteLine(pGetLineConvers,&LineMemoryLength,fpReadFile);
 			}
-			else
-			{
-				printf("1");
-			}
 		}
 		else
 		{
@@ -140,7 +136,7 @@ int MatchStrInFile(char* pInputStr,const int InputStrLength,char* pInputFile,cha
 	if(StandardLength != WriteFileLength)
 	{
 		printf("diffent lenth");
-		exit(EXIT_FAILURE);
+
 	}
 	while((ReadTimes*(READ_SIZE-1))<StandardLength)
 	{
