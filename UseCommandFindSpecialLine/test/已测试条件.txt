@@ -30,3 +30,17 @@
 
 
 目前测试向量约一万行，正常运行。
+
+出现BUG，换行符不统一；
+and, and_eq, bitand, bitor, compl, not, not_eq, or, or_eq, xor, xor_eq 
+the C++ Language Tutorial
+the user and to show their results. 
+The C++ Language Tutorial
+在文件中显示没有换行符，但是读取情况下其有换行符；（文件数据问题）；
+对比二进制文件，发现其多了一个换行符’\n’；（在windows系统中，换行符\r\n,在linux系统中，换行符为\n，在mac系统中，换行符为\r,）
+
+做一个几万行的测试
+1：先写几个符合条件的边界向量，然后对应其不符合的向量；（127，255）；
+2：在上述向量中添加大量随机向量，来源，网页或者文献；
+
+3：将正确向量取出
