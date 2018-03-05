@@ -86,7 +86,7 @@ int MatchLessLengthStrInFile(char* pInputStr,const int InputStrLength,char* pInp
 		
 		///reset the last position to judge whether cover
 		///reset the string character to judge whether longer than string
-		pGetLine[InputStrLength] = '\0';
+		pGetLine[InputStrLength-1] = '\0';
 		pGetLine[READ_SIZE-2] = '\0';
 		///
 		///Judge whether finished the file 
@@ -205,6 +205,7 @@ int MatchMoreLengthStrInFile(char* pInputStr,const int InputStrLength,char* pInp
 		///reset the last position to judge whether cover
 		///
 		pGetLine[LineMemoryLength-2] = '\0';
+		pGetLine[InputStrLength-1] = '\0';
 		///
 		///Judge whether finished the file 
 		if(NULL == fgets(pGetLine,LineMemoryLength,fpReadFile))
@@ -233,12 +234,13 @@ int MatchMoreLengthStrInFile(char* pInputStr,const int InputStrLength,char* pInp
 					}
 					fprintf(fpWriteFile,"%s",pGetLine);
 					pGetLine[LineMemoryLength-2] = '\0';
-					pGetLine[InputStrLength-1] = '\0';
+					
 					fgets(pGetLine,READ_SIZE,fpReadFile);
 					printf("2");
 				}
 				
 			}
+			
 		}
 		while(pGetLine[LineMemoryLength-2] != '\0')
 		{
@@ -249,6 +251,7 @@ int MatchMoreLengthStrInFile(char* pInputStr,const int InputStrLength,char* pInp
 			pGetLine[LineMemoryLength-2] = '\0';
 			fgets(pGetLine,LineMemoryLength,fpReadFile);
 		}
+		
 	}
 	///judge the answer if exit the standard file
 	///
