@@ -57,19 +57,19 @@ char MallocAndCopy(char** pMallocMemory,char *pOriginData,int CopyLength)
 @data   2018/2/25
 @
 ********************************************************/
-FILE* ReadCompleteLine(char *pGetLine,int* pMemoryLength,FILE* fpReadFile)
+FILE* ReadCompleteLine(char **pGetLine,int* pMemoryLength,FILE* fpReadFile)
 {
 	do
 	{
-		if(pGetLine[(*pMemoryLength)-2] == '\n')
+		if((*pGetLine)[(*pMemoryLength)-2] == '\n')
 		{
 			break;
 		}
 		*pMemoryLength += (READ_SIZE-1);
-		pGetLine = (char*)realloc(pGetLine,sizeof(char)*(*pMemoryLength));
-		JudgeMemory(pGetLine);
-		pGetLine[(*pMemoryLength)-2] = '\0';
-		fgets(pGetLine+*pMemoryLength-READ_SIZE,READ_SIZE,fpReadFile);
-	}while(pGetLine[(*pMemoryLength)-2] != '\0');
+		(*pGetLine) = (char*)realloc(*pGetLine,sizeof(char)*(*pMemoryLength));
+		JudgeMemory(*pGetLine);
+		(*pGetLine)[(*pMemoryLength)-2] = '\0';
+		fgets(*pGetLine+*pMemoryLength-READ_SIZE,READ_SIZE,fpReadFile);
+	}while((*pGetLine)[(*pMemoryLength)-2] != '\0');
 	return fpReadFile;
 }

@@ -13,6 +13,7 @@
 #define READ_SIZE 128
 #endif
 
-int MatchStrInFile(char* pInputStr,const int InputStrLength,char* pInputFile,char* pWriteFile,char* pStandardFile);
+int MatchLessLengthStrInFile(char* pInputStr,const int InputStrLength,char* pInputFile,char* pWriteFile,char* pStandardFile);
+int MatchMoreLengthStrInFile(char* pInputStr,const int InputStrLength,char* pInputFile,char* pWriteFile,char* pStandardFile);
 int  JudgeOpenFile(FILE* fpFile,char* pFile);
 #endif

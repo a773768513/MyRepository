@@ -17,6 +17,6 @@
 
 int JudgeMemory(char* pJudgeMemory);
 char MallocAndCopy(char** pMallocMemory,char *pOriginData,int CopyLength);
-FILE* ReadCompleteLine(char *pGetLine,int* pMemoryLength,FILE* fpReadFile);
+FILE* ReadCompleteLine(char **pGetLine,int* pMemoryLength,FILE* fpReadFile);
 
 #endif
