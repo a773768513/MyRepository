@@ -16,6 +16,7 @@ int ProgressBarRange(0);
 helloqt::helloqt(QWidget *parent)
 	: QMainWindow(parent)
 {
+
 	ui.setupUi(this);
 }
 
@@ -35,10 +36,21 @@ char* helloqt::QStringToChar(QString QSOriginStr, char** StrArray)
 	*StrArray = QBStrArrayBuf.data();
 	return *StrArray;
 }
+
+void ThreadMatchStr(void* pUI)
+{
+	helloqt* pThreadMatchStr = (helloqt*)pUI;
+	pThreadMatchStr->InputUIDataMatch();
+}
+
+void ThreadProgressagePro(void* pUI)
+{
+	helloqt* pThreadProgressagePro = (helloqt*)pUI;
+	pThreadProgressagePro->ProgressBarRun();
+}
 void helloqt::InputUIDataMatch()
 {
-	QString  QSMatchStr;
-	QSMatchStr = ui.InputStrLineEdit->text();
+	QString  QSMatchStr = ui.InputStrLineEdit->text();
 	QString QSInputFile = ui.InputFileLineEdit->text();
 	QString QSOutputFile = ui.OutputFileLineEdit->text();
 	QMessageBox msg_time;
@@ -90,13 +102,18 @@ void helloqt::InputUIDataMatch()
 }
 void helloqt::ProgressBarRun()
 {
-	while (!ProgressBarRange);
+	Sleep(1000);
 	ui.progressBar->setRange(0, ProgressBarRange);
 	while (ProgressBarValue<ProgressBarRange)
 	{
-		Sleep(1);
+		Sleep(10);
 		ui.progressBar->setValue(ProgressBarValue);
 	}
 }
-
+void helloqt::Btn_MatchClick()
+{
+	_beginthread(ThreadMatchStr, 0, this);
+	_beginthread(ThreadProgressagePro, 0, this);
+	Sleep(20000);
+}
 

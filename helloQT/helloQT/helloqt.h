@@ -3,6 +3,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_helloqt.h"
+#include <Windows.h>
 
 class helloqt : public QMainWindow
 {
@@ -12,8 +13,10 @@ public:
 	helloqt(QWidget *parent = 0);
 	~helloqt();
 	char* QStringToChar(QString QSOriginStr,char**StrArray);
+
 	void  InputUIDataMatch();
 	void  ProgressBarRun();
+
 private:
 	Ui::helloqtClass ui;
 private slots:
