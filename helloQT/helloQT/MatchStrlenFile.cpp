@@ -82,12 +82,20 @@ int MatchLessLengthStrInFile(char* pInputStr, const int InputStrLength, char* pI
 	char  StandardCompare[READ_SIZE];
 	char  WriteFileCompare[READ_SIZE];
 	int   ReadTimes = 0;
+	
+	///
+	///use to judge the progressage bar 
+	extern int ProgressBarValue;
+	extern int ProgressBarRange;
+	int  ReadTimeForProgressageBar(0);
 
 	fpReadFile = fopen(pInputFile, "r");
 	if (JudgeOpenFile(fpReadFile, pInputFile))
 	{
 		return 1;
 	}
+	
+	ProgressBarRange = JudgefpLength(fpReadFile);
 	fpWriteFile = fopen(pWriteFile, "w+");
 	if (JudgeOpenFile(fpWriteFile, pWriteFile))
 	{
@@ -98,6 +106,7 @@ int MatchLessLengthStrInFile(char* pInputStr, const int InputStrLength, char* pI
 
 		///reset the last position to judge whether cover
 		///reset the string character to judge whether longer than string
+		ReadTimeForProgressageBar = 0;
 		pGetLine[InputStrLength - 1] = '\0';
 		pGetLine[READ_SIZE - 2] = '\0';
 		///
@@ -129,7 +138,7 @@ int MatchLessLengthStrInFile(char* pInputStr, const int InputStrLength, char* pI
 					fprintf(fpWriteFile, "%s", pGetLine);
 					pGetLine[READ_SIZE - 2] = '\0';
 					fgets(pGetLine, READ_SIZE, fpReadFile);
-					printf("1");
+					ReadTimeForProgressageBar++;
 				}
 				fprintf(fpWriteFile, "%s", pGetLine);
 			}
@@ -142,7 +151,9 @@ int MatchLessLengthStrInFile(char* pInputStr, const int InputStrLength, char* pI
 			}
 			pGetLine[READ_SIZE - 2] = '\0';
 			fgets(pGetLine, READ_SIZE, fpReadFile);
+			ReadTimeForProgressageBar++;
 		}
+		ProgressBarValue += (strlen(pGetLine) + ReadTimeForProgressageBar*(READ_SIZE - 1));
 	}
 	///judge the answer if exit the standard file
 	///

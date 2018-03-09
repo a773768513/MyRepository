@@ -5,14 +5,18 @@
 #include <string.h>
 #include <time.h>
 #include <qmessagebox.h>
+#include <Windows.h>
+#include <process.h>
 #include "MatchStrlenFile.h"
 #include "StorageModule.h"
+
+int ProgressBarValue(0);
+int ProgressBarRange(0);
 
 helloqt::helloqt(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-	ui.pushButton->setVisible(false);
 }
 
 helloqt::~helloqt()
@@ -31,7 +35,7 @@ char* helloqt::QStringToChar(QString QSOriginStr, char** StrArray)
 	*StrArray = QBStrArrayBuf.data();
 	return *StrArray;
 }
-void helloqt::Btn_MatchClick()
+void helloqt::InputUIDataMatch()
 {
 	QString  QSMatchStr;
 	QSMatchStr = ui.InputStrLineEdit->text();
@@ -84,3 +88,15 @@ void helloqt::Btn_MatchClick()
 	QString msg_RunTime = QString::number(dRunTotalTime);
 	msg_time.setText("use times is" + msg_RunTime + "s");
 }
+void helloqt::ProgressBarRun()
+{
+	while (!ProgressBarRange);
+	ui.progressBar->setRange(0, ProgressBarRange);
+	while (ProgressBarValue<ProgressBarRange)
+	{
+		Sleep(1);
+		ui.progressBar->setValue(ProgressBarValue);
+	}
+}
+
+

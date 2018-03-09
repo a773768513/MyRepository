@@ -19,6 +19,7 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
@@ -30,7 +31,6 @@ class Ui_helloqtClass
 {
 public:
     QWidget *centralWidget;
-    QPushButton *pushButton;
     QPushButton *Match;
     QWidget *layoutWidget;
     QGridLayout *gridLayout;
@@ -40,6 +40,7 @@ public:
     QLineEdit *InputStrLineEdit;
     QLabel *label_3;
     QLabel *label;
+    QProgressBar *progressBar;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -51,12 +52,9 @@ public:
         helloqtClass->resize(600, 400);
         centralWidget = new QWidget(helloqtClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(40, 240, 75, 23));
         Match = new QPushButton(centralWidget);
         Match->setObjectName(QStringLiteral("Match"));
-        Match->setGeometry(QRect(240, 250, 75, 23));
+        Match->setGeometry(QRect(250, 230, 75, 23));
         layoutWidget = new QWidget(centralWidget);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
         layoutWidget->setGeometry(QRect(150, 50, 311, 161));
@@ -97,6 +95,10 @@ public:
 
         gridLayout->addWidget(label, 0, 0, 1, 1);
 
+        progressBar = new QProgressBar(centralWidget);
+        progressBar->setObjectName(QStringLiteral("progressBar"));
+        progressBar->setGeometry(QRect(0, 320, 241, 23));
+        progressBar->setValue(24);
         helloqtClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(helloqtClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -118,7 +120,6 @@ public:
     void retranslateUi(QMainWindow *helloqtClass)
     {
         helloqtClass->setWindowTitle(QApplication::translate("helloqtClass", "helloqt", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("helloqtClass", "PushButton", Q_NULLPTR));
         Match->setText(QApplication::translate("helloqtClass", "match", Q_NULLPTR));
         label_2->setText(QApplication::translate("helloqtClass", "input file path", Q_NULLPTR));
         InputStrLineEdit->setText(QString());

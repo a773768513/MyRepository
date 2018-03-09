@@ -12,13 +12,12 @@ public:
 	helloqt(QWidget *parent = 0);
 	~helloqt();
 	char* QStringToChar(QString QSOriginStr,char**StrArray);
+	void  InputUIDataMatch();
+	void  ProgressBarRun();
 private:
 	Ui::helloqtClass ui;
 private slots:
    void Btn_OpenClick();
    void Btn_MatchClick();
-
-
 };
-
 #endif // HELLOQT_H
