@@ -43,17 +43,12 @@ void ThreadMatchStr(void* pUI)
 	pThreadMatchStr->InputUIDataMatch();
 }
 
-void ThreadProgressagePro(void* pUI)
-{
-	helloqt* pThreadProgressagePro = (helloqt*)pUI;
-	pThreadProgressagePro->ProgressBarRun();
-}
+
 void helloqt::InputUIDataMatch()
 {
 	QString  QSMatchStr = ui.InputStrLineEdit->text();
 	QString QSInputFile = ui.InputFileLineEdit->text();
 	QString QSOutputFile = ui.OutputFileLineEdit->text();
-	QMessageBox msg_time;
 
 	char* pInputStr;
 	int   InputStrLength;
@@ -97,23 +92,22 @@ void helloqt::InputUIDataMatch()
 	
 	clockFinishTime = clock();
 	dRunTotalTime = (double)(clockFinishTime - clockStartTime) / CLOCKS_PER_SEC;
-	QString msg_RunTime = QString::number(dRunTotalTime);
-	msg_time.setText("use times is" + msg_RunTime + "s");
+	
 }
-void helloqt::ProgressBarRun()
+
+void helloqt::Btn_MatchClick()
 {
-	Sleep(1000);
+	ProgressBarValue = 0;
+	_beginthread(ThreadMatchStr, 0, this);
+	ui.progressBar->setValue(0);
+	while (!ProgressBarRange);
 	ui.progressBar->setRange(0, ProgressBarRange);
 	while (ProgressBarValue<ProgressBarRange)
 	{
 		Sleep(10);
 		ui.progressBar->setValue(ProgressBarValue);
 	}
-}
-void helloqt::Btn_MatchClick()
-{
-	_beginthread(ThreadMatchStr, 0, this);
-	_beginthread(ThreadProgressagePro, 0, this);
-	Sleep(20000);
+	ProgressBarValue--;
+	ui.progressBar->setValue(ProgressBarValue);
 }
 

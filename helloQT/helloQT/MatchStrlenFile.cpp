@@ -70,7 +70,6 @@ int MatchLessLengthStrInFile(char* pInputStr, const int InputStrLength, char* pI
 	FILE *fpWriteFile;         ///<file pointer to open write in file 
 	FILE *fpStandardFile;
 
-	QMessageBox msg_FailureMessage;
 
 	char pGetLine[READ_SIZE];                 ///<stack memory if the Line is short
 	int LineMemoryLength = READ_SIZE;         ///<pGetLineConvers occupied memory
@@ -117,12 +116,9 @@ int MatchLessLengthStrInFile(char* pInputStr, const int InputStrLength, char* pI
 			{
 				break;
 			}
-			msg_FailureMessage.setText("read line data fail");
-			msg_FailureMessage.exec();
+
 			return 1;
 		}
-
-
 		if (pGetLine[InputStrLength - 1] == pInputStr[InputStrLength - 1])
 		{
 			if (!strncmp(pGetLine, pInputStr, InputStrLength))
@@ -153,7 +149,7 @@ int MatchLessLengthStrInFile(char* pInputStr, const int InputStrLength, char* pI
 			fgets(pGetLine, READ_SIZE, fpReadFile);
 			ReadTimeForProgressageBar++;
 		}
-		ProgressBarValue += (strlen(pGetLine) + ReadTimeForProgressageBar*(READ_SIZE - 1));
+		ProgressBarValue += (strlen(pGetLine) + 1 + ReadTimeForProgressageBar*(READ_SIZE - 1));
 	}
 	///judge the answer if exit the standard file
 	///
@@ -215,6 +211,7 @@ int MatchMoreLengthStrInFile(char* pInputStr, const int InputStrLength, char* pI
 	char  StandardCompare[READ_SIZE];
 	char  WriteFileCompare[READ_SIZE];
 	int   ReadTimes(0);
+	int   NumfpLine(0);
 
 	pGetLine = (char*)malloc(sizeof(char)*LineMemoryLength);
 
@@ -241,7 +238,7 @@ int MatchMoreLengthStrInFile(char* pInputStr, const int InputStrLength, char* pI
 			getchar();
 			exit(EXIT_FAILURE);
 		}
-
+		
 		if (pGetLine[InputStrLength - 1] == pInputStr[InputStrLength - 1])
 		{
 			if (!strncmp(pGetLine, pInputStr, InputStrLength))

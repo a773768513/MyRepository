@@ -41,6 +41,7 @@ public:
     QLabel *label_3;
     QLabel *label;
     QProgressBar *progressBar;
+    QPushButton *pushButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -98,7 +99,10 @@ public:
         progressBar = new QProgressBar(centralWidget);
         progressBar->setObjectName(QStringLiteral("progressBar"));
         progressBar->setGeometry(QRect(0, 320, 241, 23));
-        progressBar->setValue(24);
+        progressBar->setValue(0);
+        pushButton = new QPushButton(centralWidget);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setGeometry(QRect(100, 250, 75, 23));
         helloqtClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(helloqtClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -113,6 +117,7 @@ public:
 
         retranslateUi(helloqtClass);
         QObject::connect(Match, SIGNAL(clicked()), helloqtClass, SLOT(Btn_MatchClick()));
+        QObject::connect(pushButton, SIGNAL(clicked()), progressBar, SLOT(reset()));
 
         QMetaObject::connectSlotsByName(helloqtClass);
     } // setupUi
@@ -125,6 +130,7 @@ public:
         InputStrLineEdit->setText(QString());
         label_3->setText(QApplication::translate("helloqtClass", "output file path", Q_NULLPTR));
         label->setText(QApplication::translate("helloqtClass", "match string", Q_NULLPTR));
+        pushButton->setText(QApplication::translate("helloqtClass", "PushButton", Q_NULLPTR));
     } // retranslateUi
 
 };

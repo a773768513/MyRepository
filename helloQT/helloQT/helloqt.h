@@ -15,7 +15,6 @@ public:
 	char* QStringToChar(QString QSOriginStr,char**StrArray);
 
 	void  InputUIDataMatch();
-	void  ProgressBarRun();
 
 private:
 	Ui::helloqtClass ui;
