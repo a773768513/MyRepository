@@ -77,7 +77,7 @@ void CPackageInput::ConfirmBtn()
 }
 void  CPackageInput::On_TextBrowser_TextChange()
 {
-	ui.textBrowser->moveCursor(QTextCursor::End);
+	ui.textBrowser->moveCursor(QTextCursor::End);	
 }
 /**************************************************************
 @brief    

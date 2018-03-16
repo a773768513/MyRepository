@@ -122,7 +122,7 @@ int CPackageInput::MatchStrOriginFile(char* pMatchStr, char* pInputOriginFile)
 	char *pGetPackage = (char*)malloc(sizeof(char)* PACKAGE_LENGTH); ///malloc a enough space to store all the data of a package
 	JudgeMemory(pGetPackage);
 	char pDataBuf[READ_SIZE];
-	memset(pDataBuf, 0, READ_SIZE);
+	
 	int  ReadEveryLength(0);
 	int  ReadedPackageLength(0);                                    ///judge the total length append to data                                ///
 	QString   QStrTextBrowser;
@@ -131,7 +131,7 @@ int CPackageInput::MatchStrOriginFile(char* pMatchStr, char* pInputOriginFile)
 	///write in file param
 	QString  QSWriteFileBuf;
 	char* pWriteFile;
-
+	memset(pDataBuf, 0, READ_SIZE);
 
 	fpReadFile = fopen(pInputOriginFile, "r");
 	JudgeOpenFile(fpReadFile, pInputOriginFile);
@@ -140,16 +140,18 @@ int CPackageInput::MatchStrOriginFile(char* pMatchStr, char* pInputOriginFile)
 	///delete the useless character at begin
 	while (fgets(pDataBuf, READ_SIZE, fpReadFile))
 	{
-		ReadEveryLength = strlen(pDataBuf);
 		if (!strncmp(pDataBuf, pMatchStr, MatchStrLength))
 		{
 			break;
 		}
 	}
-
+	///
+	///clear the buf
+	
 	while (!feof(fpReadFile))
 	{
 		ReadedPackageLength = 0;
+		ReadEveryLength = strlen(pDataBuf);
 		strncpy(pGetPackage + ReadedPackageLength, pDataBuf, READ_SIZE);
 		ReadedPackageLength += ReadEveryLength;
 		while (fgets(pDataBuf, READ_SIZE, fpReadFile))
@@ -162,15 +164,14 @@ int CPackageInput::MatchStrOriginFile(char* pMatchStr, char* pInputOriginFile)
 			}
 			else
 			{
+
 				break;
 			}
 		}
-		if (feof(fpReadFile))
-		{
-			break;
-		}
+		
 		QStrTextBrowser = pGetPackage;
 		ui.textBrowser->append(QStrTextBrowser);
+		
 		///
 		///judge whether to write data to write file 
 		if (BStartWriteFile)
@@ -190,8 +191,40 @@ int CPackageInput::MatchStrOriginFile(char* pMatchStr, char* pInputOriginFile)
 			}
 			fprintf(fpWriteFile, "%s", pGetPackage);
 		}
-		Sleep(1000);
+		Sleep(500);
 	}
+	///
+	///add the last package if the last package length less than 512
+	if (!strncmp(pDataBuf, pMatchStr, MatchStrLength))
+	{
+		QStrTextBrowser = pGetPackage;
+		ui.textBrowser->append(pDataBuf);
+
+		///
+		///judge whether to write data to write file 
+		if (BStartWriteFile)
+		{
+			///
+			///judge the path whether reselect
+			if (QSWriteFileBuf != this->pStorageWriteFile->text())
+			{
+				if (NULL != QSWriteFileBuf)
+				{
+					QSWriteFileBuf = this->pStorageWriteFile->text();
+					QByteArray QBWriteFileBuf = QSWriteFileBuf.toLatin1();
+					pWriteFile = QBWriteFileBuf.data();
+					fpWriteFile = fopen(pWriteFile, "a+");
+					JudgeOpenFile(fpWriteFile, pWriteFile);
+				}
+			}
+			fprintf(fpWriteFile, "%s", pDataBuf);
+		}
+	}
+
+
+
+	///
+	///free the malloc
 	free(pGetPackage);
 	return 0;
 }
