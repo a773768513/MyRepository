@@ -168,6 +168,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="HighLighterStr.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MatchStrModule.cpp" />
   </ItemGroup>
@@ -212,6 +213,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="HighLighterStr.h" />
     <ClInclude Include="MatchStrModule.h" />
     <CustomBuild Include="DialogMatch.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>

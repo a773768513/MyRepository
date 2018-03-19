@@ -4,6 +4,8 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_cpackageinput.h"
 #include "DialogMatch.h"
+#include <Windows.h>
+#include "HighLighterStr.h"
 
 ///
 ///define the length to storage the package data
@@ -38,7 +40,19 @@ public:
 	void ChangeQStringChar();
 	void TextEditCommand();
 
+	CHighLighterStr *pHighlighterStr;
+
+	struct SHighLightingRule
+	{
+		QRegExp Qpattern;
+		QTextCharFormat QFormat;
+	};
+	QVector<SHighLightingRule>  QVSHighLightingRule;
+	QTextCharFormat  QKeyStrFormat;
+
+	HANDLE hMutexTextBrowser;
 private:
+
 	Ui::CPackageInputClass ui;
 	QLineEdit *pStorageWriteFile;
 protected:

@@ -6,8 +6,8 @@
 #include <qfiledialog.h>
 #include <qevent.h>
 #include <assert.h>
+#include "HighLighterStr.h"
 bool  BStartWriteFile = 0;
-
 CPackageInput::CPackageInput(QWidget *parent)
 	: QMainWindow(parent)
 {
@@ -29,6 +29,14 @@ CPackageInput::CPackageInput(QWidget *parent)
 	///
 	///
 	ui.textEdit->installEventFilter(this);
+	///
+	//
+	hMutexTextBrowser = CreateMutex(NULL, FALSE, NULL);
+	////
+	///
+	///pHighlighterStr = new CHighLighterStr(ui.textBrowser->document());
+	///pHighlighterStr->addnewRegExp(pCDialogMatch->pQCBMatchStr->currentText());
+
 }
 
 CPackageInput::~CPackageInput()
@@ -77,7 +85,20 @@ void CPackageInput::ConfirmBtn()
 }
 void  CPackageInput::On_TextBrowser_TextChange()
 {
+	WaitForSingleObject(hMutexTextBrowser, INFINITE);
+	/**********************
+	ui.textBrowser->moveCursor(QTextCursor::Start);
+	QTextCursor  pQTCTextBrowserDocu(ui.textBrowser->document());
+	QTextDocument  *document;
+	QTextCharFormat  QTFHighlighting;
+	QTFHighlighting.setForeground(Qt::red);
+	QTextCursor   mycursor = ui.textBrowser->textCursor();
+	pQTCTextBrowserDocu = ui.textBrowser->document()->find(pCDialogMatch->pQCBMatchStr->currentText(), mycursor, QTextDocument::FindCaseSensitively);
+	pQTCTextBrowserDocu.setCharFormat(QTFHighlighting);
+	
+	*///
 	ui.textBrowser->moveCursor(QTextCursor::End);	
+	ReleaseMutex(hMutexTextBrowser);
 }
 /**************************************************************
 @brief    
@@ -146,6 +167,13 @@ bool CPackageInput::eventFilter(QObject* pObj, QEvent* pE)
 void CPackageInput::TextEditCommand()
 {
 	QString pQSTextEditBuf = ui.textEdit->toPlainText();
+	WaitForSingleObject(hMutexTextBrowser, INFINITE);
 	ui.textBrowser->append(pQSTextEditBuf);
+	ReleaseMutex(hMutexTextBrowser);
 	ui.textEdit->clear();
 }
+
+
+
+///
+

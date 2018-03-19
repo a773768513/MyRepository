@@ -9,8 +9,6 @@ Match String module
 #include "DialogMatch.h"
 #include "MatchStrModule.h"
 #include <qmessagebox.h>
-#include <Windows.h>
-#include <qtextbrowser.h>
 
 
 extern bool  BStartWriteFile;
@@ -128,6 +126,10 @@ int CPackageInput::MatchStrOriginFile(char* pMatchStr, char* pInputOriginFile)
 	QString   QStrTextBrowser;
 	int  MatchStrLength = strlen(pMatchStr);
 	///
+	///
+	pHighlighterStr = new CHighLighterStr(ui.textBrowser->document());
+	pHighlighterStr->addnewRegExp(pCDialogMatch->pQCBMatchStr->currentText());
+	///
 	///write in file param
 	QString  QSWriteFileBuf;
 	char* pWriteFile;
@@ -170,8 +172,9 @@ int CPackageInput::MatchStrOriginFile(char* pMatchStr, char* pInputOriginFile)
 		}
 		
 		QStrTextBrowser = pGetPackage;
+		WaitForSingleObject(hMutexTextBrowser, INFINITE);
 		ui.textBrowser->append(QStrTextBrowser);
-		
+		ReleaseMutex(hMutexTextBrowser);
 		///
 		///judge whether to write data to write file 
 		if (BStartWriteFile)
@@ -191,7 +194,7 @@ int CPackageInput::MatchStrOriginFile(char* pMatchStr, char* pInputOriginFile)
 			}
 			fprintf(fpWriteFile, "%s", pGetPackage);
 		}
-		Sleep(500);
+		Sleep(5000);
 	}
 	///
 	///add the last package if the last package length less than 512

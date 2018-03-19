@@ -1,6 +1,6 @@
 #include "DialogMatch.h"
 #include <qfiledialog.h>
-
+#include <qmessagebox.h>
 CDialogMatch::CDialogMatch(QWidget* parent)
 :QDialog(parent)
 {
@@ -65,7 +65,11 @@ CDialogMatch::CDialogMatch(QWidget* parent)
 
 }
 
-
+void CDialogMatch::msg_test()
+{
+	QMessageBox msg;
+	msg.exec();
+}
 CDialogMatch::~CDialogMatch()
 {
 }

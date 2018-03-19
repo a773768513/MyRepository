@@ -22,6 +22,7 @@ public:
 	QLineEdit   *pQLEInputOtiginFile;
 	QComboBox  *pQCBMatchStr;
 	QPushButton *pQPBConfirm;
+	void msg_test();
 private:
 	///
 	///connect style
