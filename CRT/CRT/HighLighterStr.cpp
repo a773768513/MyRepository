@@ -19,7 +19,7 @@ void CHighLighterStr::addnewRegExp(QString QSMatchStr)
 {
 	SHighLightingRule NewRule;
 
-	QKeyStrFormat.setForeground(Qt::blue);
+	QKeyStrFormat.setForeground(Qt::red);
 	QString QkeyStrList("^" + QSMatchStr);
 	NewRule.Qpattern = QRegExp(QkeyStrList);
 	NewRule.QFormat = QKeyStrFormat;
