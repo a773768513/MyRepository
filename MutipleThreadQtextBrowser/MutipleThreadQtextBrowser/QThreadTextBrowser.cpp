@@ -20,8 +20,8 @@ CQThreadTextBrowser::CQThreadTextBrowser(QWidget *parent)
 	connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(On_this_CustomContextMenuRequesred(const QPoint &)));
 	///connect the action and the function 
 	InitializeCriticalSectionAndSpinCount(&JudgeWriteDataCRITICAL_SECTION, 4000);
+	this->setAttribute(Qt::WA_DeleteOnClose,true);
 }
-
 CQThreadTextBrowser::~CQThreadTextBrowser()
 {
 	if (fpWriteFile != NULL)
@@ -30,15 +30,35 @@ CQThreadTextBrowser::~CQThreadTextBrowser()
 	}
 	DeleteCriticalSection(&JudgeWriteDataCRITICAL_SECTION);
 	delete  pQRingBuf;
-
+	delete pThreadTextBrowserDeleteHighlihgting;
 	delete pTextBrowserMenuActionContinueData;
 	delete pThreadTextBrowserStopWriteData;
 	delete pTextBrowserMenuActionCopy;
 	delete pHighlighterTextBrowserSelect;
 	delete pCancelHighlightrTextBrowser;
 	delete pThreadTextBrowserRightMenu;
+	///close the thread if thread is run;
+	if (pQthreadCoTextBrowser->isRunning())
+	{
+		pQthreadCoTextBrowser->InterruptThread();
+		pQthreadCoTextBrowser->wait();
+	}
+	delete pQthreadCoTextBrowser;
 }
 
+
+void CQThreadTextBrowser::AppendDataTextBrowser(char* pAppendDataCorespond)
+{
+	this->HighlightingAndAsertTextBrowser(pAppendDataCorespond);
+}
+void CQThreadTextBrowser::SetthreadPropertiesStart(QString  QSOpenFilePath)
+{
+
+	pQthreadCoTextBrowser = new  CStrProcessingThread(QSOpenFilePath,this);
+	////SNewThreadCorrespond.pCStrProcessingThread = pNewCStrProcessingThread;
+	connect(pQthreadCoTextBrowser, SIGNAL(AppendData(char*)), this, SLOT(AppendDataTextBrowser(char*)), Qt::BlockingQueuedConnection);
+	pQthreadCoTextBrowser->start();
+}
 void  CQThreadTextBrowser::HighlightingTextBrowser()
 {
 	QTextDocument *pHighlighterDocument = this->document();
@@ -107,10 +127,10 @@ void CQThreadTextBrowser::HighlignhtingLastStr()
 void CQThreadTextBrowser::OutputRingBufData()
 {
 	char  *pBufLineData = (char*)malloc(sizeof(char)*RING_BUF_LENGTH);    /// malloc memory to storge the data in ring buf 
-	pBufLineData = this->pQRingBuf->ReadOneLineRingBufReadData(pBufLineData);    ///read a line in ring buf 
-	this->moveCursor(QTextCursor::End);
-	On_pCancelHighlightrTextBrowser_Triggered();
-	while (NULL != pBufLineData)
+	char  *JudgeNULL;
+	JudgeNULL = this->pQRingBuf->ReadOneLineRingBufReadData(pBufLineData);    ///read a line in ring buf 
+
+	while (NULL != JudgeNULL)
 	{
 		this->moveCursor(QTextCursor::End);
 		QString QSLineData = pBufLineData;
@@ -118,7 +138,7 @@ void CQThreadTextBrowser::OutputRingBufData()
 		this->moveCursor(QTextCursor::End);
 		///highlighting the last line (new add line )
 		HighlignhtingLastStr();
-		pBufLineData = this->pQRingBuf->ReadOneLineRingBufReadData(pBufLineData);   ///cycle read a line until the ringbuf is emrty
+		JudgeNULL = this->pQRingBuf->ReadOneLineRingBufReadData(pBufLineData);   ///cycle read a line until the ringbuf is emrty
 	}
 	delete pBufLineData;
 }
@@ -152,6 +172,10 @@ void CQThreadTextBrowser::CreatethisRightMouseButtonMenu()
 	pThreadTextBrowserStopWriteData = new QAction;
 	pThreadTextBrowserStopWriteData->setText("StopRecording");
 	connect(pThreadTextBrowserStopWriteData, SIGNAL(triggered()), this, SLOT(On_pThreadTextBrowserStopWriteData_Triggered()));
+	///action to delete the Highlighting 
+	pThreadTextBrowserDeleteHighlihgting = new QAction;
+	pThreadTextBrowserDeleteHighlihgting->setText("ClearHighlighter");
+	connect(pThreadTextBrowserDeleteHighlihgting, SIGNAL(triggered()), this, SLOT(On_pThreadTextBrowserDeleteHighlihgting_Triggered()));
 	///
 	pThreadTextBrowserRightMenu->addAction(pTextBrowserMenuActionContinueData);
 	pThreadTextBrowserRightMenu->addSeparator();
@@ -161,6 +185,8 @@ void CQThreadTextBrowser::CreatethisRightMouseButtonMenu()
 	pThreadTextBrowserRightMenu->addAction(pCancelHighlightrTextBrowser);
 	pThreadTextBrowserRightMenu->addSeparator();
 	pThreadTextBrowserRightMenu->addAction(pThreadTextBrowserStopWriteData);
+	pThreadTextBrowserRightMenu->addSeparator();
+	pThreadTextBrowserRightMenu->addAction(pThreadTextBrowserDeleteHighlihgting);
 }
 
 void CQThreadTextBrowser::On_pTextBrowserMenuActionContinueData_Triggered()
@@ -220,6 +246,61 @@ void CQThreadTextBrowser::On_pThreadTextBrowserStopWriteData_Triggered()
 	}
 	LeaveCriticalSection(&(this->JudgeWriteDataCRITICAL_SECTION));
 }
+
+void CQThreadTextBrowser::On_pThreadTextBrowserDeleteHighlihgting_Triggered()
+{
+	///create the dialog and set the attribute 
+	pQDialogClearHighlighting = new QDialog;
+	pQDialogClearHighlighting->setAttribute(Qt::WA_DeleteOnClose, true);
+	///new a layout 
+	pQGridLayoutDialogClearHighlighting = new QGridLayout(pQDialogClearHighlighting);
+	QString HighlightingStr;
+	pQComboBoxShowStr = new QComboBox(pQDialogClearHighlighting);
+	pQComboBoxShowStr->addItem("");
+	for each (HighlighterStrColor HiglightingStr in QVectorHighligingRule)
+	{
+		HighlightingStr = HiglightingStr.QRegExpHighlighterStr.pattern();
+		pQComboBoxShowStr->addItem(HighlightingStr);
+	}
+	connect(pQComboBoxShowStr, SIGNAL(currentIndexChanged(int )), this, SLOT(On_currentIndexChanged_pQComboBoxShowStr(int)));
+	pQLabelExampleColor = new QLabel(pQDialogClearHighlighting);
+	pQLabelExampleColor->setText("Example");
+	///Confirm and Cancel Button
+	pPushButtonClearHighlightingComfirm = new QPushButton(pQDialogClearHighlighting);
+	pPushButtonClearHighlightingComfirm->setText("Confirm");
+	connect(pPushButtonClearHighlightingComfirm, SIGNAL(clicked()), this, SLOT(On_pPushButtonClearHighlightingComfirm_Triggered()));
+	pPushButtonClearHighlightingCancel = new QPushButton(pQDialogClearHighlighting);
+	pPushButtonClearHighlightingCancel->setText("Cancel");
+	connect(pPushButtonClearHighlightingCancel, SIGNAL(clicked()), this, SLOT(On_pPushButtonClearHighlightingCancel_Triggered()));
+	///set dialog widget
+	pQGridLayoutDialogClearHighlighting->addWidget(pQComboBoxShowStr, 0, 0, 1, 2);
+	pQGridLayoutDialogClearHighlighting->addWidget(pQLabelExampleColor, 0, 2, 1, 1);
+	pQGridLayoutDialogClearHighlighting->addWidget(pPushButtonClearHighlightingComfirm, 1, 1, 1, 1);
+	pQGridLayoutDialogClearHighlighting->addWidget(pPushButtonClearHighlightingCancel, 1, 2, 1, 1);
+	pQGridLayoutDialogClearHighlighting->setHorizontalSpacing(15);
+	pQGridLayoutDialogClearHighlighting->setMargin(10);
+
+	pQDialogClearHighlighting->exec();
+}
+void CQThreadTextBrowser::On_pPushButtonClearHighlightingComfirm_Triggered()
+{
+	int  CurrentIndex = (pQComboBoxShowStr->currentIndex() -1);
+	QVectorHighligingRule.removeAt(CurrentIndex);
+	pQDialogClearHighlighting->close();
+}
+void CQThreadTextBrowser::On_pPushButtonClearHighlightingCancel_Triggered()
+{
+	pQDialogClearHighlighting->close();
+}
+void CQThreadTextBrowser::On_currentIndexChanged_pQComboBoxShowStr(int index)
+{
+	/*****************
+	QColor  QCorrespondColor = QVectorHighligingRule.at(index-1).QtextCharFormatColor.underlineColor();
+	QPalette  pa;
+	pa.setColor(QPalette::WindowText, QCorrespondColor);
+	pQLabelExampleColor->setPalette(pa);
+	************************/
+}
 void CQThreadTextBrowser::AddHighlightingRule(QString pAddRegExp,QColor* pAddColor)
 {
 	HighlighterStrColor  HighlighterNewRule;
@@ -244,9 +325,9 @@ void CQThreadTextBrowser::AddHighlightingRule(QString pAddRegExp,QColor* pAddCol
 	if (true == bFindSuccess)
 	{
 		QVectorHighligingRule.replace(QVectorHighligingRuleindex, HighlighterNewRule);
+		return;
 	}
 	QVectorHighligingRule.append(HighlighterNewRule);
-	delete pAddColor;
 }
 FILE* CQThreadTextBrowser::GetTextBrowserCorFile()
 {

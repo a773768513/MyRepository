@@ -59,6 +59,8 @@ void CMutipleThreadQtextBrowser::CreateHighlightingWindows()
 	pQDialogHighlighter->setAttribute(Qt::WA_DeleteOnClose, true);
 	pQgridLayoutHighlighterDialog = new QGridLayout(pQDialogHighlighter);
 	pQDialogHighlighter->resize(QSize(280, 150));
+	pQgridLayoutHighlighterDialog->setMargin(20);
+	pQgridLayoutHighlighterDialog->setSpacing(15);
 	/// combobox to input highlighter string
 	pQComboBoxHighlighterDialogStr = new QComboBox(pQDialogHighlighter);
 	pQComboBoxHighlighterDialogStr->setEditable(1);
@@ -94,8 +96,11 @@ void CMutipleThreadQtextBrowser::CreateWriteFileWindow()
 {
 	///dialog and gridlayout 
 	pWriteDialog = new QDialog;
+	pWriteDialog->resize(QSize(280, 150));
 	pWriteDialog->setAttribute(Qt::WA_DeleteOnClose, true);
 	pWriteGridLayout = new QGridLayout(pWriteDialog);
+	pWriteGridLayout->setMargin(20);
+	pWriteGridLayout->setSpacing(15);
 	pQWriteDialogEdit = new QLineEdit(pWriteDialog);
 	///add  linedit  and open file button
 	pWriteGridLayout->addWidget(pQWriteDialogEdit, 0, 0, 1, 2);
@@ -132,12 +137,10 @@ void CMutipleThreadQtextBrowser::On_pQPushButttonOpenFileConfirm_Clicked()
 	///set max line and warp mode 
 	pCQThreadTextBrowser = new CQThreadTextBrowser;
 	pQMainTabWidget->addTab(pCQThreadTextBrowser, TabTitle);
+	pCQThreadTextBrowser->SetthreadPropertiesStart(TabTitle);
+	///connect the signal and the widgets close event
+	connect(pQMainTabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(On_tabCloseRequested_Triggered(int )));
 
-	pNewCStrProcessingThread = new  CStrProcessingThread(TabTitle, pCQThreadTextBrowser);
-	////SNewThreadCorrespond.pCStrProcessingThread = pNewCStrProcessingThread;
-
-	connect(pNewCStrProcessingThread, SIGNAL(AppendData(AppendDataCorrespond*)), this, SLOT(AppendDataTextBrowser(AppendDataCorrespond*)), Qt::BlockingQueuedConnection);
-	pNewCStrProcessingThread->start();
 }
 void CMutipleThreadQtextBrowser::On_pQPushButtonOpenFileCancel_Clicked()
 {
@@ -145,7 +148,6 @@ void CMutipleThreadQtextBrowser::On_pQPushButtonOpenFileCancel_Clicked()
 }
 void CMutipleThreadQtextBrowser::On_pQOpenColorDialog_Triggered()
 {
-	pQColorSelected = new QColor;
 	*pQColorSelected = QColorDialog::getColor(Qt::black, this);
 	QPalette  pa;
 	pa.setColor(QPalette::WindowText, *pQColorSelected);
@@ -165,6 +167,7 @@ void CMutipleThreadQtextBrowser::On_pQHighlighterDialogConfirm_Triggered()
 	if (NULL == pQTextbrowserContinue)
 	{
 		QMessageBoxFailure("tranfer type failure");
+		return;
 	}
 	pQTextbrowserContinue->AddHighlightingRule(QSCurrentHighlightingStr, pQColorSelected);
 	pQTextbrowserContinue->HighlightingTextBrowser();
@@ -203,7 +206,10 @@ void CMutipleThreadQtextBrowser::On_pQWriteDialogCancelButton_clicked()
 {
 	pWriteDialog->close();
 }
-void CMutipleThreadQtextBrowser::AppendDataTextBrowser(AppendDataCorrespond* pAppendDataCorespond)
+
+///close slot and delete this widgets
+void CMutipleThreadQtextBrowser::On_tabCloseRequested_Triggered(int CurrentIndex)
 {
-	pAppendDataCorespond->ThreadCorrespondTextbrowser->HighlightingAndAsertTextBrowser(pAppendDataCorespond->LineData);
+	CQThreadTextBrowser *pStopTextBrowser = dynamic_cast<CQThreadTextBrowser*>(pQMainTabWidget->currentWidget());
+	pStopTextBrowser->close();
 }

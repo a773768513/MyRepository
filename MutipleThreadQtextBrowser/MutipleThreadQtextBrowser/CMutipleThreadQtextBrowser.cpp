@@ -5,7 +5,7 @@ CMutipleThreadQtextBrowser::CMutipleThreadQtextBrowser(QWidget *parent)
 {
 	SetMainWindows();
 	AddMainMenuAction();
-
+	pQColorSelected = new QColor(Qt::black);
 }
 
 
@@ -44,12 +44,15 @@ CMutipleThreadQtextBrowser::~CMutipleThreadQtextBrowser()
 	delete pQMainGridLayout;
 	delete pQMainTabWidget;
 	delete pQMainWidget;
+	delete pQColorSelected;
 }
 
 
 void CMutipleThreadQtextBrowser::SetMainWindows()
 {
 	pQMainTabWidget = new QTabWidget;
+	pQMainTabWidget->setTabsClosable(true);      ///<set whether close able 
+
 	pQMainWidget = new QWidget;
 	pQMainGridLayout = new QGridLayout(this);
 	pQMainTextEdit = new QTextEdit;

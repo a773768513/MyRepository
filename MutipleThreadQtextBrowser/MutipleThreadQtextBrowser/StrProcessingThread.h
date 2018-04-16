@@ -1,6 +1,6 @@
 #pragma once
 #include <qthread.h>
-#include "QThreadTextBrowser.h"
+#include <qmutex.h>
 ///
 ///define the length to storage the package data
 #ifndef __PACKAGE_LENGTH__
@@ -14,6 +14,8 @@
 #define READ_SIZE  512
 #endif // !__READ-SIZE__
 
+class CQThreadTextBrowser;
+
 class CStrProcessingThread :
 	public QThread
 {
@@ -23,21 +25,17 @@ public:
 	~CStrProcessingThread();
 	CQThreadTextBrowser *CSTCQThreadTextBrowser;
 	QString  CSTQSOpenFilePath;
+	void  InterruptThread();
 protected:
 	virtual void run();
 private:
+	QMutex  *QMutexJudgeThreadReturn;
 	QString  CSTQSTabText;
 	FILE* pfDateBufFile;         /// buf the data real time 
 	
 	void ChangeQStringChar();
 	void OpenOriginFile(char* pInputOriginFile);
-	struct AppendDataCorrespond
-	{
-		char* LineData;
-		CQThreadTextBrowser*  ThreadCorrespondTextbrowser;
-	};
-
 signals:
-	void AppendData(AppendDataCorrespond *AppendDataCorespond);
+	void AppendData(char *AppendDataCorespond);
 };
 

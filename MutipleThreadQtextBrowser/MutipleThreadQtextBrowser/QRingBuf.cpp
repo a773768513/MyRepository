@@ -53,11 +53,17 @@ void QRingBuf::RingBufWriteData(char* pInputData)
 			strncpy(prbTail, pInputData, RING_BUF_LENGTH);
 			prbTail = NextDataHandle(prbTail);
 		}
+		else
+		{
+			prbHead = NextDataHandle(prbHead);
+			strncpy(prbTail, pInputData, RING_BUF_LENGTH);
+			prbTail = NextDataHandle(prbTail);
+		}
 	}
 	else
 	{
 		prbHead = NextDataHandle(prbHead);
-		strncpy(prbAfterTail, pInputData, RING_BUF_LENGTH);
+		strncpy(prbTail, pInputData, RING_BUF_LENGTH);
 		prbTail = NextDataHandle(prbTail);
 	}
 }

@@ -84,9 +84,6 @@ private:
 	void CreateOpenFileChildWindows();
 	void CreateHighlightingWindows();
 	void CreateWriteFileWindow();
-public slots:
-    ///slot  to accept data in thread
-	void AppendDataTextBrowser(AppendDataCorrespond* pAppendDataCorespond);
 private slots:
     /// main Menu Action to Open Child Windows(in ChildWindowsAncorSlot.cpp)
 	void On_pQOpenFileDialogAction_Triggered();
@@ -107,4 +104,7 @@ private slots:
 	void On_pQWriteDialogFileButton_clicked();
 	void On_pQWriteDialogConfirmButton_clicked();
 	void On_pQWriteDialogCancelButton_clicked();
+	///close slot and delete this widgets
+	void On_tabCloseRequested_Triggered(int CurrentIndex);
+
 };

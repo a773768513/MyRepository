@@ -1,4 +1,4 @@
-#include "StrProcessingThread.h"
+#include "QThreadTextBrowser.h"
 #include <Windows.h>
 #include <qcolor.h>
 #include "AssertModule.h"
@@ -7,12 +7,12 @@ CStrProcessingThread::CStrProcessingThread(QString  QSOpenFilePath, CQThreadText
 {
 	this->CSTQSOpenFilePath = QSOpenFilePath;
 	this->CSTCQThreadTextBrowser = ThreadTextbrower;
+	QMutexJudgeThreadReturn = new QMutex;
+	QMutexJudgeThreadReturn->lock();
 }
-
-
 CStrProcessingThread::~CStrProcessingThread()
 {
-
+	delete QMutexJudgeThreadReturn;
 }
 void CStrProcessingThread::run()
 {
@@ -31,9 +31,6 @@ void CStrProcessingThread::OpenOriginFile(char* pInputOriginFile)
 	FILE *fpWriteFile;         ///<file pointer to open write in file 
 	fpWriteFile = CSTCQThreadTextBrowser->GetTextBrowserCorFile();
 	///record the thread correspond main widget information
-	AppendDataCorrespond *pAppendDataCorespond;
-	pAppendDataCorespond = new AppendDataCorrespond;
-	pAppendDataCorespond->ThreadCorrespondTextbrowser = CSTCQThreadTextBrowser;
 
 	char *pGetPackage = (char*)malloc(sizeof(char)* PACKAGE_LENGTH); ///malloc a enough space to store all the data of a package
 	JudgeMemory(pGetPackage);
@@ -64,8 +61,7 @@ void CStrProcessingThread::OpenOriginFile(char* pInputOriginFile)
 			}
 			pDataBuf[READ_SIZE - 2] = '\n';
 		}
-		pAppendDataCorespond->LineData = pGetPackage;
-		emit AppendData(pAppendDataCorespond);
+		emit AppendData(pGetPackage);
 		EnterCriticalSection(&(CSTCQThreadTextBrowser->JudgeWriteDataCRITICAL_SECTION));
 		fpWriteFile = CSTCQThreadTextBrowser->GetTextBrowserCorFile();
 		if (NULL != fpWriteFile)
@@ -74,10 +70,19 @@ void CStrProcessingThread::OpenOriginFile(char* pInputOriginFile)
 		}
 		LeaveCriticalSection(&(CSTCQThreadTextBrowser->JudgeWriteDataCRITICAL_SECTION));
 		Sleep(1000);
+		if (QMutexJudgeThreadReturn->tryLock())
+		{
+			return;
+		}
 	}
+	///pAppendDataCorespond->ThreadCorrespondTextbrowser = NULL;
 	///
 	///free the malloc
 	free(pGetPackage);
-	fclose(pfDateBufFile);
-	delete pAppendDataCorespond;
+	fclose(fpReadFile);
+}
+
+void  CStrProcessingThread::InterruptThread()
+{
+	QMutexJudgeThreadReturn->unlock();
 }
