@@ -44,7 +44,16 @@ CQThreadTextBrowser::~CQThreadTextBrowser()
 	delete pCancelHighlightrTextBrowser;
 	delete pThreadTextBrowserRightMenu;
 	///close the thread if thread is run;
+<<<<<<< HEAD:COMPortsTool/COMPortsTool/QThreadTextBrowser.cpp
 	
+=======
+	if (pQthreadCoTextBrowser->isRunning())
+	{
+		pQthreadCoTextBrowser->InterruptThread();
+		pQthreadCoTextBrowser->wait();
+	}
+	delete pQthreadCoTextBrowser;
+>>>>>>> 350336f8453755b0c8b8623fc0df203f4a273589:MutipleThreadQtextBrowser/MutipleThreadQtextBrowser/QThreadTextBrowser.cpp
 }
 
 
@@ -52,7 +61,14 @@ void CQThreadTextBrowser::AppendDataTextBrowser(char* pAppendDataCorespond)
 {
 	this->HighlightingAndAsertTextBrowser(pAppendDataCorespond);
 }
+void CQThreadTextBrowser::SetthreadPropertiesStart(QString  QSOpenFilePath)
+{
 
+	pQthreadCoTextBrowser = new  CStrProcessingThread(QSOpenFilePath,this);
+	////SNewThreadCorrespond.pCStrProcessingThread = pNewCStrProcessingThread;
+	connect(pQthreadCoTextBrowser, SIGNAL(AppendData(char*)), this, SLOT(AppendDataTextBrowser(char*)), Qt::BlockingQueuedConnection);
+	pQthreadCoTextBrowser->start();
+}
 void  CQThreadTextBrowser::HighlightingTextBrowser()
 {
 	QTextDocument *pHighlighterDocument = this->document();
@@ -121,6 +137,10 @@ void CQThreadTextBrowser::HighlignhtingLastStr()
 }
 void CQThreadTextBrowser::OutputRingBufData()
 {
+<<<<<<< HEAD:COMPortsTool/COMPortsTool/QThreadTextBrowser.cpp
+=======
+	char  *pBufLineData = (char*)malloc(sizeof(char)*RING_BUF_LENGTH);    /// malloc memory to storge the data in ring buf 
+>>>>>>> 350336f8453755b0c8b8623fc0df203f4a273589:MutipleThreadQtextBrowser/MutipleThreadQtextBrowser/QThreadTextBrowser.cpp
 	char  *JudgeNULL;
 	JudgeNULL = this->pQRingBuf->ReadOneLineRingBufReadData(pBufLineData);    ///read a line in ring buf 
 
