@@ -23,9 +23,11 @@ CStructDataModule::~CStructDataModule()
 
 int CStructDataModule::StorageTheInformation(char* pInputString, int length)
 {
-	char *pSeekHeader = pInputString;
-	unsigned int MarkerPosition = 0;
-	char ChecksumBuf[4];
+	char *pSeekHeader = pInputString;      /// storage the header to compare
+	unsigned int MarkerPosition = 0;       ///the length before # or $;
+	unsigned long LChecksumDataLength;    ///checksum data length  NOT have # and *checksum;
+	unsigned  char* pChecksumData;        ///point  checksum data   NOT have # and *checksum;
+	char ChecksumBuf[4];                  ///buffer for checksum 
 	memset(ChecksumBuf, 0, 4);
 	while (('#' != *(pSeekHeader + MarkerPosition)) || ('$' != *(pSeekHeader + MarkerPosition)))
 	{
@@ -44,9 +46,10 @@ int CStructDataModule::StorageTheInformation(char* pInputString, int length)
 		memcpy(ChecksumBuf, StorageStructData[CurrentStorageStructDataIndex] + StorageStructDataSize[CurrentStorageStructDataIndex] - 1, 1);
 		///change the type from char* to QString 
 		unsigned char NMEAChecksum = (unsigned char)ChecksumBuf[0];
-		if (CheckNMEADataCorrectness(
-			StorageStructDataSize[CurrentStorageStructDataIndex],
-			(unsigned char*)(StorageStructData[CurrentStorageStructDataIndex]),
+		LChecksumDataLength = StorageStructDataSize[CurrentStorageStructDataIndex] - 2;
+		pChecksumData = (unsigned char*)(StorageStructData[CurrentStorageStructDataIndex]);
+		if (CheckNMEADataCorrectness(LChecksumDataLength,
+			pChecksumData,
 			NMEAChecksum))
 		{
 			qDebug("the data is correct");
@@ -67,9 +70,11 @@ int CStructDataModule::StorageTheInformation(char* pInputString, int length)
 		///change the type from char* to unsigned long 
 		QString QSChangeCharLongBuf = ChecksumBuf;
 		unsigned long LFeiNaCheckSum = QSChangeCharLongBuf.toLong();
+		LChecksumDataLength = StorageStructDataSize[CurrentStorageStructDataIndex];
+		pChecksumData = (unsigned char*)(StorageStructData[CurrentStorageStructDataIndex]);
 		if (CheckFeiNaDataCorrectness(
-			StorageStructDataSize[CurrentStorageStructDataIndex],
-			(unsigned char*)(StorageStructData[CurrentStorageStructDataIndex]),
+			LChecksumDataLength,
+			pChecksumData,
 			LFeiNaCheckSum))
 		{
 			qDebug("the data is correct");
