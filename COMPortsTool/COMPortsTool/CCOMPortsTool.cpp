@@ -5,29 +5,19 @@ CCOMPortsTool::CCOMPortsTool(QWidget *parent)
 {
 	SetMainWindows();
 	AddMainMenuAction();
-<<<<<<< HEAD:COMPortsTool/COMPortsTool/CCOMPortsTool.cpp
-=======
-	pQColorSelected = new QColor(Qt::black);
->>>>>>> 350336f8453755b0c8b8623fc0df203f4a273589:MutipleThreadQtextBrowser/MutipleThreadQtextBrowser/CMutipleThreadQtextBrowser.cpp
 }
 
 CCOMPortsTool::~CCOMPortsTool()
 {
 	delete pQMainWidget;
-	delete pQColorSelected;
 }
 
 void CCOMPortsTool::SetMainWindows()
 {
-<<<<<<< HEAD:COMPortsTool/COMPortsTool/CCOMPortsTool.cpp
 	pQMainTabWidget = new QTabWidget(this);
 	pQMainTabWidget->setTabsClosable(true);      ///<set whether close able 
 	///connect the signal and the widgets close event
 	connect(pQMainTabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(On_tabCloseRequested_Triggered(int)));
-=======
-	pQMainTabWidget = new QTabWidget;
-	pQMainTabWidget->setTabsClosable(true);      ///<set whether close able 
->>>>>>> 350336f8453755b0c8b8623fc0df203f4a273589:MutipleThreadQtextBrowser/MutipleThreadQtextBrowser/CMutipleThreadQtextBrowser.cpp
 
 	pQMainWidget = new QWidget;
 	pQMainGridLayout = new QGridLayout(this);

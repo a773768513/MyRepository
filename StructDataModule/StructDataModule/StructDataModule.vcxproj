@@ -117,6 +117,7 @@
     <ClCompile Include="CRCChecksum.cpp" />
     <ClCompile Include="CStructDataModule.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="QReadDataThread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="CStructDataModule.h" />
@@ -129,6 +130,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CRCChecksum.h" />
+    <ClInclude Include="QReadDataThread.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="StructDataModule.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

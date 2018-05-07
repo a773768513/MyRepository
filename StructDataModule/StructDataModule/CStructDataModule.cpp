@@ -1,12 +1,14 @@
 #include "CStructDataModule.h"
 #include <qdebug.h>
 #include "CRCChecksum.h"
-
+#include <qfiledialog.h>
 CStructDataModule::CStructDataModule(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
 	Initial();
+	///signal and slots 
+	
 }
 
 bool CStructDataModule::Initial()
@@ -14,6 +16,18 @@ bool CStructDataModule::Initial()
 	StorageStructDataSize[0] = 0;
 	StorageStructDataSize[1] = 0;
 	CurrentStorageStructDataIndex = 0;
+	return 1;
+}
+
+void CStructDataModule::On_PushButton_Clicked()
+{
+	QString  QSOpenFilePath = QFileDialog::getOpenFileName(NULL, "OpenFile", ".", NULL);
+	ui.lineEdit->setText(QSOpenFilePath);
+}
+void CStructDataModule::On_StartPushButton2_Clicked()
+{
+	pCQReadDataThread = new CQReadDataThread;
+	pCQReadDataThread->WriteOpenFilePath();
 }
 
 CStructDataModule::~CStructDataModule()
@@ -70,7 +84,7 @@ int CStructDataModule::StorageTheInformation(char* pInputString, int length)
 		///change the type from char* to unsigned long 
 		QString QSChangeCharLongBuf = ChecksumBuf;
 		unsigned long LFeiNaCheckSum = QSChangeCharLongBuf.toLong();
-		LChecksumDataLength = StorageStructDataSize[CurrentStorageStructDataIndex];
+		LChecksumDataLength = StorageStructDataSize[CurrentStorageStructDataIndex] -5;
 		pChecksumData = (unsigned char*)(StorageStructData[CurrentStorageStructDataIndex]);
 		if (CheckFeiNaDataCorrectness(
 			LChecksumDataLength,

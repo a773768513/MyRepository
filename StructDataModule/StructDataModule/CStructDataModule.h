@@ -4,6 +4,7 @@
 #include "ui_CStructDataModule.h"
 #include <stdio.h>
 #include <tchar.h>
+#include <QReadDataThread.h>
 
 #ifndef  SINGLE_DATA_LENGTH
 #define  SINGLE_DATA_LENGTH   1024*8
@@ -16,6 +17,7 @@ class CStructDataModule : public QMainWindow
 public:
 	CStructDataModule(QWidget *parent = Q_NULLPTR);
 
+	~CStructDataModule();
 private:
 	Ui::CStructDataModuleClass ui;
 public:
@@ -53,7 +55,8 @@ private:
 		unsigned long  GGACheckSum;
 	};
 	StrGGAData  GGAData;
-
+	QString  QSOpenFilePath;
+	CQReadDataThread *pCQReadDataThread;
 private:
 	bool Initial();
 	void DataImportStruct();
@@ -62,4 +65,8 @@ private:
 	bool CheckNMEADataCorrectness(unsigned long ulCount, unsigned char *ucBuffer, unsigned char AcceptedChecksum);
 	bool CheckFeiNaDataCorrectness(unsigned long ulCount, unsigned char *ucBuffer, unsigned long AcceptedChecksum);
 
+public slots:
+   void On_PushButton_Clicked();
+   void On_StartPushButton2_Clicked();
+  
 };

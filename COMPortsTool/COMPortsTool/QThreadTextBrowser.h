@@ -3,11 +3,7 @@
 #include <QtWidgets/QMainWindow>
 #include <qtextbrowser.h>
 #include "QRingBuf.h"
-<<<<<<< HEAD:COMPortsTool/COMPortsTool/QThreadTextBrowser.h
 #include "UartProcessEmitData.h"
-=======
-#include "StrProcessingThread.h"
->>>>>>> 350336f8453755b0c8b8623fc0df203f4a273589:MutipleThreadQtextBrowser/MutipleThreadQtextBrowser/QThreadTextBrowser.h
 #include <qmenu.h>
 #include <qaction.h>
 #include <qcolor.h>
@@ -33,21 +29,12 @@ public:
 	void  ResetfpWriteFile();
 	///add Critical section to protect the fpwritefile;
 	CRITICAL_SECTION  JudgeWriteDataCRITICAL_SECTION;
-<<<<<<< HEAD:COMPortsTool/COMPortsTool/QThreadTextBrowser.h
 	/// initial the  and connect 
 	void StartPortsConnect(const TCHAR * ptcUartName, unsigned int BaudRate = 460800);
 private:
 	CUartProcessEmitData* TextBrowserCorUartProcess;
 	///create the ring buf to storage data
 	char  pBufLineData[RING_BUF_LENGTH];    /// malloc memory to storge the data in ring buf 
-=======
-	///set thread start 
-	void  SetthreadPropertiesStart(QString  QSOpenFilePath);
-private:
-	/// start and stop the thread
-	CStrProcessingThread *pQthreadCoTextBrowser;
-	///create the ring buf to storage data
->>>>>>> 350336f8453755b0c8b8623fc0df203f4a273589:MutipleThreadQtextBrowser/MutipleThreadQtextBrowser/QThreadTextBrowser.h
 	QRingBuf *pQRingBuf;
 	FILE*  fpWriteFile;
 	struct HighlighterStrColor
@@ -95,11 +82,8 @@ private slots:
 	void On_pPushButtonClearHighlightingCancel_Triggered();
 	///write data in this text browser
 	void AppendDataTextBrowser(char* pAppendDataCorespond);
-<<<<<<< HEAD:COMPortsTool/COMPortsTool/QThreadTextBrowser.h
 signals:
 	///emit the data 
 	void EmitDataOutThread(char* EmitData);
-=======
->>>>>>> 350336f8453755b0c8b8623fc0df203f4a273589:MutipleThreadQtextBrowser/MutipleThreadQtextBrowser/QThreadTextBrowser.h
 };
 
