@@ -130,7 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CRCChecksum.h" />
-    <ClInclude Include="QReadDataThread.h" />
+    <QtMoc Include="QReadDataThread.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

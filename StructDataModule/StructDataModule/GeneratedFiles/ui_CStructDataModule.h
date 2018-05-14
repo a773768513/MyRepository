@@ -59,6 +59,10 @@ public:
     QLabel *label_12;
     QLabel *label_13;
     QLabel *label_14;
+    QPushButton *pushButton_2;
+    QLineEdit *lineEdit_16;
+    QPushButton *pushButton_3;
+    QPushButton *pushButton_4;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -67,7 +71,7 @@ public:
     {
         if (CStructDataModuleClass->objectName().isEmpty())
             CStructDataModuleClass->setObjectName(QStringLiteral("CStructDataModuleClass"));
-        CStructDataModuleClass->resize(600, 400);
+        CStructDataModuleClass->resize(600, 450);
         centralWidget = new QWidget(CStructDataModuleClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         lineEdit = new QLineEdit(centralWidget);
@@ -75,7 +79,7 @@ public:
         lineEdit->setGeometry(QRect(10, 10, 341, 21));
         pushButton = new QPushButton(centralWidget);
         pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(380, 10, 75, 23));
+        pushButton->setGeometry(QRect(380, 10, 141, 23));
         lineEdit_2 = new QLineEdit(centralWidget);
         lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
         lineEdit_2->setGeometry(QRect(60, 60, 113, 20));
@@ -160,6 +164,18 @@ public:
         label_14 = new QLabel(centralWidget);
         label_14->setObjectName(QStringLiteral("label_14"));
         label_14->setGeometry(QRect(180, 300, 47, 13));
+        pushButton_2 = new QPushButton(centralWidget);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        pushButton_2->setGeometry(QRect(410, 240, 75, 23));
+        lineEdit_16 = new QLineEdit(centralWidget);
+        lineEdit_16->setObjectName(QStringLiteral("lineEdit_16"));
+        lineEdit_16->setGeometry(QRect(10, 30, 341, 20));
+        pushButton_3 = new QPushButton(centralWidget);
+        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
+        pushButton_3->setGeometry(QRect(380, 40, 141, 23));
+        pushButton_4 = new QPushButton(centralWidget);
+        pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
+        pushButton_4->setGeometry(QRect(380, 320, 151, 23));
         CStructDataModuleClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(CStructDataModuleClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -180,7 +196,7 @@ public:
     void retranslateUi(QMainWindow *CStructDataModuleClass)
     {
         CStructDataModuleClass->setWindowTitle(QApplication::translate("CStructDataModuleClass", "CStructDataModule", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("CStructDataModuleClass", "PushButton", Q_NULLPTR));
+        pushButton->setText(QApplication::translate("CStructDataModuleClass", "OpenGGAData", Q_NULLPTR));
         label->setText(QApplication::translate("CStructDataModuleClass", "Message ID", Q_NULLPTR));
         label_2->setText(QApplication::translate("CStructDataModuleClass", "UTC Time", Q_NULLPTR));
         label_3->setText(QApplication::translate("CStructDataModuleClass", "Latitude", Q_NULLPTR));
@@ -195,6 +211,9 @@ public:
         label_12->setText(QApplication::translate("CStructDataModuleClass", "Age", Q_NULLPTR));
         label_13->setText(QApplication::translate("CStructDataModuleClass", "Diff.", Q_NULLPTR));
         label_14->setText(QApplication::translate("CStructDataModuleClass", "Checksum", Q_NULLPTR));
+        pushButton_2->setText(QApplication::translate("CStructDataModuleClass", "start", Q_NULLPTR));
+        pushButton_3->setText(QApplication::translate("CStructDataModuleClass", "OpenWriteDataFile", Q_NULLPTR));
+        pushButton_4->setText(QApplication::translate("CStructDataModuleClass", "Verifydataconversion", Q_NULLPTR));
     } // retranslateUi
 
 };

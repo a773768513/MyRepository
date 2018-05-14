@@ -9,9 +9,14 @@
 class CQReadDataThread :
 	public QThread
 {
+	Q_OBJECT
+
 public:
 	CQReadDataThread();
 	~CQReadDataThread();
+signals:
+	void  Emitemitdata(char* pData);
+	void EimtThreadStop();
 public:
 	void  WriteOpenFilePath(QString QSWriteOpenFilePath);
 protected:
@@ -24,7 +29,5 @@ private:
 	QString  QSOpenFilePath;
 	void OpenFileAndRead();
 	void CycleReadData();
-signals:
-	void emitdata(char* pData);
 };
 
