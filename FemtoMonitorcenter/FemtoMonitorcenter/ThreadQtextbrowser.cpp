@@ -22,6 +22,7 @@ void  CThreadQtextbrowser::IntitalQtextBrowser()
 	bCacheMode = false;
 	pThidQThreadTextbrowserDocument = this->document();
 	pQRingBuf = new QRingBuf;
+	BLogStates = false;
 }
 
 void  CThreadQtextbrowser::ConnectQtextbrowserSlot()
@@ -61,7 +62,9 @@ void CThreadQtextbrowser::On_this_CustomContextMenuRequesred(const QPoint &Qpoin
 	connect(pCancelHighlightrTextBrowser, SIGNAL(triggered()), this, SLOT(On_pCancelHighlightrTextBrowser_Triggered()));
 	///action to stop write data;
 	pThreadTextBrowserStopWriteData = new QAction(pThreadTextBrowserRightMenu);
-	pThreadTextBrowserStopWriteData->setText("StopRecording");
+	pThreadTextBrowserStopWriteData->setText("Stop Log");
+	
+	
 	connect(pThreadTextBrowserStopWriteData, SIGNAL(triggered()), this, SLOT(On_pThreadTextBrowserStopWriteData_Triggered()));
 	///action to delete the Highlighting 
 	pThreadTextBrowserDeleteHighlihgting = new QAction(pThreadTextBrowserRightMenu);
@@ -197,4 +200,14 @@ void CThreadQtextbrowser::OutputRingBufData()
 	
 	}
 	delete pBufLineData;
+}
+
+void CThreadQtextbrowser::CThreadQtextbrowserLogStates(bool LogStates)
+{
+	BLogStates = LogStates;
+}
+
+void CThreadQtextbrowser::On_pThreadTextBrowserStopWriteData_Triggered()
+{
+	emit emitStopLogTextbrowser();
 }

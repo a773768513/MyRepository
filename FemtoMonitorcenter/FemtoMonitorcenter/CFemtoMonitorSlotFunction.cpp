@@ -4,6 +4,7 @@
 #include <qcolor.h>
 #include <qcolordialog.h>
 #include <qpalette.h>
+#include <qsettings.h>
 /**********************************************************************//**
 @brief  slot of main windows widgets qtabwidgets close button clicked
 @param  
@@ -81,13 +82,33 @@ History:
 **************************************************************************/
 void CFemtoMonitorcenter::On_pQPushButttonOpenFileConfirm_Clicked()
 {
-	if (NULL == pQTextEditOpenFilePath->text())
+	if (NULL == pQTextEditOpenFilePath->currentText())
 	{
 		EmitQmessageInformation("Please select the serial port");
 		return;
 	}
-	QString QSOpenFilePath = pQTextEditOpenFilePath->text();
-	pQTextEditOpenFilePath->close();
+	QString QSOpenFilePath = pQTextEditOpenFilePath->currentText();
+	QSettings CFemtoMonitorCentersettings("FemtoMonitorCenter", "CRT");
+	CFemtoMonitorCentersettings.beginWriteArray("OpenFilePathSetting");
+	QString QSOpenFilePathChange = QSOpenFilePath;
+	QString originValue;
+	for (int i = 0; i < QSETTINGS_ARRAY_LENGTH; ++i)
+	{
+		CFemtoMonitorCentersettings.setArrayIndex(i);
+		originValue = CFemtoMonitorCentersettings.value("Open File String", QString("AAAAAAAAAA")).toString();
+		if (originValue == QSOpenFilePath)
+		{
+			CFemtoMonitorCentersettings.setValue("Open File String", QVariant(QSOpenFilePathChange));
+			break;
+		}
+		CFemtoMonitorCentersettings.setValue("Open File String", QVariant(QSOpenFilePathChange));
+		if (originValue == "AAAAAAAAAA")
+		{
+			break;
+		}
+		QSOpenFilePathChange = originValue;
+	}
+	CFemtoMonitorCentersettings.endArray();
 	emit emitOpenSeriousPortGUI(QSOpenFilePath);
 	pDialogOpenFile->close();
 }
@@ -115,8 +136,12 @@ History:
 **************************************************************************/
 void CFemtoMonitorcenter::On_OpenFileChildDialogSelectFile_Clicked()
 {
-	QString QSOpenFile = QFileDialog::getOpenFileName(NULL, "OpenFile", ".", NULL);
-	this->pQTextEditOpenFilePath->setText(QSOpenFile);
+	QSettings CFemtoMonitorCentersettings("FemtoMonitorCenter", "CRT");
+	CFemtoMonitorCentersettings.beginReadArray("OpenFilePathSetting");
+	CFemtoMonitorCentersettings.setArrayIndex(0);
+	QString QSOpenFilePathSetting = CFemtoMonitorCentersettings.value("Open File String", QString(".")).toString();
+	QString QSOpenFile = QFileDialog::getOpenFileName(NULL, "OpenFile", QSOpenFilePathSetting, NULL);
+	this->pQTextEditOpenFilePath->setCurrentText(QSOpenFile);
 }
 /**********************************************************************//**
 @brief slot to add Qtextbrower
@@ -131,6 +156,7 @@ void CFemtoMonitorcenter::On_CreateGUIQTextbrowserManagethread_Triggered(QString
 {
 	pCThreadQtextbrowser = new CThreadQtextbrowser(this);
 	pQMainTabWidget->addTab(pCThreadQtextbrowser, Tabtitle);
+	connect(pQMainTabWidget, SIGNAL(emitStopLogTextbrowser()), this, SLOT(On_emitStopLogTextbrowser_Request()));
 
 	int CurrentRowNum = pQTableWidgetManageWidgets->rowCount();
 	CurrentRowNum++;
@@ -235,12 +261,40 @@ History:
 
 void CFemtoMonitorcenter::On_pQHighlighterDialogConfirm_Triggered()
 {
+	if (pQMainTabWidget->currentIndex() == -1)
+	{
+		QMessageBoxFailure("Currently No Open Serial Port!!! ");
+		return;
+	}
 	if (pQComboBoxHighlighterDialogStr->currentText() == NULL)
 	{
 		QMessageBoxFailure("No Input Character");
 		return;
 	}
 	QString QSCurrentHighlightingStr = pQComboBoxHighlighterDialogStr->currentText();
+	////add the Qstring To qsettting
+	QSettings CFemtoMonitorCentersettings("FemtoMonitorCenter", "CRT");
+	CFemtoMonitorCentersettings.beginReadArray("Highlighter String");
+	QString QSCurrentHighlightingStrChange = QSCurrentHighlightingStr;
+	QString QSSettingClaue;
+	for (int i = 0; i < QSETTINGS_ARRAY_LENGTH; ++i)
+	{
+		CFemtoMonitorCentersettings.setArrayIndex(i);
+		QSSettingClaue = CFemtoMonitorCentersettings.value("Highligher String", QString("AAAAAAAAAA")).toString();
+		if (QSSettingClaue == QSCurrentHighlightingStr)
+		{
+			CFemtoMonitorCentersettings.setValue("Highligher String", QVariant(QSCurrentHighlightingStrChange));
+			break;
+		}
+		CFemtoMonitorCentersettings.setValue("Highligher String", QVariant(QSCurrentHighlightingStrChange));
+		if (QSSettingClaue == "AAAAAAAAAA")
+		{
+			break;
+		}
+		QSCurrentHighlightingStrChange = QSSettingClaue;
+	}
+	CFemtoMonitorCentersettings.endArray();
+	///
 	CThreadQtextbrowser  *pQTextbrowserContinue = dynamic_cast<CThreadQtextbrowser*>(pQMainTabWidget->currentWidget());
 	pQDialogHighlighter->close();
 	if (NULL == pQTextbrowserContinue)
@@ -264,7 +318,7 @@ void CFemtoMonitorcenter::On_pQOpenColorDialog_Triggered()
 	pQLabelSampleStr->setPalette(pa);
 }
 /**********************************************************************//**
-@brief slot of log current windows data 
+@brief slot of log current windows data (select the file directory)
 @param  
 @return 
 @author YHF
@@ -274,25 +328,167 @@ History:
 **************************************************************************/
 void CFemtoMonitorcenter::On_pQWriteDialogFileButton_clicked()
 {
-	QString QSOpenFile = QFileDialog::getOpenFileName(NULL, "OpenFile", ".", NULL);
-	this->pQWriteDialogEdit->setText(QSOpenFile);
+	QSettings CFemtoMonitorCentersettings("FemtoMonitorCenter", "CRT");
+	CFemtoMonitorCentersettings.beginWriteArray("openFileDirectory");
+	CFemtoMonitorCentersettings.setArrayIndex(0);
+	QString OpenFileRecord = CFemtoMonitorCentersettings.value("Log Path String", QString(".")).toString();
+	QString OpenFileRecordSelect = QFileDialog::getExistingDirectory(this, "Open Directory", OpenFileRecord);
+	this->pQWriteDialogFileDirectory->setCurrentText(OpenFileRecordSelect);
 }
+/**********************************************************************//**
+@brief slot of log Data judge to manage
+@param  
+@return 
+@author YHF
+@date 2018/06/26  10:51
+@note 
+History:
+**************************************************************************/
 void CFemtoMonitorcenter::On_pQWriteDialogConfirmButton_clicked()
 {
-	if (NULL == pQWriteDialogEdit->text())
+	QString QSpQWriteDialogFileDirectory = pQWriteDialogFileDirectory->currentText();
+	QString QSLogString = (QSpQWriteDialogFileDirectory)+'/' + pQWriteDialogEdit->text() + pQWriteDialogFileAdd->text() + pQWriteDialogFileSuffix->text();
+	if (pQMainTabWidget->currentIndex() == -1)
+	{
+		QMessageBoxFailure("Currently No Open Serial Port!!! ");
+		return;
+	}
+	if (NULL == pQWriteDialogFileDirectory->currentText())
 	{
 		QMessageBoxFailure("Please Select Log File Path");
 		return;
 	}
-	QByteArray QByteArrayWriteFilePath = pQWriteDialogEdit->text().toLatin1();
+	QSettings CFemtoMonitorCentersettings("FemtoMonitorCenter", "CRT");
+	CFemtoMonitorCentersettings.beginWriteArray("Log String");
+	QString QSWriteFileChange = QSpQWriteDialogFileDirectory;
+	QString SettingData;
+	for (int i = 0; i < QSETTINGS_ARRAY_LENGTH; ++i)
+	{
+		CFemtoMonitorCentersettings.setArrayIndex(i);
+		SettingData = CFemtoMonitorCentersettings.value("Log Path String", QString("AAAAAAAAAA")).toString();
+		if (SettingData == QSpQWriteDialogFileDirectory)
+		{
+			CFemtoMonitorCentersettings.setValue("Log Path String", QSWriteFileChange);
+			break;
+		}
+		CFemtoMonitorCentersettings.setValue("Log Path String", QSWriteFileChange);
+		if (SettingData == "AAAAAAAAAA")
+		{
+			break;
+		}
+		QSWriteFileChange = SettingData;
+	}
+	QByteArray QByteArrayWriteFilePath = QSLogString.toLatin1();
 	char *pWriteFilePath = QByteArrayWriteFilePath.data();
+	QString StorageUserSelectInformation;
+	///
+	if (pQGroupBoxAutomaticLog->isChecked())
+	{
+		///Confirm user inpur mode is correct
+		QDateTime QDateTimeStart;
+		QDateTimeStart = pQDateTimeEditStart->dateTime();
+		QString QSQDateTimeStart = QDateTimeStart.toString("yyyyMMddhhmmss");
+		QDateTime QDateTimeEnd;
+		QDateTimeEnd = pQDateTimeEditEnd->dateTime();
+		QString QSQDateTimeEnd = QDateTimeEnd.toString("yyyyMMddhhmmss");
+		if (QDateTimeStart > QDateTimeEnd)
+		{
+			QMessageBoxFailure("The end time is earlier than the start time !");
+			return;
+		}
+		///User Only lOG once
+		if (pQRadioButtonOnce->isChecked())
+		{
+			StorageUserSelectInformation.append('1');
+		}
+		else if (pQRadioButtonDay->isChecked())
+		{
+			StorageUserSelectInformation.append('2');
+			QString JudgepQRadioButtonDayModeSart = QSQDateTimeStart.mid(6);
+			QString JudgepQRadioButtonDayModeEnd = QSQDateTimeEnd.mid(6);
+			if (JudgepQRadioButtonDayModeSart <JudgepQRadioButtonDayModeEnd)
+			{
+
+				QMessageBoxFailure("The end time is earlier than the start time !\n(The system only focuses on H:M:S when selecting Every Date)");
+				return;
+			}
+		}
+		else if (pQRadioButtonDay->isChecked())
+		{
+			StorageUserSelectInformation.append('3');
+		}
+		StorageUserSelectInformation.append("," + QSQDateTimeStart + "," + QSQDateTimeEnd);
+	}
+	else
+	{
+		StorageUserSelectInformation.append('0' + ',' + "20000101000000" + ',');
+		StorageUserSelectInformation.append("20000101000000");
+	}
 	pWriteDialog->close();
-	///enter critical section
+	/*****
 	FILE* fpLogDataFile = fopen(pWriteFilePath, "a+");
+	if (NULL == fpLogDataFile)
+	{
+		QMessageBoxFailure("Can Not Open Log File!");
+		return;
+	}
+	***************/
 	int LogDataindex = pQMainTabWidget->currentIndex();
-	emit emitLogDataFile( LogDataindex, fpLogDataFile);
+	QString QSLogDataindex;
+	QSLogDataindex.setNum(LogDataindex);
+	StorageUserSelectInformation.append(","+ QSLogDataindex);
+	emit emitLogDataFile(StorageUserSelectInformation, pWriteFilePath);
 }
 void CFemtoMonitorcenter::On_pQWriteDialogCancelButton_clicked()
 {
 	pWriteDialog->close();
+}
+
+void CFemtoMonitorcenter::On_pQWriteDialogFileAddCheckBox_StateChange(int stats)
+{
+	if (stats == 0)
+	{
+		pQWriteDialogFileAdd->clear();
+	}
+	else
+	{
+		QString QSCurrentDateTime = QDateTime::currentDateTime().toString("yyyyMMddhhmmss");
+		pQWriteDialogFileAdd->setText(QSCurrentDateTime);
+	}
+}
+
+void CFemtoMonitorcenter::On_pQWriteDialogFileSuffixCheckBox_StateChange(int stats)
+{
+	if (stats == 0)
+	{
+		pQWriteDialogFileSuffix->setEnabled(true);
+		pQWriteDialogFileSuffix->clear();
+	}
+	else
+	{
+		pQWriteDialogFileSuffix->setEnabled(false);
+		pQWriteDialogFileSuffix->setText(".txt");
+	}
+}
+
+void CFemtoMonitorcenter::On_emitStopLogTextbrowser_Request()
+{
+	CThreadQtextbrowser* pDeleteCThreadQtextbrowser = dynamic_cast<CThreadQtextbrowser*> (sender());
+	int TabCount =  pQMainTabWidget->count();
+	bool SenderIndexSuccess = false; 
+	int IndexSender = 0;
+	while (IndexSender < TabCount)
+	{
+		if (pDeleteCThreadQtextbrowser == dynamic_cast<CThreadQtextbrowser*> (pQMainTabWidget->widget(IndexSender)))
+		{
+			SenderIndexSuccess = true;
+			break;
+		}
+		IndexSender++;
+	}
+	if (false == SenderIndexSuccess)
+	{
+		qDebug("Stop Log No index Sender");
+	}
+	emit emitStopLogGUI(IndexSender);
 }

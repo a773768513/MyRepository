@@ -12,12 +12,13 @@ class CThreadQtextbrowser :
 public:
 	CThreadQtextbrowser(QWidget *parent);
 	~CThreadQtextbrowser();
-
+	void CThreadQtextbrowserLogStates(bool LogStates);
 	void AppendDataTextbrowser(char* pReadData);
 	///addhighlighterrule and highlighter exsit document
 	void AddHighlightingRule(QString  QSCurrentHighlightingStrTextbrowser,QColor* pQColorSelectedTextbrowser);
 	void HighlightingTextBrowser();
 private:
+	bool BLogStates;
 	/// create the right menu in this class
 	QMenu  *pThreadTextBrowserRightMenu;
 	QAction *pTextBrowserMenuActionContinueData;
@@ -48,13 +49,16 @@ private:
 	void OutputRingBufData();
 signals:
 	void emitRingBufDataToTextbrowser(char* pBufData);
+	///to signal to GUI close the log
+	void emitStopLogTextbrowser();
 	public slots:
 	void On_this_CustomContextMenuRequesred(const QPoint &Qpoint);
 	void  HighlighingStrAppendStr(char* pHighlightReadData);
 
 	///right button slots function 
 	void On_pTextBrowserMenuActionContinueData_Triggered();
-
+	///slot to signal to GUI close the log 
+	void On_pThreadTextBrowserStopWriteData_Triggered();
 
 };
 

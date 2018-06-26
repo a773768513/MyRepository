@@ -5,7 +5,7 @@
 #include "qobject.h"
 #include "ReadDataThread.h"
 #include "CFemtoMonitorcenter.h"
-
+#include <qdatetime.h>
 class  CFemtoMonitorcenter;
 
 class CManageThreadObject :
@@ -16,19 +16,37 @@ public:
 	CManageThreadObject(CFemtoMonitorcenter *parent);
 	~CManageThreadObject();
 	QVector<int> QVectorRecoredReceiveData;          ///<vector to accumulate received data (USE in GUI to show Spped
+	
 protected:
 
 	virtual void timerEvent(QTimerEvent *event);
 private:
+	///enum enumLogMode
+	
 	QStringList RecordOpenPort;                      ///<record the Open Port name 
 	CFemtoMonitorcenter* parentGUIObject;           ///<incomint GUI Object pointer 
 	QVector<CReadDataThread*> QVectorCReadDataThreadPPointer;          ///<vector of the Qthread 
-	///FILEPointer of LOG data 
-	QVector<FILE*>  QVectorFILEPointer;
-
+	///struct to storage the  FILEPointer of LOG data 
+	struct LogFileInfo
+	{
+		int LogMode;
+		QDateTime LogSartTime;
+		QDateTime LogEndTime;
+		FILE* logFilePointer;
+		char  LogFileName[256];
+	};
+	QVector<LogFileInfo>  QVectorLogFileInfo;
+	QDateTime QObtainCurrentDateTime;
+	QString  QObtainCurrentString;
+	QDate QStandardDate ;                           ///<use this to confirm the yyyyMMdd  to 00000000;
 
 	void ConnectGUIManageThreadSlot();
+
+	void JudgeLogTimeStart(LogFileInfo* TimeEventLogFileInfo);
+	void JudgeLogTimeEnd(LogFileInfo* TimeEventLogFileInfo);
 signals:
+	///
+	void Emit_QMessageBoxFailureManage_Info(QString QMessageFailure);
 	///to GUI createqTextbrower
 	void CreateGUIQTextbrowserManagethread(QString QSOpenFilePathTitle);
 	///to GUIshow the port data 
@@ -43,6 +61,8 @@ public slots :
 	void On_ReadDataThread_Push(char* ThreadPushData);
 	///
 	void On_emitCloseCurrentQtextbrowserGUI_triggered(int indexGUI);
-	void On_emitLogDataFile_Triggered(int IndexManage, FILE* fpLogDataFile);
+	void On_emitLogDataFile_Triggered(QString IndexManage, char* fpLogDataFile);
+	///stop log 
+	void On_emitStopLogGUI_Request(int IndexStopLogManage);
 };
 

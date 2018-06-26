@@ -16,8 +16,16 @@
 #include "ThreadQtextbrowser.h"
 #include <qcombobox.h>
 #include <stdio.h>
-
+#include <qgroupbox.h>
+#include <qradiobutton.h>
+#include <qdatetimeedit.h>
+#include <qcheckbox.h>
 class CManageThreadObject;
+
+#ifndef __QSETTINGS_ARRAY_LENGTH__
+#define __QSETTINGS_ARRAY_LENGTH__
+#define QSETTINGS_ARRAY_LENGTH 7
+#endif
 class CFemtoMonitorcenter : public QMainWindow
 {
 	Q_OBJECT
@@ -50,7 +58,7 @@ private:
 	QPushButton *pQPushButtonOpenFileCancel;
 	QPushButton *pQPushButttonOpenFileConfirm;
 	QPushButton *pQPushButtonOpenFilePath;
-	QLineEdit *pQTextEditOpenFilePath;
+	QComboBox *pQTextEditOpenFilePath;
 	QLabel *pQLabelOpenFilePath;
 	QDialog *pDialogOpenFile;
 	QGridLayout *pGridLayoutOpenFileDialog;
@@ -69,12 +77,30 @@ private:
 	///Create WriteFileDialog widgets
 	QDialog *pWriteDialog;
 	QGridLayout *pWriteGridLayout;
+	QComboBox *pQWriteDialogFileDirectory;
+	
 	QLineEdit *pQWriteDialogEdit;
+	QCheckBox *pQWriteDialogFileAddCheckBox;
+	QLineEdit *pQWriteDialogFileAdd;
+	QCheckBox *pQWriteDialogFileSuffixCheckBox;
+	QLineEdit *pQWriteDialogFileSuffix;
 	QPushButton *pQWriteDialogFileButton;
 	QPushButton *pQWriteDialogConfirmButton;
 	QPushButton *pQWriteDialogCancelButton;
-
-
+	///Automatic Log Dialog
+	QGroupBox* pQGroupBoxAutomaticLog;
+	QGridLayout* pQGridlayoutAutomaticLog;
+	QGroupBox* pQGroupBoxLogTime;
+	QVBoxLayout* pQVBoxLayoutRadioButton;
+	QRadioButton* pQRadioButtonOnce;
+	QRadioButton* pQRadioButtonDay;
+	QRadioButton* pQRadioButtonWeekly;
+	QGroupBox* pQGroupBoxDataTime;
+	QVBoxLayout* pQVBoxLayoutDataTime;
+	QDateTimeEdit* pQDateTimeEditStart;
+	QDateTimeEdit* pQDateTimeEditEnd;
+	///function to create the 
+	QGroupBox* CreatepCombinationWindows();
 	///function 
 
 	///function to create main window GUI
@@ -97,7 +123,10 @@ signals:
 	void emitCloseCurrentQtextbrowserGUI(int indexGUI);
 	///emit the log data FILE pointer
 
-	void emitLogDataFile(int LogDataindex, FILE* fpLogDataFile);
+	void emitLogDataFile(QString LogDataindex, char* fpLogDataFile);
+	///stop Log
+
+	void  emitStopLogGUI(int IndexStopLog);
 private slots:
     ///
     /// main windows slot 
@@ -120,6 +149,9 @@ private slots:
 	void On_pQWriteDialogFileButton_clicked();
 	void On_pQWriteDialogConfirmButton_clicked();
 	void On_pQWriteDialogCancelButton_clicked();
+	void On_pQWriteDialogFileAddCheckBox_StateChange(int stats);
+	void On_pQWriteDialogFileSuffixCheckBox_StateChange(int stats);
+
 	///SLOT to qmessage to show user information 
 	void QMessageBoxFailure(QString QSInformation);
 
@@ -132,4 +164,6 @@ private slots:
 	void On_EmitRefreshReceivingRateManage_Triggered();
 	///
 	void On_emitCloseQtextbrowserRecordManage_triggered(int index);   
+	///user requset stop log
+	void On_emitStopLogTextbrowser_Request();
 };
