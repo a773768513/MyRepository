@@ -101,6 +101,7 @@ private:
 	QDateTimeEdit* pQDateTimeEditEnd;
 	///function to create the 
 	QGroupBox* CreatepCombinationWindows();
+
 	///function 
 
 	///function to create main window GUI
@@ -127,7 +128,7 @@ signals:
 	///stop Log
 
 	void  emitStopLogGUI(int IndexStopLog);
-private slots:
+public slots:
     ///
     /// main windows slot 
 	void On_TabWidget_CloseButton(int index);

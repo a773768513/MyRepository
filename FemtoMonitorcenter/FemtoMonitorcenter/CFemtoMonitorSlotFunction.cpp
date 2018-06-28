@@ -156,7 +156,7 @@ void CFemtoMonitorcenter::On_CreateGUIQTextbrowserManagethread_Triggered(QString
 {
 	pCThreadQtextbrowser = new CThreadQtextbrowser(this);
 	pQMainTabWidget->addTab(pCThreadQtextbrowser, Tabtitle);
-	connect(pQMainTabWidget, SIGNAL(emitStopLogTextbrowser()), this, SLOT(On_emitStopLogTextbrowser_Request()));
+	connect(pCThreadQtextbrowser, SIGNAL(emitStopLogTextbrowser()), this, SLOT(On_emitStopLogTextbrowser_Request()));
 
 	int CurrentRowNum = pQTableWidgetManageWidgets->rowCount();
 	CurrentRowNum++;
@@ -167,7 +167,7 @@ void CFemtoMonitorcenter::On_CreateGUIQTextbrowserManagethread_Triggered(QString
 	pQTableWidgetManageWidgets->setItem(CurrentRowNum - 1, 1, pQTableWidgetItemStatus);
 	QTableWidgetItem *pQTableWidgetItemSpeed = new QTableWidgetItem("starting");
 	pQTableWidgetManageWidgets->setItem(CurrentRowNum - 1, 2, pQTableWidgetItemSpeed);
-	QTableWidgetItem *pQTableWidgetItemLogStatus = new QTableWidgetItem("NO");
+	QTableWidgetItem *pQTableWidgetItemLogStatus = new QTableWidgetItem("No");
 	pQTableWidgetManageWidgets->setItem(CurrentRowNum - 1, 3, pQTableWidgetItemLogStatus);
 }
 /**********************************************************************//**
@@ -223,15 +223,54 @@ void CFemtoMonitorcenter::On_EmitRefreshReceivingRateManage_Triggered()
 	int AllOverCycleNum = 0;
 	QString QSNumSpeedBuf; 
 	QTableWidgetItem *pTablewidgetsSpeed;
+	QTableWidgetItem *pTablewidgetsLogState;
+	pCManageThreadObject->QVectorRecoredReceiveDataReadWriteLock.lockForRead();
+	pCManageThreadObject->QVectorLogFileInfoReadWriteLock.lockForRead();
 	for each (int  QVectorRecoredReceiveDataSpeed in  pCManageThreadObject->QVectorRecoredReceiveData)
 	{
 		pTablewidgetsSpeed = pQTableWidgetManageWidgets->item(AllOverCycleNum, 2);
+		pTablewidgetsLogState = pQTableWidgetManageWidgets->item(AllOverCycleNum, 3);
 		QSNumSpeedBuf.setNum(QVectorRecoredReceiveDataSpeed);
 		QSNumSpeedBuf += "b/s";
 		pTablewidgetsSpeed->setText(QSNumSpeedBuf);
+		if (pCManageThreadObject->QVectorLogFileInfo.at(AllOverCycleNum).LogMode == 0)
+		{
+			if (pCManageThreadObject->QVectorLogFileInfo.at(AllOverCycleNum).logFilePointer == NULL)
+			{
+				pTablewidgetsLogState->setText("No");
+			}
+			else
+			{
+				pTablewidgetsLogState->setText("Loging");
+			}
+		}
+		else if (pCManageThreadObject->QVectorLogFileInfo.at(AllOverCycleNum).LogMode == 1)
+		{
+			pTablewidgetsLogState->setText("Loging");
+		}
+		else 
+		{
+			if (pCManageThreadObject->QVectorLogFileInfo.at(AllOverCycleNum).logFilePointer == NULL)
+			{
+				if (pCManageThreadObject->QVectorLogFileInfo.at(AllOverCycleNum).LogFileName[0] == 0)
+				{
+					pTablewidgetsLogState->setText("No");
+
+				}
+				else
+				{
+					pTablewidgetsLogState->setText("Waiting");
+				}
+			}
+			else
+			{
+				pTablewidgetsLogState->setText("Loging");
+			}
+		}
 		AllOverCycleNum++;
 	}
-
+	pCManageThreadObject->QVectorRecoredReceiveDataReadWriteLock.unlock();
+	pCManageThreadObject->QVectorLogFileInfoReadWriteLock.unlock();
 }
 /**********************************************************************//**
 @brief slot to clse the GUI record
@@ -351,6 +390,7 @@ void CFemtoMonitorcenter::On_pQWriteDialogConfirmButton_clicked()
 	if (pQMainTabWidget->currentIndex() == -1)
 	{
 		QMessageBoxFailure("Currently No Open Serial Port!!! ");
+		pWriteDialog->close();
 		return;
 	}
 	if (NULL == pQWriteDialogFileDirectory->currentText())
@@ -404,11 +444,12 @@ void CFemtoMonitorcenter::On_pQWriteDialogConfirmButton_clicked()
 		else if (pQRadioButtonDay->isChecked())
 		{
 			StorageUserSelectInformation.append('2');
-			QString JudgepQRadioButtonDayModeSart = QSQDateTimeStart.mid(6);
-			QString JudgepQRadioButtonDayModeEnd = QSQDateTimeEnd.mid(6);
-			if (JudgepQRadioButtonDayModeSart <JudgepQRadioButtonDayModeEnd)
+			QDateTimeStart.setDate(QDate::fromString("20000101", "yyyyMMdd"));
+			QDateTimeEnd.setDate(QDate::fromString("20000101", "yyyyMMdd"));
+			QSQDateTimeStart = QDateTimeStart.toString("yyyyMMddhhmmss");
+			QSQDateTimeEnd = QDateTimeEnd.toString("yyyyMMddhhmmss");
+			if (QDateTimeStart > QDateTimeEnd)
 			{
-
 				QMessageBoxFailure("The end time is earlier than the start time !\n(The system only focuses on H:M:S when selecting Every Date)");
 				return;
 			}
@@ -421,7 +462,10 @@ void CFemtoMonitorcenter::On_pQWriteDialogConfirmButton_clicked()
 	}
 	else
 	{
-		StorageUserSelectInformation.append('0' + ',' + "20000101000000" + ',');
+		StorageUserSelectInformation.append("0" );
+		StorageUserSelectInformation.append( "," );
+		StorageUserSelectInformation.append("20000101000000");
+		StorageUserSelectInformation.append(",");
 		StorageUserSelectInformation.append("20000101000000");
 	}
 	pWriteDialog->close();

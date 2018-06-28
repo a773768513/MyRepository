@@ -49,7 +49,7 @@ void CFemtoMonitorcenter::CreateMainWindowsGUI()
 	///this->setWindowIcon(pQMainIcon);
 	///
 	///OOptimize Main windows information
-	pQTableWidgetManageWidgets->setColumnCount(3);
+	pQTableWidgetManageWidgets->setColumnCount(4);
 	pQTableWidgetManageWidgets->setRowCount(0);
 	QStringList ColumnHeaderLable;
 	ColumnHeaderLable << "COM List" << "Operating Status"<< "Acceptance rate"<<"Log Data" ;

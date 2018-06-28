@@ -9,7 +9,6 @@ CManageThreadObject::CManageThreadObject(CFemtoMonitorcenter *parent)
 	this->startTimer(1000, Qt::CoarseTimer);
 	ConnectGUIManageThreadSlot();
 	QStandardDate = QDate::fromString("20000101", "yyyyMMdd");
-
 }
 
 
@@ -48,6 +47,7 @@ History:
 **************************************************************************/
 void  CManageThreadObject::timerEvent(QTimerEvent *event)
 {
+	QVectorLogFileInfoReadWriteLock.lockForWrite();
 	int Cycle = 0;
 	for each (LogFileInfo JudgeLofFileInfoTime in QVectorLogFileInfo)
 	{
@@ -63,14 +63,16 @@ void  CManageThreadObject::timerEvent(QTimerEvent *event)
 		QVectorLogFileInfo.replace(Cycle, JudgeLofFileInfoTime);
 		Cycle++;
 	}
-	QDateTime  JudgeQDateTime;
+	QVectorLogFileInfoReadWriteLock.unlock();
 	emit EmitRefreshReceivingRateManage();
 	Cycle = 0;
+	QVectorRecoredReceiveDataReadWriteLock.lockForWrite();
 	for each (int alternationValue  in QVectorRecoredReceiveData)
 	{
 		QVectorRecoredReceiveData.replace(Cycle, 0);
 		Cycle++;
 	}
+	QVectorRecoredReceiveDataReadWriteLock.unlock();
 }
 /**********************************************************************//**
 @brief  connect all slots managethread and GUI thread 
@@ -94,10 +96,10 @@ void CManageThreadObject::ConnectGUIManageThreadSlot()
 	///append data to GUIto show 
 	connect(this, SIGNAL(AppendDataManagethread(int, char*)), parentGUIObject, SLOT(On_AppendDataManagethread_Triggered(int, char*)));
 	///connect the timerevent
-	connect(this, SIGNAL(EmitRefreshReceivingRateManage()), parentGUIObject, SLOT(On_EmitRefreshReceivingRateManage_Triggered()));
+	connect(this, SIGNAL(EmitRefreshReceivingRateManage()), parentGUIObject, SLOT(On_EmitRefreshReceivingRateManage_Triggered()),Qt::BlockingQueuedConnection);
 	///connect the GUI and this in close event
 	connect(parentGUIObject, SIGNAL(emitCloseCurrentQtextbrowserGUI(int)), this, SLOT(On_emitCloseCurrentQtextbrowserGUI_triggered(int)));
-	connect(this, SIGNAL(emitCloseQtextbrowserRecordManage(int);), parentGUIObject, SLOT(On_emitCloseQtextbrowserRecordManage_triggered(int)));
+	connect(this, SIGNAL(emitCloseQtextbrowserRecordManage(int)), parentGUIObject, SLOT(On_emitCloseQtextbrowserRecordManage_triggered(int)));
 	///stop Log connect 
 	connect(parentGUIObject, SIGNAL(emitStopLogGUI(int)), this, SLOT(On_emitStopLogGUI_Request(int)));
 }
@@ -124,6 +126,7 @@ void CManageThreadObject::On_UserRequestOpenPort_Triggered(QString QSOpenFilePat
 	LogFileInfoObj.LogMode = 0;
 	LogFileInfoObj.LogSartTime.setDate(QStandardDate);
 	LogFileInfoObj.LogEndTime.setDate(QStandardDate);
+	memset(LogFileInfoObj.LogFileName,0,256);
 	LogFileInfoObj.logFilePointer = NULL;
 	QVectorLogFileInfo.append(LogFileInfoObj);
 }
@@ -140,7 +143,6 @@ void CManageThreadObject::On_ReadDataThread_Push(char* ThreadPushData)
 {
 	///
 	///secondary processing data
-
 	///
 	CReadDataThread *pSenderCReadDataThread = dynamic_cast<CReadDataThread*> (sender());
 	int NumberWindow = QVectorCReadDataThreadPPointer.indexOf(pSenderCReadDataThread);
@@ -150,6 +152,8 @@ void CManageThreadObject::On_ReadDataThread_Push(char* ThreadPushData)
 		return;
 	}
 	
+	QVectorRecoredReceiveDataReadWriteLock.lockForWrite();
+	QVectorLogFileInfoReadWriteLock.lockForWrite();
 	FILE* fpLogData = (QVectorLogFileInfo.at(NumberWindow)).logFilePointer;
 	if (NULL != fpLogData)
 	{
@@ -158,6 +162,8 @@ void CManageThreadObject::On_ReadDataThread_Push(char* ThreadPushData)
 	int TempReciveNum = QVectorRecoredReceiveData.at(NumberWindow);
 	TempReciveNum += strlen(ThreadPushData);
 	QVectorRecoredReceiveData.replace(NumberWindow, TempReciveNum);
+	QVectorRecoredReceiveDataReadWriteLock.unlock();
+	QVectorLogFileInfoReadWriteLock.unlock();
 	emit AppendDataManagethread(NumberWindow, ThreadPushData);
 }
 /**********************************************************************//**
@@ -208,7 +214,7 @@ void CManageThreadObject::On_emitLogDataFile_Triggered(QString QSIndexManage, ch
 	///parse incoming data decompose items from data 
 	QString QSStartTime = QSIndexManage.mid(2, 14);
 	QString QSEndTime = QSIndexManage.mid(17, 14);
-	QString NumWindows = QSIndexManage.mid(33);
+	QString NumWindows = QSIndexManage.mid(32);
 	NewLogFileInfo.LogMode = (QSIndexManage.mid(0, 1)).toInt();
 	NewLogFileInfo.LogSartTime = QDateTime::fromString(QSStartTime,"yyyyMMddhhmmss");
 	NewLogFileInfo.LogEndTime = QDateTime::fromString(QSEndTime, "yyyyMMddhhmmss");
@@ -393,6 +399,7 @@ void CManageThreadObject::JudgeLogTimeEnd(LogFileInfo* TimeEventLogFileInfo)
 		{
 			fclose(TimeEventLogFileInfo->logFilePointer);
 			TimeEventLogFileInfo->logFilePointer = NULL;
+			return;
 		}
 		///weekly add  7 day if the FILE is NULL and the time is readly
 	case 3:
@@ -423,6 +430,7 @@ void CManageThreadObject::On_emitStopLogGUI_Request(int IndexStopLogManage)
 	LogFileInfoObj.LogMode = 0;
 	LogFileInfoObj.LogSartTime.setDate(QStandardDate);
 	LogFileInfoObj.LogEndTime.setDate(QStandardDate);
+	memset(LogFileInfoObj.LogFileName, 0, 256);
 	LogFileInfoObj.logFilePointer = NULL;
 	QVectorLogFileInfo.replace(IndexStopLogManage,LogFileInfoObj);
 }

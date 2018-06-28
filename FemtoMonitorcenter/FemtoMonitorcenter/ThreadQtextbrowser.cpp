@@ -184,6 +184,7 @@ void CThreadQtextbrowser::On_pTextBrowserMenuActionContinueData_Triggered()
 		bCacheMode = false;
 		OutputRingBufData();
 	}
+
 }
 
 void CThreadQtextbrowser::OutputRingBufData()

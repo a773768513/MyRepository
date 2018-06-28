@@ -6,6 +6,8 @@
 #include "ReadDataThread.h"
 #include "CFemtoMonitorcenter.h"
 #include <qdatetime.h>
+#include <qreadwritelock.h>
+
 class  CFemtoMonitorcenter;
 
 class CManageThreadObject :
@@ -16,7 +18,19 @@ public:
 	CManageThreadObject(CFemtoMonitorcenter *parent);
 	~CManageThreadObject();
 	QVector<int> QVectorRecoredReceiveData;          ///<vector to accumulate received data (USE in GUI to show Spped
-	
+	struct LogFileInfo
+	{
+		int LogMode;
+		QDateTime LogSartTime;
+		QDateTime LogEndTime;
+		FILE* logFilePointer;
+		char  LogFileName[256];
+	};
+	QVector<LogFileInfo>  QVectorLogFileInfo;
+	///ReadWriteLock if you get both locks at the same time ,you must get them in this order 
+	QReadWriteLock QVectorRecoredReceiveDataReadWriteLock;
+	QReadWriteLock QVectorLogFileInfoReadWriteLock;
+
 protected:
 
 	virtual void timerEvent(QTimerEvent *event);
@@ -27,15 +41,7 @@ private:
 	CFemtoMonitorcenter* parentGUIObject;           ///<incomint GUI Object pointer 
 	QVector<CReadDataThread*> QVectorCReadDataThreadPPointer;          ///<vector of the Qthread 
 	///struct to storage the  FILEPointer of LOG data 
-	struct LogFileInfo
-	{
-		int LogMode;
-		QDateTime LogSartTime;
-		QDateTime LogEndTime;
-		FILE* logFilePointer;
-		char  LogFileName[256];
-	};
-	QVector<LogFileInfo>  QVectorLogFileInfo;
+	
 	QDateTime QObtainCurrentDateTime;
 	QString  QObtainCurrentString;
 	QDate QStandardDate ;                           ///<use this to confirm the yyyyMMdd  to 00000000;
