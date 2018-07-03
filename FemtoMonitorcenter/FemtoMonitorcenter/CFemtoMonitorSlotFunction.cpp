@@ -233,6 +233,7 @@ void CFemtoMonitorcenter::On_EmitRefreshReceivingRateManage_Triggered()
 		QSNumSpeedBuf.setNum(QVectorRecoredReceiveDataSpeed);
 		QSNumSpeedBuf += "b/s";
 		pTablewidgetsSpeed->setText(QSNumSpeedBuf);
+		pCManageThreadObject->QVectorRecoredReceiveData.replace(AllOverCycleNum,0);
 		if (pCManageThreadObject->QVectorLogFileInfo.at(AllOverCycleNum).LogMode == 0)
 		{
 			if (pCManageThreadObject->QVectorLogFileInfo.at(AllOverCycleNum).logFilePointer == NULL)
@@ -269,6 +270,7 @@ void CFemtoMonitorcenter::On_EmitRefreshReceivingRateManage_Triggered()
 		}
 		AllOverCycleNum++;
 	}
+	
 	pCManageThreadObject->QVectorRecoredReceiveDataReadWriteLock.unlock();
 	pCManageThreadObject->QVectorLogFileInfoReadWriteLock.unlock();
 }

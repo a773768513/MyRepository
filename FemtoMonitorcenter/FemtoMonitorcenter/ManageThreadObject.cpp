@@ -65,14 +65,7 @@ void  CManageThreadObject::timerEvent(QTimerEvent *event)
 	}
 	QVectorLogFileInfoReadWriteLock.unlock();
 	emit EmitRefreshReceivingRateManage();
-	Cycle = 0;
-	QVectorRecoredReceiveDataReadWriteLock.lockForWrite();
-	for each (int alternationValue  in QVectorRecoredReceiveData)
-	{
-		QVectorRecoredReceiveData.replace(Cycle, 0);
-		Cycle++;
-	}
-	QVectorRecoredReceiveDataReadWriteLock.unlock();
+	
 }
 /**********************************************************************//**
 @brief  connect all slots managethread and GUI thread 
@@ -92,11 +85,11 @@ void CManageThreadObject::ConnectGUIManageThreadSlot()
 	connect(this, SIGNAL(CreateGUIQTextbrowserManagethread(QString)), parentGUIObject, SLOT(On_CreateGUIQTextbrowserManagethread_Triggered(QString)));
 
 	///Log Data of GUI and manage thread 
-	connect(parentGUIObject, SIGNAL(emitLogDataFile(QString, char*)), this, SLOT(On_emitLogDataFile_Triggered(QString, char*)),Qt::BlockingQueuedConnection);
+	connect(parentGUIObject, SIGNAL(emitLogDataFile(QString, char*)), this, SLOT(On_emitLogDataFile_Triggered(QString, char*)));
 	///append data to GUIto show 
 	connect(this, SIGNAL(AppendDataManagethread(int, char*)), parentGUIObject, SLOT(On_AppendDataManagethread_Triggered(int, char*)));
 	///connect the timerevent
-	connect(this, SIGNAL(EmitRefreshReceivingRateManage()), parentGUIObject, SLOT(On_EmitRefreshReceivingRateManage_Triggered()),Qt::BlockingQueuedConnection);
+	connect(this, SIGNAL(EmitRefreshReceivingRateManage()), parentGUIObject, SLOT(On_EmitRefreshReceivingRateManage_Triggered()));
 	///connect the GUI and this in close event
 	connect(parentGUIObject, SIGNAL(emitCloseCurrentQtextbrowserGUI(int)), this, SLOT(On_emitCloseCurrentQtextbrowserGUI_triggered(int)));
 	connect(this, SIGNAL(emitCloseQtextbrowserRecordManage(int)), parentGUIObject, SLOT(On_emitCloseQtextbrowserRecordManage_triggered(int)));
@@ -271,7 +264,9 @@ void CManageThreadObject::On_emitLogDataFile_Triggered(QString QSIndexManage, ch
 			break;
 		}
 	} 
+	QVectorLogFileInfoReadWriteLock.lockForWrite();
 	QVectorLogFileInfo.replace(IndexManage, NewLogFileInfo);
+	QVectorLogFileInfoReadWriteLock.unlock();
 }
 
 void CManageThreadObject::JudgeLogTimeStart(LogFileInfo* TimeEventLogFileInfo)

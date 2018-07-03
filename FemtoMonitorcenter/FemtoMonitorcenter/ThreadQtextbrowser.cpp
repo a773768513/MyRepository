@@ -200,7 +200,7 @@ void CThreadQtextbrowser::OutputRingBufData()
 		QApplication::processEvents();
 	
 	}
-	delete pBufLineData;
+	free(pBufLineData);
 }
 
 void CThreadQtextbrowser::CThreadQtextbrowserLogStates(bool LogStates)
