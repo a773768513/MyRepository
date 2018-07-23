@@ -4,18 +4,15 @@
 #include <qvector.h>
 #include "qobject.h"
 #include "ReadDataThread.h"
-#include "CFemtoMonitorcenter.h"
 #include <qdatetime.h>
 #include <qreadwritelock.h>
-
-class  CFemtoMonitorcenter;
-
+class QtGuider;
 class CManageThreadObject :
 	public QObject
 {
 	Q_OBJECT
 public:
-	CManageThreadObject(CFemtoMonitorcenter *parent);
+	CManageThreadObject(QtGuider *parent);
 	~CManageThreadObject();
 	QVector<int> QVectorRecoredReceiveData;          ///<vector to accumulate received data (USE in GUI to show Spped
 	struct LogFileInfo
@@ -38,7 +35,7 @@ private:
 	///enum enumLogMode
 	
 	QStringList RecordOpenPort;                      ///<record the Open Port name 
-	CFemtoMonitorcenter* parentGUIObject;           ///<incomint GUI Object pointer 
+	QtGuider* parentGUIObject;           ///<incomint GUI Object pointer 
 	QVector<CReadDataThread*> QVectorCReadDataThreadPPointer;          ///<vector of the Qthread 
 	///struct to storage the  FILEPointer of LOG data 
 	

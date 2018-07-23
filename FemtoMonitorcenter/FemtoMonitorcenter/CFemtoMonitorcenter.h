@@ -20,6 +20,8 @@
 #include <qradiobutton.h>
 #include <qdatetimeedit.h>
 #include <qcheckbox.h>
+
+class DockGuiderImpl;
 class CManageThreadObject;
 
 #ifndef __QSETTINGS_ARRAY_LENGTH__

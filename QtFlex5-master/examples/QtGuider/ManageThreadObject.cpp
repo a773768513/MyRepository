@@ -1,8 +1,9 @@
-#include "CFemtoMonitorcenter.h"
+#include "QtGuider.h"
 #include "ReadDataThread.h"
 #include <stdlib.h>
 #include <qdebug.h>
-CManageThreadObject::CManageThreadObject(CFemtoMonitorcenter *parent)
+#include "ManageThreadObject.h"
+CManageThreadObject::CManageThreadObject(QtGuider *parent)
 :QObject()
 {
 	parentGUIObject = parent;

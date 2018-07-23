@@ -136,12 +136,14 @@ History:
 **************************************************************************/
 void CFemtoMonitorcenter::On_OpenFileChildDialogSelectFile_Clicked()
 {
+
 	QSettings CFemtoMonitorCentersettings("FemtoMonitorCenter", "CRT");
 	CFemtoMonitorCentersettings.beginReadArray("OpenFilePathSetting");
 	CFemtoMonitorCentersettings.setArrayIndex(0);
 	QString QSOpenFilePathSetting = CFemtoMonitorCentersettings.value("Open File String", QString(".")).toString();
 	QString QSOpenFile = QFileDialog::getOpenFileName(NULL, "OpenFile", QSOpenFilePathSetting, NULL);
 	this->pQTextEditOpenFilePath->setCurrentText(QSOpenFile);
+
 }
 /**********************************************************************//**
 @brief slot to add Qtextbrower

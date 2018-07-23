@@ -1,5 +1,7 @@
 #include "CFemtoMonitorcenter.h"
 #include <qsettings.h>
+
+
 CFemtoMonitorcenter::CFemtoMonitorcenter(QWidget *parent)
 	: QMainWindow(parent)
 {
