@@ -111,6 +111,10 @@ private slots:
 	void On_emitCloseQtextbrowserRecordManage_triggered(int index);
 	///user requset stop log
 	void On_emitStopLogTextbrowser_Request();
+
+	///delete triggerred
+	void on_flexWidgetDestroying(FlexWidget*);
+	void on_dockWidgetDestroying(DockWidget*);
 private:
     friend class QtGuiderImpl;
 private:
@@ -202,10 +206,8 @@ public:
 
 private slots:
 
-    void on_flexWidgetCreated(FlexWidget*);
-    void on_dockWidgetCreated(DockWidget*);
-    void on_flexWidgetDestroying(FlexWidget*);
-    void on_dockWidgetDestroying(DockWidget*);
+void on_flexWidgetCreated(FlexWidget*);
+void on_dockWidgetCreated(DockWidget*);
 
 
 

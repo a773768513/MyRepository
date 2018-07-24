@@ -94,7 +94,7 @@ void CReadDataThread::OpenOriginFile()
 		while (fgets(pDataBuf,512,fpReadFile))
 		{
 			emit EmitDataManageThread(pDataBuf);
-			Sleep(20);
+			Sleep(200);
 			///strncpy(pGetPackage + ReadedPackageLength, pDataBuf, READ_SIZE);
 			///ReadedPackageLength += (READ_SIZE-1);
 			if (pDataBuf[READ_SIZE - 2] == '\n')

@@ -46,6 +46,7 @@ char* QRingBuf::ReadOneLineRingBufReadData(char* pReadOneLineRingBuf)
 }
 void QRingBuf::RingBufWriteData(char* pInputData)
 {
+	
 	if ((prbTail + RING_BUF_LENGTH) != prbHead)
 	{
 		if ((prbTail + RING_BUF_LENGTH) != prbAfterTail)

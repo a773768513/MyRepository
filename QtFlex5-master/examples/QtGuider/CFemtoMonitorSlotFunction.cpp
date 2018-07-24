@@ -400,14 +400,14 @@ void QtGuider::On_CreateGUIQTextbrowserManagethread_Triggered(QString Tabtitle)
 
 	QvectorFlexWidgets.append(flexWidget);
 	QVectorThreadTextbrowser.append(pCThreadQtextbrowser);
-	auto *pThreadTextbrower = new CThreadQtextbrowser(this);
-	dockWidget->attachWidget(pThreadTextbrower);
+	QvectorFlexWidgets.append(flexWidget);
+	connect(pCThreadQtextbrowser, SIGNAL(emitStopLogTextbrowser()), this, SLOT(On_emitStopLogTextbrowser_Request()));
+	dockWidget->attachWidget(pCThreadQtextbrowser);
 	dockWidget->setWindowTitle(Tabtitle);
 	flexWidget->addDockWidget(dockWidget);
 	flexWidget->show();
 
 	
-	connect(pThreadTextbrower, SIGNAL(emitStopLogTextbrowser()), this, SLOT(On_emitStopLogTextbrowser_Request()));
 
 	int CurrentRowNum = this->pQTableWidgetManageWidgets->rowCount();
 	CurrentRowNum++;
@@ -794,4 +794,21 @@ void QtGuider::On_emitStopLogTextbrowser_Request()
 	}
 	emit emitStopLogGUI(IndexSender);
 	*********/
+}
+
+
+
+void QtGuider::on_flexWidgetDestroying(FlexWidget* flexWidget)
+{
+
+}
+
+void QtGuider::on_dockWidgetDestroying(DockWidget* dockWidget)
+{
+	CThreadQtextbrowser* deleteCthreadTextbrowser = (CThreadQtextbrowser*)(dockWidget->widget());
+	int index = QVectorThreadTextbrowser.indexOf(deleteCthreadTextbrowser);
+	QVectorThreadTextbrowser.removeAt(index);
+	QvectorFlexWidgets.removeAt(index);
+	this->pQTableWidgetManageWidgets->removeRow(index);
+	emit emitCloseCurrentQtextbrowserGUI(index);
 }

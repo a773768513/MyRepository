@@ -86,7 +86,6 @@ void CManageThreadObject::ConnectGUIManageThreadSlot()
 	///connect the signal and slot in GUI and manage thread  to create the port 
 	connect(parentGUIObject, SIGNAL(emitOpenSeriousPortGUI(QString)), this, SLOT(On_UserRequestOpenPort_Triggered(QString)));
 	connect(this, SIGNAL(CreateGUIQTextbrowserManagethread(QString)), parentGUIObject, SLOT(On_CreateGUIQTextbrowserManagethread_Triggered(QString)));
-
 	///Log Data of GUI and manage thread 
 	connect(parentGUIObject, SIGNAL(emitLogDataFile(QString, char*)), this, SLOT(On_emitLogDataFile_Triggered(QString, char*)));
 	///append data to GUIto show 
@@ -113,7 +112,7 @@ void CManageThreadObject::On_UserRequestOpenPort_Triggered(QString QSOpenFilePat
 	emit CreateGUIQTextbrowserManagethread(QSOpenFilePathManageThread);
 	CReadDataThread *pCReadDataThread = new CReadDataThread;
 	pCReadDataThread->InputOpenFilePath(QSOpenFilePathManageThread);
-	connect(pCReadDataThread, SIGNAL(EmitDataManageThread(char*)), this, SLOT(On_ReadDataThread_Push(char*)),Qt::BlockingQueuedConnection);
+	connect(pCReadDataThread, SIGNAL(EmitDataManageThread(char*)), this, SLOT(On_ReadDataThread_Push(char*)));
 	connect(pCReadDataThread, SIGNAL(EmitErrorMessage(QString)), parentGUIObject, SLOT(QMessageBoxFailure(QString)));
 	pCReadDataThread->start();
 	QVectorCReadDataThreadPPointer.append(pCReadDataThread);

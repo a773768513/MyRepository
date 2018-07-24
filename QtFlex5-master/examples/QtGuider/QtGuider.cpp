@@ -22,17 +22,29 @@ QtCentral::QtCentral(QWidget* parent) : QWidget(parent)
     QHBoxLayout* box = new QHBoxLayout(this);
     box->setContentsMargins(0, 0, 0, 0);
 
-    connect(FlexManager::instance(), SIGNAL(flexWidgetCreated(FlexWidget*)), SLOT(on_flexWidgetCreated(FlexWidget*)));
-    connect(FlexManager::instance(), SIGNAL(dockWidgetCreated(DockWidget*)), SLOT(on_dockWidgetCreated(DockWidget*)));
-    connect(FlexManager::instance(), SIGNAL(flexWidgetDestroying(FlexWidget*)), SLOT(on_flexWidgetDestroying(FlexWidget*)));
-    connect(FlexManager::instance(), SIGNAL(dockWidgetDestroying(DockWidget*)), SLOT(on_dockWidgetDestroying(DockWidget*)));
-
+    
     _widget = new QPushButton("Click");
 
 	createOne();
 	
 }
+void QtCentral::on_flexWidgetCreated(FlexWidget* flexWidget)
+{
+	if (flexWidget->objectName() == "M")
+	{
+		layout()->addWidget(flexWidget);
+	}
+	else
+	{
+		flexWidget->show();
+	}
 
+}
+
+void QtCentral::on_dockWidgetCreated(DockWidget* dockWidget)
+{
+
+}
 void QtCentral::createOne()
 {
     auto content = FlexManager::instance()->createFlexWidget(Flex::HybridView, this, Flex::widgetFlags(), "M");
@@ -53,44 +65,7 @@ void QtCentral::createTwo()
 	
 }
 
-void QtCentral::on_flexWidgetCreated(FlexWidget* flexWidget)
-{
-    if (flexWidget->objectName() == "M")
-    {
-        layout()->addWidget(flexWidget);
-    }
-    else
-    {
-        flexWidget->show();
-    }
 
-}
-
-void QtCentral::on_dockWidgetCreated(DockWidget* dockWidget)
-{
-    if (dockWidget->objectName() == "View-1")
-    {
-        if (dockWidget->widget() != _widget)
-        {
-            dockWidget->setWidget(_widget);
-        }
-    }
-}
-
-void QtCentral::on_flexWidgetDestroying(FlexWidget* flexWidget)
-{
-}
-
-void QtCentral::on_dockWidgetDestroying(DockWidget* dockWidget)
-{
-    if (dockWidget->objectName() == "View-1")
-    {
-        if (dockWidget->widget() == _widget)
-        {
-            dockWidget->detachWidget(_widget);
-        }
-    }
-}
 
 class QtGuiderImpl
 {
@@ -161,7 +136,9 @@ QtGuider::QtGuider(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(parent,
 
 QtGuider::~QtGuider()
 {
-
+	
+	delete pCManageThreadObject;
+	pManagethread->quit();
 }
 void QtGuider::StartManageThread()
 {
@@ -227,6 +204,12 @@ void QtGuider::FunctionConnectMainWindowsRequirementSlot()
 	///
 	///connect the Qmessage information of faliure
 	connect(this, SIGNAL(EmitQmessageInformation(QString)), this, SLOT(QMessageBoxFailure(QString)));
+	///delete triggererd()
+	connect(FlexManager::instance(), SIGNAL(flexWidgetCreated(FlexWidget*)), SLOT(on_flexWidgetCreated(FlexWidget*)));
+	connect(FlexManager::instance(), SIGNAL(dockWidgetCreated(DockWidget*)), SLOT(on_dockWidgetCreated(DockWidget*)));
+	connect(FlexManager::instance(), SIGNAL(flexWidgetDestroying(FlexWidget*)), SLOT(on_flexWidgetDestroying(FlexWidget*)));
+	connect(FlexManager::instance(), SIGNAL(dockWidgetDestroying(DockWidget*)), SLOT(on_dockWidgetDestroying(DockWidget*)));
+
 }
 
 
