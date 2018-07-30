@@ -87,6 +87,8 @@ private:
 
 private:
     friend class DockWidgetImpl;
+signals:
+	void focusInThisWindows(QString ThisTitle);
 
 private:
     QScopedPointer<DockWidgetImpl> impl;

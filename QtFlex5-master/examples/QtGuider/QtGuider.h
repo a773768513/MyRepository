@@ -1,4 +1,4 @@
-#ifndef QTGUIDER_H
+﻿#ifndef QTGUIDER_H
 #define QTGUIDER_H
 
 #include <QtWidgets/QMainWindow>
@@ -58,6 +58,8 @@ private slots:
    /// void on_actionView_N_triggered();
     void on_actionTool_N_triggered();
 
+	public slots:
+	bool eventFilter(QObject *, QEvent *);    //注意这里
 signals:
 	///tips for user
 	void EmitQmessageInformation(QString QSInformation);
@@ -115,6 +117,8 @@ private slots:
 	///delete triggerred
 	void on_flexWidgetDestroying(FlexWidget*);
 	void on_dockWidgetDestroying(DockWidget*);
+	///
+	void On_Textbrowser_emitFocuseInTextbrowser(QString focusWidgetsTitle);
 private:
     friend class QtGuiderImpl;
 private:
@@ -125,13 +129,13 @@ private:
 
 	QTableWidget* pQTableWidgetManageWidgets;
 	void StartManageThread();
-
     QScopedPointer<QtGuiderImpl> impl;
 	QVector<FlexWidget*> QvectorFlexWidgets;
 	QVector<CThreadQtextbrowser*> QVectorThreadTextbrowser;
 	///main qtablewidget
 	QtCentral* pQtCentral;
 	///windows GUI pointer 
+	QComboBox *pShowFocusEvent;
 	QTextEdit* pQTextEditCommandWindows;
 	QWidget* pQWidgetCommandWindows;
 	QGridLayout* pQGridLayoutCommandWindows;
@@ -203,12 +207,12 @@ public:
     QtCentral(QWidget* parent);
     void createOne();
     void createTwo();
+    FlexWidget* content;
 
 private slots:
 
 void on_flexWidgetCreated(FlexWidget*);
 void on_dockWidgetCreated(DockWidget*);
-
 
 
 private:

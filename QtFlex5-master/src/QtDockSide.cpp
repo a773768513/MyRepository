@@ -61,7 +61,6 @@ DockSide::DockSide(Flex::Direction direction, QWidget* container, QWidget* paren
 
     impl->_container = container;
     impl->_direction = direction;
-
     switch (impl->_direction)
     {
     case Flex::L:

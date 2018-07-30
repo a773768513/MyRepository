@@ -930,7 +930,7 @@ QString FlexWidgetImpl::generate() const
 FlexWidget::FlexWidget(Flex::ViewMode viewMode, QWidget* parent, Qt::WindowFlags flags) : QWidget(parent, flags), impl(new FlexWidgetImpl)
 {
     setAttribute(Qt::WA_DeleteOnClose);
-    setFocusPolicy(Qt::NoFocus);
+    setFocusPolicy(Qt::StrongFocus);
     setAutoFillBackground(true);
     setProperty("Flex", true);
 
@@ -2306,3 +2306,5 @@ void FlexWidget::on_side_currentChanged(DockSide* side, DockSite* prev, DockSite
         impl->_reserving = false;
     }
 }
+
+

@@ -181,7 +181,7 @@ FlexWidget* FlexManager::createFlexWidget(Flex::ViewMode viewMode, QWidget* pare
     if (!flexWidgetName.isEmpty() && hasFlexWidget(flexWidgetName))
     {
         qWarning() << tr("FlexManager::createFlexWidget: FlexWidget [%1] alreay exists!").arg(flexWidgetName);
-    }
+    }	
 #endif
     FlexWidget* widget = new FlexWidget(viewMode, parent, flags);
     widget->setObjectName(flexWidgetName.isEmpty() ? QUuid::createUuid().toString().toUpper() : flexWidgetName);

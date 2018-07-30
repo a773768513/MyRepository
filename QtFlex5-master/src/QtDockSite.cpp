@@ -29,7 +29,7 @@ public:
     DockSiteTabBar(QWidget* parent) : QTabBar(parent)
     {
         setMovable(true);
-        setExpanding(false);
+        setExpanding(true);
         setProperty("Flex", true);
         setProperty("active", false);
     }
@@ -112,11 +112,11 @@ void DockSiteImpl::update(DockSite* self, Flex::DockMode dockMode)
         }
         if (_tabBar->isHidden())
         {
-            _tabMdiLayout->setContentsMargins(1, 0, 1, 1);
+            _tabMdiLayout->setContentsMargins(100, 0, 1, 1);
         }
         else
         {
-            _tabMdiLayout->setContentsMargins(1, 0, 1, 0);
+            _tabMdiLayout->setContentsMargins(0, 0, 1, 0);
         }
     }
     else

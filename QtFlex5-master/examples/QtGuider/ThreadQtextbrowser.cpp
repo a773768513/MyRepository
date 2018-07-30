@@ -1,4 +1,4 @@
-#include "ThreadQtextbrowser.h"
+﻿#include "ThreadQtextbrowser.h"
 #include <Windows.h>
 #include <qapplication.h>
 
@@ -7,6 +7,7 @@ CThreadQtextbrowser::CThreadQtextbrowser(QWidget *parent)
 {
 	IntitalQtextBrowser();
 	ConnectQtextbrowserSlot();
+	this->setFocusPolicy(Qt::StrongFocus);
 }
 
 
@@ -212,4 +213,24 @@ void CThreadQtextbrowser::CThreadQtextbrowserLogStates(bool LogStates)
 void CThreadQtextbrowser::On_pThreadTextBrowserStopWriteData_Triggered()
 {
 	emit emitStopLogTextbrowser();
+}
+
+void CThreadQtextbrowser::focusInEvent(QFocusEvent *e)
+{
+	QPalette p = QPalette();
+	p.setColor(QPalette::Base, Qt::red);    //QPalette::Base 对可编辑输入框有效，还有其他类型，具体的查看文档
+	setPalette(p);
+	emit emitFocuseInTextbrowser(TextBrowserTitle);
+}
+
+void CThreadQtextbrowser::setTextBrowserTitle(QString InputTextBrowserTitle)
+{
+	TextBrowserTitle = InputTextBrowserTitle;
+}
+
+void CThreadQtextbrowser::focusOutEvent(QFocusEvent *e)
+{
+	QPalette p = QPalette();
+	p.setColor(QPalette::Base, Qt::white);    //QPalette::Base 对可编辑输入框有效，还有其他类型，具体的查看文档
+	setPalette(p);
 }

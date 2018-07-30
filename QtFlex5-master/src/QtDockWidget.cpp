@@ -150,6 +150,8 @@ DockWidget::DockWidget(Flex::ViewMode viewMode, QWidget* parent, Qt::WindowFlags
     impl->_layout->setSpacing(0);
 
     impl->_layout->addWidget(impl->_widget);
+	this->setFocusPolicy(Qt::StrongFocus);
+
 }
 
 DockWidget::~DockWidget()

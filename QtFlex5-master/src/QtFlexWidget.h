@@ -20,6 +20,7 @@ Q_SIGNALS:
     void moving(QObject*);
     void destroying(FlexWidget*);
 
+
 public:
     QSize sizeHint() const;
 

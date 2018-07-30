@@ -14,6 +14,7 @@
 #include "ThreadQtextbrowser.h"
 #include "ManageThreadObject.h"
 #include <QtWidgets\QTableWidgetItem>
+#include <qevent.h>
 /**********************************************************************//**
 @brief  slots of Qaction to create OpenFileDialog 
 @param  
@@ -394,14 +395,18 @@ History:
 void QtGuider::On_CreateGUIQTextbrowserManagethread_Triggered(QString Tabtitle)
 {
 	CThreadQtextbrowser* pCThreadQtextbrowser = new CThreadQtextbrowser(this);
+	pCThreadQtextbrowser->setTextBrowserTitle(Tabtitle);
+	pShowFocusEvent->addItem(Tabtitle);
 	FlexWidget* flexWidget = FlexManager::instance()->createFlexWidget(Flex::FileView, Flex::parent(Flex::FileView), Flex::windowFlags());
 	DockWidget* dockWidget = FlexManager::instance()->createDockWidget(Flex::FileView, flexWidget, Flex::widgetFlags(), Tabtitle);
+	connect(dockWidget, SIGNAL(focusInThisWindows(QString)), this, SLOT(On_DockWidget_focusInThisWindows(QString)));
 	dockWidget->setViewMode(Flex::FileView);
-
+	flexWidget->installEventFilter(this);
 	QvectorFlexWidgets.append(flexWidget);
 	QVectorThreadTextbrowser.append(pCThreadQtextbrowser);
 	QvectorFlexWidgets.append(flexWidget);
 	connect(pCThreadQtextbrowser, SIGNAL(emitStopLogTextbrowser()), this, SLOT(On_emitStopLogTextbrowser_Request()));
+	connect(pCThreadQtextbrowser, SIGNAL(emitFocuseInTextbrowser(QString)), this, SLOT());
 	dockWidget->attachWidget(pCThreadQtextbrowser);
 	dockWidget->setWindowTitle(Tabtitle);
 	flexWidget->addDockWidget(dockWidget);
@@ -420,6 +425,7 @@ void QtGuider::On_CreateGUIQTextbrowserManagethread_Triggered(QString Tabtitle)
 	this->pQTableWidgetManageWidgets->setItem(CurrentRowNum - 1, 2, pQTableWidgetItemSpeed);
 	QTableWidgetItem *pQTableWidgetItemLogStatus = new QTableWidgetItem("No");
 	this->pQTableWidgetManageWidgets->setItem(CurrentRowNum - 1, 3, pQTableWidgetItemLogStatus);
+	(dynamic_cast<QtCentral*> (this->centralWidget()))->content->addFlexWidget(flexWidget,Flex::M,0);
 }
 /**********************************************************************//**
 @brief slot to show the qmessage to user 
@@ -795,7 +801,14 @@ void QtGuider::On_emitStopLogTextbrowser_Request()
 	emit emitStopLogGUI(IndexSender);
 	*********/
 }
-
+bool QtGuider::eventFilter(QObject *watched, QEvent *event)
+{
+	if (event->type() == QEvent::FocusIn)
+	{
+		return true;
+	}
+	return false;
+}
 
 
 void QtGuider::on_flexWidgetDestroying(FlexWidget* flexWidget)
@@ -806,9 +819,27 @@ void QtGuider::on_flexWidgetDestroying(FlexWidget* flexWidget)
 void QtGuider::on_dockWidgetDestroying(DockWidget* dockWidget)
 {
 	CThreadQtextbrowser* deleteCthreadTextbrowser = (CThreadQtextbrowser*)(dockWidget->widget());
+	
 	int index = QVectorThreadTextbrowser.indexOf(deleteCthreadTextbrowser);
+	if (-1 == index)
+	{
+		return;
+	}
 	QVectorThreadTextbrowser.removeAt(index);
 	QvectorFlexWidgets.removeAt(index);
 	this->pQTableWidgetManageWidgets->removeRow(index);
 	emit emitCloseCurrentQtextbrowserGUI(index);
+}
+
+
+
+void QtGuider::On_Textbrowser_emitFocuseInTextbrowser(QString focusWidgetsTitle)
+{
+	int index = pShowFocusEvent->findText(focusWidgetsTitle);
+	if (-1 == index)
+	{
+		qDebug("On_Textbrowser_emitFocuseInTextbrowser index == -1");
+	}
+	pShowFocusEvent->setCurrentIndex(index);
+	
 }

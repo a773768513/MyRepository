@@ -30,6 +30,7 @@ QtCentral::QtCentral(QWidget* parent) : QWidget(parent)
 }
 void QtCentral::on_flexWidgetCreated(FlexWidget* flexWidget)
 {
+	/***********
 	if (flexWidget->objectName() == "M")
 	{
 		layout()->addWidget(flexWidget);
@@ -38,6 +39,7 @@ void QtCentral::on_flexWidgetCreated(FlexWidget* flexWidget)
 	{
 		flexWidget->show();
 	}
+	*************/
 
 }
 
@@ -46,17 +48,18 @@ void QtCentral::on_dockWidgetCreated(DockWidget* dockWidget)
 
 }
 void QtCentral::createOne()
-{
-    auto content = FlexManager::instance()->createFlexWidget(Flex::HybridView, this, Flex::widgetFlags(), "M");
+{	
+    content = FlexManager::instance()->createFlexWidget(Flex::ToolView, this, Flex::widgetFlags(), "M");
     layout()->addWidget(content);
+	
 
 }
 
 void QtCentral::createTwo()
 {
     auto splitter = new QSplitter(this);
-    auto l = FlexManager::instance()->createFlexWidget(Flex::HybridView, this, Flex::widgetFlags(), "L");
-    auto r = FlexManager::instance()->createFlexWidget(Flex::HybridView, this, Flex::widgetFlags(), "R");
+    auto l = FlexManager::instance()->createFlexWidget(Flex::HybridView, this, Flex::widgetFlags(), "M");
+    auto r = FlexManager::instance()->createFlexWidget(Flex::HybridView, this, Flex::widgetFlags(), "M");
 
 	
     splitter->addWidget(l);
@@ -80,7 +83,6 @@ QtGuider::QtGuider(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(parent,
     qApp->setProperty("window", QVariant::fromValue<QObject*>(this));
 
     ///impl->ui.setupUi(this);
-	///impl->ui.menuFile->addAction(QString("File-%1").arg(i), this, SLOT(actionFile_X_triggered()));
     ///impl->ui.menuView->addAction(QString("View-%1").arg(i), this, SLOT(actionView_X_triggered()));
     
 	pQtCentral = new QtCentral(this);
@@ -93,11 +95,12 @@ QtGuider::QtGuider(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(parent,
 	///dynamic_cast<QGridLayout*>(docker1->layout())->addWidget(new QPushButton(), 0, 0);
 	pQTextEditCommandWindows = new QTextEdit();
 	///b->show();
-	pQGridLayoutCommandWindows->addWidget(pQTextEditCommandWindows, 0, 0);
-	
-	///dynamic_cast<QGridLayout*>(docker1->layout())->addWidget(new QTextEdit(docker1), 1, 0, 1, -1);
-    auto docker2 = new QDockWidget("Docker2", this);
-    docker2->setWidget(new QWidget(this));
+	pQGridLayoutCommandWindows->addWidget(pQTextEditCommandWindows, 1, 0,1,-1);
+	pShowFocusEvent = new QComboBox(this);
+	pShowFocusEvent->setEnabled(true);
+	pShowFocusEvent->setMaximumWidth(100);
+	pShowFocusEvent->setEditable(false);
+	pQGridLayoutCommandWindows->addWidget(pShowFocusEvent, 0, 0,1,1);
 
     addDockWidget(Qt::BottomDockWidgetArea, docker1);
     ///addDockWidget(Qt::LeftDockWidgetArea, docker2);
