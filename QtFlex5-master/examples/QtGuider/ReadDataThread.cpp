@@ -81,12 +81,15 @@ void CReadDataThread::OpenOriginFile()
 	{
 		emit EmitErrorMessage("Fail to read serial port information ");
 		///emit to close the qtextbrowser
+		free(pGetPackage);
 		return;
 	}
 	while (!feof(fpReadFile))
 	{
 		if (BThreadForceStop)
 		{
+			fclose(fpReadFile);
+			free(pGetPackage);
 			return;
 		}
 		pDataBuf[READ_SIZE - 2] = '\n'; 
@@ -107,4 +110,5 @@ void CReadDataThread::OpenOriginFile()
 	}
 	fclose(fpReadFile);
 	free(pGetPackage);
+	return;
 }

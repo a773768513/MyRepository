@@ -161,7 +161,6 @@ void  CThreadQtextbrowser::HighlighingStrAppendStr(char* pHighlightReadData)
 	this->insertPlainText(QSReadData);
 	for each (HighlighterStrColor EveryHighlightingRule in QVectorHighligingRule)
 	{
-		
 		while (!QTextCursorFindAppend.isNull())
 		{
 			if (QTextCursorFindAppend.atEnd())

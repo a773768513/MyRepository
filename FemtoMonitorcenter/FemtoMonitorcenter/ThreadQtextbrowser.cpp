@@ -16,7 +16,7 @@ CThreadQtextbrowser::~CThreadQtextbrowser()
 }
 void  CThreadQtextbrowser::IntitalQtextBrowser()
 {
-	this->document()->setMaximumBlockCount(100000);
+	this->document()->setMaximumBlockCount(100);
 	///this->setLineWrapMode(QTextEdit::NoWrap);
 	this->setContextMenuPolicy(Qt::CustomContextMenu);
 	bCacheMode = false;
@@ -150,6 +150,8 @@ void CThreadQtextbrowser::AppendDataTextbrowser(char* pReadData)
 
 void  CThreadQtextbrowser::HighlighingStrAppendStr(char* pHighlightReadData)
 {
+	///this->insertPlainText(pHighlightReadData);
+	/****
 	QTextCursor QTextCursorFindAppend(pThidQThreadTextbrowserDocument);
 	QString QSReadData = pHighlightReadData;
 	///record the cursor position in last 
@@ -172,7 +174,7 @@ void  CThreadQtextbrowser::HighlighingStrAppendStr(char* pHighlightReadData)
 		}
 	}
 	this->moveCursor(QTextCursor::End);
-	///QApplication::processEvents();
+	*************/
 }
 
 void CThreadQtextbrowser::On_pTextBrowserMenuActionContinueData_Triggered()

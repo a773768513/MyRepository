@@ -77,6 +77,12 @@ void CReadDataThread::OpenOriginFile()
 		return;
 	}
 	fpReadFile = fopen(pInputOriginFile, "r");
+	if (NULL == fpReadFile)
+	{
+
+		emit EmitErrorMessage("Fail to OpenFile ");
+		return;
+	}
 	if (pGetPackage == NULL)
 	{
 		emit EmitErrorMessage("Fail to read serial port information ");
@@ -91,10 +97,11 @@ void CReadDataThread::OpenOriginFile()
 		}
 		pDataBuf[READ_SIZE - 2] = '\n'; 
 		ReadedPackageLength = 0;
-		while (fgets(pDataBuf,512,fpReadFile))
+		while (fgets(pDataBuf,128,fpReadFile))
 		{
+			pDataBuf[126] = '\n';
 			emit EmitDataManageThread(pDataBuf);
-			Sleep(20);
+			Sleep(10);
 			///strncpy(pGetPackage + ReadedPackageLength, pDataBuf, READ_SIZE);
 			///ReadedPackageLength += (READ_SIZE-1);
 			if (pDataBuf[READ_SIZE - 2] == '\n')

@@ -2,6 +2,7 @@
 #include "ReadDataThread.h"
 #include <stdlib.h>
 #include <qdebug.h>
+#include <QtWidgets\5.8.0\QtWidgets\private\qtwidgetsglobal_p.h>
 CManageThreadObject::CManageThreadObject(CFemtoMonitorcenter *parent)
 :QObject()
 {
@@ -47,7 +48,7 @@ History:
 **************************************************************************/
 void  CManageThreadObject::timerEvent(QTimerEvent *event)
 {
-	/*******
+	/**************
 	QVectorLogFileInfoReadWriteLock.lockForWrite();
 	int Cycle = 0;
 	for each (LogFileInfo JudgeLofFileInfoTime in QVectorLogFileInfo)
@@ -66,7 +67,7 @@ void  CManageThreadObject::timerEvent(QTimerEvent *event)
 	}
 	QVectorLogFileInfoReadWriteLock.unlock();
 	emit EmitRefreshReceivingRateManage();
-	*************/
+	***************/
 	
 }
 /**********************************************************************//**
@@ -112,7 +113,7 @@ void CManageThreadObject::On_UserRequestOpenPort_Triggered(QString QSOpenFilePat
 	emit CreateGUIQTextbrowserManagethread(QSOpenFilePathManageThread);
 	CReadDataThread *pCReadDataThread = new CReadDataThread;
 	pCReadDataThread->InputOpenFilePath(QSOpenFilePathManageThread);
-	connect(pCReadDataThread, SIGNAL(EmitDataManageThread(char*)), this, SLOT(On_ReadDataThread_Push(char*)),Qt::BlockingQueuedConnection);
+	connect(pCReadDataThread, SIGNAL(EmitDataManageThread(char*)), this, SLOT(On_ReadDataThread_Push(char*)));
 	connect(pCReadDataThread, SIGNAL(EmitErrorMessage(QString)), parentGUIObject, SLOT(QMessageBoxFailure(QString)));
 	pCReadDataThread->start();
 	QVectorCReadDataThreadPPointer.append(pCReadDataThread);
@@ -136,7 +137,7 @@ History:
 **************************************************************************/
 void CManageThreadObject::On_ReadDataThread_Push(char* ThreadPushData)
 {
-	memcpy(ManageThreadBuf,ThreadPushData,512);
+	memcpy(ManageThreadBuf,ThreadPushData,128);
 	///
 	///secondary processing data
 	///
@@ -158,7 +159,7 @@ void CManageThreadObject::On_ReadDataThread_Push(char* ThreadPushData)
 	}
 
 	int TempReciveNum = QVectorRecoredReceiveData.at(NumberWindow);
-	TempReciveNum += 512;
+	TempReciveNum += strlen(ManageThreadBuf);
 	QVectorRecoredReceiveData.replace(NumberWindow, TempReciveNum);
 	QVectorRecoredReceiveDataReadWriteLock.unlock();
 	QVectorLogFileInfoReadWriteLock.unlock();
