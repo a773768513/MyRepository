@@ -101,7 +101,7 @@ void CReadDataThread::OpenOriginFile()
 		{
 			pDataBuf[126] = '\n';
 			emit EmitDataManageThread(pDataBuf);
-			Sleep(10);
+			Sleep(1000);
 			///strncpy(pGetPackage + ReadedPackageLength, pDataBuf, READ_SIZE);
 			///ReadedPackageLength += (READ_SIZE-1);
 			if (pDataBuf[READ_SIZE - 2] == '\n')

@@ -19,92 +19,41 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="QtDockSite.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing QtDockSite.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets" "-I.\GeneratedFiles"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing QtDockSite.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing QtDockSite.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.7.1\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.7.1\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.7.1\QtWidgets"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing QtDockSite.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets"</Command>
-    </CustomBuild>
+    <QtMoc Include="QtDockSite.h">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\build\moc\Debug\moc_QtDockGuider.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\build\moc\Debug\moc_QtDockSide.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\build\moc\Debug\moc_QtDockSite.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\build\moc\Debug\moc_QtDockWidget.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\build\moc\Debug\moc_QtFlexHelper.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\build\moc\Debug\moc_QtFlexManager.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\build\moc\Debug\moc_QtFlexWidget.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\build\moc\qrc_QtFlex.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\build\moc\Release\moc_QtDockGuider.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\build\moc\Release\moc_QtDockSide.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\build\moc\Release\moc_QtDockSite.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\build\moc\Release\moc_QtDockWidget.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\build\moc\Release\moc_QtFlexHelper.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\build\moc\Release\moc_QtFlexManager.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\build\moc\Release\moc_QtFlexWidget.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <ClCompile Include="QtDockGuider.cpp" />
     <ClCompile Include="QtDockSide.cpp" />
     <ClCompile Include="QtDockSite.cpp" />
@@ -115,44 +64,44 @@
     <ClCompile Include="QtFlexWidget.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="QtDockWidget.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing QtDockWidget.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets" "-I.\GeneratedFiles"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing QtDockWidget.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing QtDockWidget.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.7.1\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.7.1\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.7.1\QtWidgets"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing QtDockWidget.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets"</Command>
-    </CustomBuild>
+    <QtMoc Include="QtDockWidget.h">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="QtFlex.qrc">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(FullPath);.\Resources\guiders.png;.\Resources\buttons.png;.\Resources\extents.png;%(AdditionalInputs)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Rcc%27ing %(Identity)...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\build\moc\qrc_%(Filename).cpp;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\..\build\moc\qrc_%(Filename).cpp</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(FullPath);.\Resources\guiders.png;.\Resources\buttons.png;.\Resources\extents.png;%(AdditionalInputs)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Rcc%27ing %(Identity)...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\..\build\moc\qrc_%(Filename).cpp;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\..\build\moc\qrc_%(Filename).cpp</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(FullPath);.\Resources\guiders.png;.\Resources\buttons.png;.\Resources\extents.png;%(AdditionalInputs)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rcc%27ing %(Identity)...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\build\moc\qrc_%(Filename).cpp;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\..\build\moc\qrc_%(Filename).cpp</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(FullPath);.\Resources\guiders.png;.\Resources\buttons.png;.\Resources\extents.png;%(AdditionalInputs)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Rcc%27ing %(Identity)...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\..\build\moc\qrc_%(Filename).cpp;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\..\build\moc\qrc_%(Filename).cpp</Command>
-    </CustomBuild>
+    <QtRcc Include="QtFlex.qrc">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtRcc>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\buttons.png">
@@ -175,101 +124,101 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="QtFlexHelper.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing QtFlexHelper.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets" "-I.\GeneratedFiles"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing QtFlexHelper.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing QtFlexHelper.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.7.1\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.7.1\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.7.1\QtWidgets"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing QtFlexHelper.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets"</Command>
-    </CustomBuild>
+    <QtMoc Include="QtFlexHelper.h">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="QtFlexManager.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing QtFlexManager.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets" "-I.\GeneratedFiles"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing QtFlexManager.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing QtFlexManager.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.7.1\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.7.1\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.7.1\QtWidgets"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing QtFlexManager.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets"</Command>
-    </CustomBuild>
+    <QtMoc Include="QtFlexManager.h">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="QtDockSide.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing QtDockSide.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets" "-I.\GeneratedFiles"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing QtDockSide.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing QtDockSide.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.7.1\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.7.1\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.7.1\QtWidgets"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing QtDockSide.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets"</Command>
-    </CustomBuild>
-    <CustomBuild Include="QtDockGuider.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing QtDockGuider.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets" "-I.\GeneratedFiles"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing QtDockGuider.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing QtDockGuider.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.7.1\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.7.1\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.7.1\QtWidgets"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing QtDockGuider.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets"</Command>
-    </CustomBuild>
+    <QtMoc Include="QtDockSide.h">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="QtDockGuider.h">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
     <ClInclude Include="QtFlexStyle.h" />
-    <CustomBuild Include="QtFlexWidget.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing QtFlexWidget.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets" "-I.\GeneratedFiles"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing QtFlexWidget.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing QtFlexWidget.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.7.1\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.7.1\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.7.1\QtWidgets"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing QtFlexWidget.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe"  "%(FullPath)" -o ".\..\build\moc\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_FLEX_BUILD -D_WINDLL  "-I." "-I.\..\build\moc" "-I.\..\build\moc\$(ConfigurationName)\." "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui" "-IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets"</Command>
-    </CustomBuild>
+    <QtMoc Include="QtFlexWidget.h">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B12702AD-ABFB-343A-A199-8E24837244A3}</ProjectGuid>
@@ -286,14 +235,14 @@
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Makefile</ConfigurationType>
     <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" /><PropertyGroup Condition="'$(QtMsBuild)'=='' or !Exists('$(QtMsBuild)\qt.targets')"><QtMsBuild>$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild></PropertyGroup><Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')"><Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." /></Target><ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')"><Import Project="$(QtMsBuild)\qt.props" /></ImportGroup>
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
@@ -335,12 +284,12 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_FLEX_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;.\..\build\moc;.\..\build\moc\$(ConfigurationName);C:\Qt\Qt5.8.0\5.8\msvc2013_64\include;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets;.\GeneratedFiles;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;.\..\build\moc;.\..\build\moc\$(ConfigurationName);C:\Qt\Qt5.8.0\5.8\msvc2013_64\include;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-    </ClCompile>
+    <MultiProcessorCompilation>true</MultiProcessorCompilation></ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -348,16 +297,16 @@
       <AdditionalDependencies>$(QTDIR)\lib\C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\qtmaind.lib;shell32.lib;$(QTDIR)\lib\C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Chartsd.lib;$(QTDIR)\lib\C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Widgetsd.lib;$(QTDIR)\lib\C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Guid.lib;$(QTDIR)\lib\C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <Profile>true</Profile>
     </Link>
-  </ItemDefinitionGroup>
+  <QtMoc><QTDIR>C:\Qt\Qt5.8.0\5.8\msvc2013_64</QTDIR><InputFile>%(FullPath)</InputFile><Define>UNICODE;$(Platform);WIN64;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_FLEX_BUILD;_WINDLL</Define><ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription><OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile><DynamicSource>output</DynamicSource><IncludePath>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;.\..\build\moc;.\..\build\moc\$(ConfigurationName)\.;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets</IncludePath></QtMoc><QtRcc><NoCompression>true</NoCompression><Compression>default</Compression><InitFuncName>%(Filename)</InitFuncName><OutputFile>.\GeneratedFiles\qrc_%(Filename).cpp</OutputFile><InputFile>%(FullPath)</InputFile><QTDIR>C:\Qt\Qt5.8.0\5.8\msvc2013_64</QTDIR><ExecutionDescription>Rcc'ing %(Identity)...</ExecutionDescription></QtRcc></ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_FLEX_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;.\..\build\moc;.\..\build\moc\$(ConfigurationName);C:\Qt\Qt5.8.0\5.8\msvc2013_64\include;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;.\..\build\moc;.\..\build\moc\$(ConfigurationName);C:\Qt\Qt5.8.0\5.8\msvc2013_64\include;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-    </ClCompile>
+    <MultiProcessorCompilation>true</MultiProcessorCompilation></ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -368,38 +317,38 @@
     <CustomBuild>
       <LinkObjects>false</LinkObjects>
     </CustomBuild>
-  </ItemDefinitionGroup>
+  <QtRcc><InputFile>%(FullPath)</InputFile><QTDIR>C:\Qt\Qt5.8.0\5.8\msvc2013_64</QTDIR><OutputFile>.\GeneratedFiles\qrc_%(Filename).cpp</OutputFile><InitFuncName>%(Filename)</InitFuncName><Compression>default</Compression><NoCompression>true</NoCompression><ExecutionDescription>Rcc'ing %(Identity)...</ExecutionDescription></QtRcc><QtMoc><QTDIR>C:\Qt\Qt5.8.0\5.8\msvc2013_64</QTDIR><InputFile>%(FullPath)</InputFile><Define>UNICODE;WIN32;WIN64;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_FLEX_BUILD;_WINDLL</Define><ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription><OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile><DynamicSource>output</DynamicSource><IncludePath>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;.\..\build\moc;.\..\build\moc\$(ConfigurationName)\.;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets</IncludePath></QtMoc></ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_FLEX_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;.\..\build\moc;.\..\build\moc\$(ConfigurationName);C:\Qt\Qt5.8.0\5.8\msvc2013_64\include;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.7.1\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.7.1\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.7.1\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;.\..\build\moc;.\..\build\moc\$(ConfigurationName);C:\Qt\Qt5.8.0\5.8\msvc2013_64\include;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.7.1\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.7.1\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.7.1\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat />
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-    </ClCompile>
+    <MultiProcessorCompilation>true</MultiProcessorCompilation></ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <AdditionalDependencies>C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\qtmain.lib;C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Core.lib;C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Gui.lib;C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-  </ItemDefinitionGroup>
+  <QtMoc><QTDIR>C:\Qt\Qt5.8.0\5.8\msvc2013_64</QTDIR><InputFile>%(FullPath)</InputFile><Define>UNICODE;$(Platform);WIN64;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_FLEX_BUILD;_WINDLL</Define><ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription><OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile><DynamicSource>output</DynamicSource><IncludePath>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;.\..\build\moc;.\..\build\moc\$(ConfigurationName)\.;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.7.1\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.7.1\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.7.1\QtWidgets</IncludePath></QtMoc><QtRcc><QTDIR>C:\Qt\Qt5.8.0\5.8\msvc2013_64</QTDIR><InputFile>%(FullPath)</InputFile><OutputFile>.\GeneratedFiles\qrc_%(Filename).cpp</OutputFile><InitFuncName>%(Filename)</InitFuncName><Compression>default</Compression><NoCompression>true</NoCompression><ExecutionDescription>Rcc'ing %(Identity)...</ExecutionDescription></QtRcc></ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_FLEX_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;.\..\build\moc;.\..\build\moc\$(ConfigurationName);C:\Qt\Qt5.8.0\5.8\msvc2013_64\include;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;.\..\build\moc;.\..\build\moc\$(ConfigurationName);C:\Qt\Qt5.8.0\5.8\msvc2013_64\include;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat />
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-    </ClCompile>
+    <MultiProcessorCompilation>true</MultiProcessorCompilation></ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <AdditionalDependencies>C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\qtmain.lib;C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Core.lib;C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Gui.lib;C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-  </ItemDefinitionGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <QtMoc><QTDIR>C:\Qt\Qt5.8.0\5.8\msvc2013_64</QTDIR><InputFile>%(FullPath)</InputFile><Define>UNICODE;WIN32;WIN64;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_FLEX_BUILD;_WINDLL</Define><ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription><OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile><DynamicSource>output</DynamicSource><IncludePath>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;.\..\build\moc;.\..\build\moc\$(ConfigurationName)\.;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\5.8.0\QtCore;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\5.8.0\QtGui;C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\5.8.0\QtWidgets</IncludePath></QtMoc><QtRcc><QTDIR>C:\Qt\Qt5.8.0\5.8\msvc2013_64</QTDIR><InputFile>%(FullPath)</InputFile><OutputFile>.\GeneratedFiles\qrc_%(Filename).cpp</OutputFile><InitFuncName>%(Filename)</InitFuncName><Compression>default</Compression><NoCompression>true</NoCompression><ExecutionDescription>Rcc'ing %(Identity)...</ExecutionDescription></QtRcc></ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" /><ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')"><Import Project="$(QtMsBuild)\qt.targets" /></ImportGroup>
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <ProjectExtensions>

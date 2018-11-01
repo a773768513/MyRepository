@@ -1,6 +1,7 @@
 ﻿#include "ThreadQtextbrowser.h"
 #include <Windows.h>
 #include <qapplication.h>
+#include <qdebug.h>
 
 CThreadQtextbrowser::CThreadQtextbrowser(QWidget *parent)
 :QTextBrowser(parent)
@@ -17,7 +18,7 @@ CThreadQtextbrowser::~CThreadQtextbrowser()
 }
 void  CThreadQtextbrowser::IntitalQtextBrowser()
 {
-	this->document()->setMaximumBlockCount(100000);
+	this->document()->setMaximumBlockCount(10);
 	///this->setLineWrapMode(QTextEdit::NoWrap);
 	this->setContextMenuPolicy(Qt::CustomContextMenu);
 	bCacheMode = false;
@@ -159,6 +160,8 @@ void  CThreadQtextbrowser::HighlighingStrAppendStr(char* pHighlightReadData)
 	QTextCursorFindAppend = this->textCursor();
 	QTextCursorFindAppend.movePosition(QTextCursor::Up);
 	this->insertPlainText(QSReadData);
+	int i = this->document()->lineCount();
+	qDebug()<<i;
 	for each (HighlighterStrColor EveryHighlightingRule in QVectorHighligingRule)
 	{
 		while (!QTextCursorFindAppend.isNull())

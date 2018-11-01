@@ -15,7 +15,7 @@ class CManageThreadObject :
 {
 	Q_OBJECT
 public:
-	CManageThreadObject(CFemtoMonitorcenter *parent);
+	CManageThreadObject(CFemtoMonitorcenter *parent =NULL);
 	~CManageThreadObject();
 	QVector<int> QVectorRecoredReceiveData;          ///<vector to accumulate received data (USE in GUI to show Spped
 	struct LogFileInfo

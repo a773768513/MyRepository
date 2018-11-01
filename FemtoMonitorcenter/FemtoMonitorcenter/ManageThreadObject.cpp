@@ -137,6 +137,7 @@ History:
 **************************************************************************/
 void CManageThreadObject::On_ReadDataThread_Push(char* ThreadPushData)
 {
+	qDebug() << "manage thread" << QThread::currentThreadId();
 	memcpy(ManageThreadBuf,ThreadPushData,128);
 	///
 	///secondary processing data

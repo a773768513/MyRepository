@@ -5,6 +5,7 @@
 #include <qcolordialog.h>
 #include <qpalette.h>
 #include <qsettings.h>
+#include <qdebug.h>
 /**********************************************************************//**
 @brief  slot of main windows widgets qtabwidgets close button clicked
 @param  
@@ -203,6 +204,7 @@ History:
 **************************************************************************/
 void CFemtoMonitorcenter::On_AppendDataManagethread_Triggered(int NumberWindowManage, char* pAppendDataPointerManage)
 {
+	qDebug() << "main thread" << QThread::currentThreadId();
 	CThreadQtextbrowser *pAppendDataCThreadQTextBrowser = dynamic_cast<CThreadQtextbrowser*> (pQMainTabWidget->widget(NumberWindowManage));
 	if (NULL == pAppendDataCThreadQTextBrowser)
 	{
