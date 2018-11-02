@@ -28,6 +28,7 @@ Qtgrid::Qtgrid(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	
 	CColor[0] =  (Qt::white);
 	CColor[1] = QColor(0xc0, 0xc0, 0xc0);
 	CColor[2] =  Qt::black;
@@ -37,19 +38,19 @@ Qtgrid::Qtgrid(QWidget *parent)
 
 	ui.label->setAttribute(Qt::WA_TransparentForMouseEvents);
 	ui.label->setAttribute(Qt::WA_OpaquePaintEvent);
+	setMouseTracking(true);
+	
 
-	///connect(ui.action111, SIGNAL(triggered()), this, SLOT(On_action_triggered()));
-	connect(ui.actionInitializeCanvas, SIGNAL(triggered()), this, SLOT(On_actionInitializeCanvas_triggerred()));
-
-	graphT = nullptr;
-}
-void Qtgrid::On_actionInitializeCanvas_triggerred()
-{
 	graphT = new Graph(ui.label);
 	graphT->Fit = 0;
-	updategraph();
+	
 }
 
+Qtgrid::~Qtgrid()
+{
+	delete graphT;
+
+}
 void Qtgrid::updategraph()
 {
 	
@@ -112,7 +113,8 @@ void Qtgrid::DrawTrk(QPainter &c, int level)
 	
 	
 }
-void Qtgrid::On_action_triggered()
+
+void Qtgrid::paintEvent(QPaintEvent *)
 {
 	updategraph();
 }
@@ -133,5 +135,29 @@ void Qtgrid::wheelEvent(QWheelEvent *event)
 
 
 
+		Refresh();
+}
+
+void Qtgrid::resizeEvent(QResizeEvent *)
+{
+	
+
+	// suppress repeated resize callback
+	if (FormWidth == width() && FormHeight == height()) return;
+
+	UpdateSize();
+	Refresh();
+
+	FormWidth = width();
+	FormHeight = height();
+}
+void Qtgrid::UpdateSize()
+{
+
+	graphT->resize();
+}
+
+void Qtgrid::Refresh()
+{
 	updategraph();
 }

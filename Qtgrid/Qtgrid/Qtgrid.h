@@ -67,25 +67,31 @@ class Qtgrid : public QMainWindow
 
 public:
 	Qtgrid(QWidget *parent = Q_NULLPTR);
+	~Qtgrid();
 	Graph * graphT;
+	Ui::QtgridClass ui;
+
 protected:
 	void wheelEvent(QWheelEvent *event);
-
+	void paintEvent(QPaintEvent *);
+	void  resizeEvent(QResizeEvent *);
 private:
 
 	int Drag, Xn, Yn;
 	double X0, Y0, Xc, Yc, Xs, Ys, Xcent, Xcent0;
 
-	QPixmap Buff;
-	QColor CColor[4];    // {background,grid,text,line}
+	int FormWidth, FormHeight;     ///Save current window size information
+	QPixmap Buff;         ///Canvas cache;
+	QColor CColor[4];    /// {background,grid,text,line}
 
-	Ui::QtgridClass ui;
 	void DrawTrk(QPainter &c, int level);
+
+	void UpdateSize();
+	void Refresh();
 	void updategraph();
 	void DrawMark(Graph *g, QPainter &c, const QPoint &p, int mark, const QColor &color,
 		int size, int rot);
 	void DrawLabel(Graph *g, QPainter &c, const QPoint &p, const QString &label, int ha, int va);
 	public slots:
-	void On_action_triggered();
-	void On_actionInitializeCanvas_triggerred();
+
 };
